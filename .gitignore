@@ -1,0 +1,30 @@
+# Node.js (backend)
+backend/node_modules/
+backend/dist/
+backend/.env
+backend/package-lock.json
+
+# Logs do sistema
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Docker
+docker-compose.override.yml
+docker-compose.override.yaml
+*.pid
+*.tar
+**/docker-entrypoint-initdb.d/*
+
+# Banco de dados (evitar salvar arquivos de banco de dados locais)
+mysql_data/
+mysql/
+
+# n8n (para não versionar dados locais)
+n8n_data/
+
+# Configurações do sistema operacional
+.DS_Store
+Thumbs.db
+*.swp
