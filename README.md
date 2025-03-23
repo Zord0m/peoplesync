@@ -68,11 +68,11 @@ Após iniciar os containers, acesse os serviços nos seguintes links:
 📍 [http://localhost:8080](http://localhost:8080)
 
 ### 🔹 Backend (API REST)
-📍 [http://localhost:3000](http://localhost:3000)  
+📍 [http://localhost:4444](http://localhost:4444)  
 Se não houver uma rota `/`, a API pode retornar um erro **"Cannot GET /"**.
 
 ### 🔹 Swagger (Documentação da API)
-📍 [http://localhost:3000/api-docs](http://localhost:3000/api-docs)  
+📍 [http://localhost:4444/swagger](http://localhost:4444/swagger)  
 Aqui você pode testar os endpoints da API.
 
 ### 🔹 Banco de Dados (MySQL)
