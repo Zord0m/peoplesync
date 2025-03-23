@@ -19,7 +19,7 @@ Antes de iniciar a aplicação, certifique-se de ter instalado:
 Para começar, clone este repositório:
 
 ```sh
-git clone https://github.com/seu-usuario/peoplesync.git
+git clone https://github.com/Zord0m/peoplesync.git
 cd peoplesync
 ```
 
