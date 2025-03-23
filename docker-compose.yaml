@@ -4,21 +4,23 @@ services:
   backend:
     build: ./backend
     container_name: backend-app
-    restart: unless-stopped  
+    restart: unless-stopped
     env_file:
       - ./backend/.env
     ports:
-      - "3000:3000"
+      - "4444:3000"
     depends_on:
       mysql:
-        condition: service_healthy  
+        condition: service_healthy
     networks:
       - app-network
 
   frontend:
-    build: ./frontend
+    image: nginx:alpine
     container_name: frontend-app
-    restart: unless-stopped  
+    restart: unless-stopped
+    volumes:
+      - ./frontend:/usr/share/nginx/html
     ports:
       - "8080:80"
     networks:
@@ -27,7 +29,7 @@ services:
   mysql:
     image: mysql:8.0
     container_name: mysql-db
-    restart: unless-stopped  
+    restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: registro_ponto
@@ -39,7 +41,7 @@ services:
       - mysql_data:/var/lib/mysql
     networks:
       - app-network
-    healthcheck:  
+    healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       retries: 3
       timeout: 5s
@@ -47,7 +49,7 @@ services:
   n8n:
     image: n8nio/n8n
     container_name: n8n-automation
-    restart: unless-stopped  
+    restart: unless-stopped
     environment:
       - N8N_HOST=n8n
       - N8N_PORT=5678
@@ -58,7 +60,7 @@ services:
       - n8n_data:/home/node/.n8n
     depends_on:
       mysql:
-        condition: service_healthy 
+        condition: service_healthy
     networks:
       - app-network
 

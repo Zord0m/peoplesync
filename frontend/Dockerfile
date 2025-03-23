@@ -1,8 +1,20 @@
-# Usa a imagem oficial do Nginx (servidor web leve)
-FROM nginx:alpine
+# Usa a imagem oficial Node
+FROM node:18
 
-# Copia os arquivos estáticos para o servidor Nginx
-COPY . /usr/share/nginx/html
+# Define o diretório da aplicação dentro do container
+WORKDIR /app
 
-# Expõe a porta 80
-EXPOSE 80
+# Copia os arquivos de dependência
+COPY package*.json ./
+
+# Instala as dependências
+RUN npm install
+
+# Copia todo o restante da aplicação
+COPY . .
+
+# Expõe a porta correta do backend
+EXPOSE 3000
+
+# Comando padrão: inicia em modo desenvolvimento
+CMD ["npm", "run", "dev"]
