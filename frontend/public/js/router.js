@@ -18,12 +18,19 @@ function loadPage(url) {
             }
             const component = path.split("/")[3];
             updateStylesheet(`./public/component/${component}/${component}.css`);
+            updateScript(`./public/component/${component}/${component}.js`);
         })
         .catch((error) => console.error("Erro ao carregar a página: ", error));
 }
 
-function updateStylesheet(stylePath)
+async function updateStylesheet(stylePath)
 {
+    if (!await fileExists(stylePath))
+    {
+        throw new Error(
+            `Erro: O script ${stylePath} é obrigatório e não foi encontrado.`
+        );
+    }
     let styleLink = document.getElementById("dynamic-style");
     if (!styleLink)
     {
@@ -33,6 +40,35 @@ function updateStylesheet(stylePath)
         document.head.appendChild(styleLink);
     }
     styleLink.href = stylePath;
+}
+
+async function updateScript(scriptPath)
+{
+    if (!await fileExists(scriptPath))
+    {
+        throw new Error(
+            `Erro: O script ${scriptPath} é obrigatório e não foi encontrado.`
+        );
+    }
+    let existingScript = document.getElementById("dynamic-script");
+    if (existingScript) {
+        existingScript.remove(); // Remove o script anterior para evitar duplicação
+    }
+    let script = document.createElement("script");
+    script.src = scriptPath;
+    script.id = "dynamic-script";
+    script.defer = true;
+    document.body.appendChild(script);
+}
+
+async function fileExists(url)
+{
+    try {
+        const response = await fetch(url, { method: "GET", cache:"no-store" });
+        return response.ok;
+    } catch {
+        return false;
+    }
 }
 
 function handleRoutingChange() {
