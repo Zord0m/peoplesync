@@ -1,7 +1,7 @@
 const routes = {
     "/": "./public/component/login/login.html",
+    "/employee-register": "./public/component/employee-register/employee-register.html",
     "/home": "./public/component/home/home.html",
-    "/register": "./public/component/register/register.html",
 };
 
 function loadPage(url) {
@@ -73,13 +73,15 @@ async function updateScript(scriptPath)
 }
 
 function navigateTo(url) {
-    history.pushState({}, "", url);
+    // history.pushState({}, "", url);
+    window.location.hash = url;
     loadPage(url);
 }
 
 // Captura mudanças no histórico (botões de voltar/avançar)
 window.addEventListener("popstate", () => {
-    loadPage(window.location.pathname);
+    const pathName = window.location.pathname;
+    loadPage(pathName);
 });
 
 // Intercepta cliques em links para evitar recarregamento da página
@@ -93,5 +95,7 @@ document.addEventListener("click", (event) => {
 
 // Carrega a página inicial
 document.addEventListener("DOMContentLoaded", () => {
-    loadPage(window.location.pathname);
+    // loadPage(window.location.pathname);
+    const path = window.location.hash.replace("#", "") || "/";
+    loadPage(path);
 });
