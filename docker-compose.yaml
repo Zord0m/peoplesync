@@ -6,7 +6,7 @@ services:
     container_name: backend-app
     restart: unless-stopped
     env_file:
-      - ./backend/.env
+      - ./.env
     ports:
       - "4444:3000"
     depends_on:
