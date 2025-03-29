@@ -55,7 +55,7 @@ async function updateStylesheet(stylePath)
         styleLink.id = "dynamic-style";
         document.head.appendChild(styleLink);
     }
-    styleLink.href = stylePath;
+    styleLink.href = `${stylePath}?v=${new Date().getTime()}`;
 }
 
 async function updateScript(scriptPath)
