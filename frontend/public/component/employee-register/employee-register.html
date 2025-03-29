@@ -1,1 +1,43 @@
-employee-register 
+<section id="employeeRegister">
+    <div class="left-box">
+        <img src="public/assets/img/illustrations/register.svg" alt="Entrada de novo funcionário">
+    </div>
+    <div class="right-box">
+        <div class="top-logo-box">
+            <div class="logo-box">
+                <a href="/home">
+                    <img src="public/assets/img/logo/logo_5.svg" alt="Logotipo Peoplesync">
+                </a>
+            </div>
+            <div class="titles-box">
+                <h1>People Sync</h1>
+                <h2>Seu tempo, nossa precisão!</h2>
+            </div>
+        </div>
+        <div class="register-box">
+            <div class="form-box">
+                <div class="form-floating">
+                    <input class="form-control" id="matriculaInput" type="number" minlength="6" placeholder="Matrícula">
+                    <label for="matriculaInput">Matrícula</label>
+                </div>
+                <div class="form-floating">
+                    <input class="form-control" id="passwordInput" type="password" placeholder="Senha">
+                    <label for="passwordInput">Senha</label>
+                </div>
+                <div class="form-floating">
+                    <input class="form-control" id="passwordConfirmInput" type="password" placeholder="Confirme sua senha">
+                    <label for="passwordConfirmInput">Confirme sua senha</label>
+                </div>
+                <div class="button-box">
+                    <button id="submitButton" type="submit">
+                        Registrar
+                    </button>
+                </div>
+            </div>
+            <div class="login-redirect-box">
+                <span class="redirect-text">Já possui cadastro? </span>
+                <a href="/" id="loginButton">Login</a>
+            </div>
+        </div>
+    </div>
+</section>
