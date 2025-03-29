@@ -11,6 +11,7 @@ function loadPage(url) {
         .then((html) => {
             const app = document.getElementById("app");
             app.innerHTML = html;
+            processNestedComponent();
             const newTitle = document.querySelector("title");
             if (newTitle)
             {
@@ -23,14 +24,30 @@ function loadPage(url) {
         .catch((error) => console.error("Erro ao carregar a página: ", error));
 }
 
+async function loadComponent(element)
+{
+    const src = element.getAttribute("src");
+    if (!src) return;
+    try
+    {
+        const response = await fetch(src);
+        const html = await response.text();
+        element.outerHTML = html;
+        processNestedComponent();
+    }
+    catch (error)
+    {
+        console.error("Erro:", error);
+    }
+}
+
+function processNestedComponent()
+{
+    document.querySelectorAll("component").forEach(loadComponent);
+}
+
 async function updateStylesheet(stylePath)
 {
-    if (!await fileExists(stylePath))
-    {
-        throw new Error(
-            `Erro: O script ${stylePath} é obrigatório e não foi encontrado.`
-        );
-    }
     let styleLink = document.getElementById("dynamic-style");
     if (!styleLink)
     {
@@ -44,12 +61,6 @@ async function updateStylesheet(stylePath)
 
 async function updateScript(scriptPath)
 {
-    if (!await fileExists(scriptPath))
-    {
-        throw new Error(
-            `Erro: O script ${scriptPath} é obrigatório e não foi encontrado.`
-        );
-    }
     let existingScript = document.getElementById("dynamic-script");
     if (existingScript) {
         existingScript.remove(); // Remove o script anterior para evitar duplicação
@@ -59,16 +70,6 @@ async function updateScript(scriptPath)
     script.id = "dynamic-script";
     script.defer = true;
     document.body.appendChild(script);
-}
-
-async function fileExists(url)
-{
-    try {
-        const response = await fetch(url, { method: "GET", cache:"no-store" });
-        return response.ok;
-    } catch {
-        return false;
-    }
 }
 
 function handleRoutingChange() {
