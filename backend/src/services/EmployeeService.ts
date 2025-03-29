@@ -12,8 +12,8 @@ interface EmployeeInput {
 
 export const createEmployee = async (data: EmployeeInput) => {
   // Validações básicas (exemplo - pode ser separado em outro módulo futuramente)
-  const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
-  const passwordRegex = /^(?=.*[A-Z])(?=.*\\d).{8,}$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
 
   if (!emailRegex.test(data.email)) {
     throw new Error("Email inválido");

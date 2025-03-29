@@ -24,13 +24,13 @@ import { createEmployee } from "../services/EmployeeService";
  *             properties:
  *               name:
  *                 type: string
- *                 example: Lucas Santiago
+ *                 example: Nome Sobrenome
  *               email:
  *                 type: string
- *                 example: lucas@email.com
+ *                 example: email@email.com
  *               role:
  *                 type: string
- *                 example: Desenvolvedor
+ *                 example: Cargo
  *               contractType:
  *                 type: string
  *                 enum: [clt, pj, estagio]

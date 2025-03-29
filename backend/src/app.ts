@@ -28,7 +28,7 @@ app.get('/swagger.json', (_req, res) => {
 sequelize.sync({ alter: true }).then(() => {
   console.log('📦 Tabelas sincronizadas com sucesso!');
   app.listen(PORT, () => {
-    console.log(`🚀 Servidor rodando na porta ${PORT}`);
-    console.log(`📑 Swagger em: http://localhost:${PORT}/swagger`);
+    console.log(`🚀 Servidor rodando na porta interna ${PORT} e na externa 4444`);
+    console.log(`📑 Swagger em: http://localhost:4444/swagger`);
   });
 });
