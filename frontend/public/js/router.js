@@ -1,7 +1,6 @@
 const routes = {
-    "": "./public/component/home/home.html",
-    "#login": "./public/component/login/login.html",
-    "#register": "./public/component/register/register.html",
+    "/": "./public/component/login/login.html",
+    "/register": "./public/component/register/register.html",
 };
 
 function loadPage(url) {
@@ -72,15 +71,26 @@ async function updateScript(scriptPath)
     document.body.appendChild(script);
 }
 
-function handleRoutingChange() {
-    const url = window.location.hash || "";
+function navigateTo(url) {
+    history.pushState({}, "", url);
     loadPage(url);
 }
 
-function navigateTo(url) {
-    window.location.hash = url;
-}
+// Captura mudanças no histórico (botões de voltar/avançar)
+window.addEventListener("popstate", () => {
+    loadPage(window.location.pathname);
+});
 
-// Evento para detectar mudança na URL
-window.addEventListener("hashchange", handleRoutingChange);
-document.addEventListener("DOMContentLoaded", handleRoutingChange);
+// Intercepta cliques em links para evitar recarregamento da página
+document.addEventListener("click", (event) => {
+    const target = event.target.closest("a");
+    if (target && target.href.startsWith(window.location.origin)) {
+        event.preventDefault();
+        navigateTo(new URL(target.href).pathname);
+    }
+});
+
+// Carrega a página inicial
+document.addEventListener("DOMContentLoaded", () => {
+    loadPage(window.location.pathname);
+});
