@@ -36,8 +36,8 @@
                 justify-content: center;
 
                 & a {
-                    width: 25%;
-                    min-width: 140px;
+                    width: 20%;
+                    min-width: 120px;
 
                     & img {
                         width: 100%;
@@ -47,7 +47,7 @@
 
             & .titles-box {
                 width: 80%;
-                margin: 20px;
+                margin: 10px;
 
                 & h1 {
                     margin: 0;
@@ -81,6 +81,16 @@
                 display: flex;
                 flex-direction: column;
                 row-gap: 15px;
+
+                & .passwords-box {
+                    width: 100%;
+                    display: flex;
+                    column-gap: 15px;
+
+                    &>div {
+                        width: calc(50% - 7.5px);
+                    }
+                }
 
                 & .form-floating {
                     
