@@ -1,7 +1,32 @@
-import { DataTypes } from "sequelize";
+import { DataTypes, Model, Optional } from "sequelize";
 import { sequelize } from "../config/database";
 
-const Employee = sequelize.define("Employee", {
+// Interface com os atributos do modelo
+interface EmployeeAttributes {
+  id: number;
+  name: string;
+  email: string;
+  role: string;
+  contractType: "clt" | "pj" | "estagio";
+  register: string;
+  type: "comum" | "admin";
+}
+
+// Interface com os atributos necessários para criação (id é opcional)
+type EmployeeCreationAttributes = Optional<EmployeeAttributes, "id">;
+
+// Classe modelada
+class Employee extends Model<EmployeeAttributes, EmployeeCreationAttributes> implements EmployeeAttributes {
+  public id!: number;
+  public name!: string;
+  public email!: string;
+  public role!: string;
+  public contractType!: "clt" | "pj" | "estagio";
+  public register!: string;
+  public type!: "comum" | "admin";
+}
+
+Employee.init({
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -29,10 +54,14 @@ const Employee = sequelize.define("Employee", {
     unique: true,
     allowNull: false
   },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false
+  type: {
+    type: DataTypes.ENUM("comum", "admin"),
+    allowNull: false,
+    defaultValue: "comum"
   }
+}, {
+  sequelize,
+  modelName: "Employee"
 });
 
 export default Employee;

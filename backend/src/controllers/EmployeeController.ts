@@ -20,7 +20,7 @@ import { createEmployee } from "../services/EmployeeService";
  *               - role
  *               - contractType
  *               - register
- *               - password
+ *               - type
  *             properties:
  *               name:
  *                 type: string
@@ -38,9 +38,11 @@ import { createEmployee } from "../services/EmployeeService";
  *               register:
  *                 type: string
  *                 example: "123456"
- *               password:
+ *               type:
  *                 type: string
- *                 example: Senha123
+ *                 enum: [comum, admin]
+ *                 example: comum
+ *                 
  *     responses:
  *       201:
  *         description: Funcionário cadastrado com sucesso
