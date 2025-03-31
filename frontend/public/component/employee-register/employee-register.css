@@ -4,25 +4,20 @@
     background-color: var(--white-color);
     display: flex;
     height: 100dvh;
-    width: 100%;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 
     & .left-box {
-        width: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        & img {
-            width: 80%;
-        }
+        display: none;
     }
 
     & .right-box {
-        width: 50%;
         display: flex;
         flex-direction: column;
-        align-items: center;
         justify-content: center;
+        align-items: center;
+        width: 100%;
 
         & .top-logo-box {
             width: 100%;
@@ -30,14 +25,14 @@
             flex-direction: column;
             align-items: center;
 
-            & .logo-box {
+            .logo-box {
                 width: 100%;
                 display: flex;
                 justify-content: center;
 
                 & a {
-                    width: 20%;
-                    min-width: 120px;
+                    width: 50%;
+                    min-width: 180px;
 
                     & img {
                         width: 100%;
@@ -46,14 +41,14 @@
             }
 
             & .titles-box {
-                width: 80%;
-                margin: 10px;
+                width: 100%;
+                margin: 20px 0;
 
                 & h1 {
                     margin: 0;
                     color: var(--dark-blue-color);
                     text-align: center;
-                    font-size: 48px;
+                    font-size: 40px;
                     text-transform: uppercase;
                 }
 
@@ -69,9 +64,8 @@
 
         & .register-box {
             background-color: var(--light-blue-color);
-            margin: 0 20px;
-            padding: 15px;
-            width: 80%;
+            padding: 10px;
+            width: 100%;
             border-radius: 12px;
             -webkit-box-shadow: 2px 2px 12px -1px rgba(0, 0, 0, 0.75);
             -moz-box-shadow: 2px 2px 12px -1px rgba(0, 0, 0, 0.75);
@@ -80,25 +74,26 @@
             & .form-box {
                 display: flex;
                 flex-direction: column;
-                row-gap: 15px;
+                row-gap: 10px;
 
                 & .passwords-box {
                     width: 100%;
                     display: flex;
-                    column-gap: 15px;
+                    gap: 10px;
+                    flex-direction: column;
 
                     &>div {
-                        width: calc(50% - 7.5px);
+                        width: 100%;
                     }
                 }
 
+
                 & .form-floating {
-                    
                     & input {
-                        border-radius: 12px;
+                        border-radius: 10px;
                         padding: 16px 10px 4px 10px;
                         background-color: var(--white-color);
-
+                        
                         &::-webkit-outer-spin-button,
                         &::-webkit-inner-spin-button {
                             -webkit-appearance: none;
@@ -115,11 +110,12 @@
                         background-color: transparent;
                     }
                 }
-                
+
                 & .button-box {
                     display: flex;
                     justify-content: center;
                     width: 100%;
+                    margin-top: 20px;
 
                     & button {
                         background-color: var(--dark-blue-color);
@@ -131,7 +127,7 @@
                         border: 3px solid var(--white-color);
                         transition: 250ms ease-in-out;
                         color: var(--white-color);
-
+                        
                         &:hover {
                             background-color: var(--medium-blue-color);
                         }
@@ -140,7 +136,7 @@
             }
 
             & .login-redirect-box {
-                margin-top: 15px;
+                margin-top: 25px;
                 display: flex;
                 justify-content: center;
                 gap: 20px;
@@ -164,6 +160,77 @@
                         cursor: pointer;
                         background: var(--black-color);
                         color: var(--white-color);
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 992px) {
+    #employeeRegister {
+
+
+        & .left-box {
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            & img {
+                width: 80%;
+            }
+        }
+
+        & .right-box {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            & .top-logo-box {
+                & .logo-box {
+                    & a {
+                        width: 20%;
+                        min-width: 120px;
+                    }
+                }
+
+                & .titles-box {
+                    width: 80%;
+                    margin: 10px;
+
+                    & h1 {
+                        font-size: 48px;
+                    }
+                }
+            }
+
+            & .register-box {
+                width: 80%;
+                padding: 25px;
+                margin: 0 20px;
+
+                & .form-box {
+                    row-gap: 10px;
+
+                    & .passwords-box {
+                        flex-direction: row;
+
+                        &>div {
+                            width: calc(50% - 5px);
+                        }
+                    }
+
+                    & .form-floating {
+                        & input {
+                            border-radius: 10px;
+                        }
+                    }
+
+                    & .button-box {
+                        margin-top: 25px;
                     }
                 }
             }
