@@ -1,5 +1,10 @@
 @import url("../../css/variables.css");
 
+#login{
+    display: flex;
+}
+
+
 #login {
     display: flex;
     justify-content: center;
