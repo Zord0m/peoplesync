@@ -1,0 +1,47 @@
+<section id="employeeCreate">
+    <h2>Criação de funcionário</h2>
+    <form id="createForm">
+        <div class="form-floating mb-3">
+            <input required name="name" type="text" class="form-control" id="nameInput"
+                placeholder="Nome do funcionário">
+            <label for="nameInput">Nome do Funcionário</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input required name="email" type="email" class="form-control" id="emailInput" placeholder="Email">
+            <label for="emailInput">Email</label>
+            <div class="invalid-feedback" id="emailError"></div>
+        </div>
+
+        <div class="form-floating mb-3">
+            <select required name="contractType" class="form-control" id="contractInput">
+                <option value="">Selecione...</option>
+                <option value="clt">CLT</option>
+                <option value="pj">PJ</option>
+                <option value="estagiário">Estagiário</option>
+            </select>
+            <label for="contractInput">Contrato</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input required name="role" type="text" class="form-control" id="roleInput" placeholder="Cargo">
+            <label for="roleInput">Cargo</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <select required name="type" class="form-control" id="typeInput">
+                <option value="">Selecione...</option>
+                <option value="comum">Comum</option>
+                <option value="admin">Admin</option>
+            </select>
+            <label for="typeInput">Tipo</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input required name="register" type="text" class="form-control" id="registerInput" placeholder="Matrícula">
+            <label for="registerInput">Matrícula</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
+    </form>
+</section>

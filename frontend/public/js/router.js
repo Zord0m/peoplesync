@@ -1,6 +1,7 @@
 const routes = {
     "/": "./public/component/login/login.html",
     "/employee-register": "./public/component/employee-register/employee-register.html",
+    "/employee-create": "./public/component/employee-create/employee-create.html",
     "/home": "./public/component/home/home.html",
 };
 
