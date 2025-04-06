@@ -190,7 +190,7 @@
                 margin: 0 20px;
 
                 & .form-box {
-                    row-gap: 25px;
+                    row-gap: 15px;
 
                     & .form-floating {
                         & input {

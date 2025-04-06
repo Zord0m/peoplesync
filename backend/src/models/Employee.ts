@@ -10,10 +10,11 @@ interface EmployeeAttributes {
   contractType: "clt" | "pj" | "estagio";
   register: string;
   type: "comum" | "admin";
+  password?: string | null;
 }
 
-// Interface com os atributos necessários para criação (id é opcional)
-type EmployeeCreationAttributes = Optional<EmployeeAttributes, "id">;
+// Interface com os atributos necessários para criação (id e password são opcionais)
+type EmployeeCreationAttributes = Optional<EmployeeAttributes, "id" | "password">;
 
 // Classe modelada
 class Employee extends Model<EmployeeAttributes, EmployeeCreationAttributes> implements EmployeeAttributes {
@@ -24,6 +25,7 @@ class Employee extends Model<EmployeeAttributes, EmployeeCreationAttributes> imp
   public contractType!: "clt" | "pj" | "estagio";
   public register!: string;
   public type!: "comum" | "admin";
+  public password?: string | null;
 }
 
 Employee.init({
@@ -58,6 +60,11 @@ Employee.init({
     type: DataTypes.ENUM("comum", "admin"),
     allowNull: false,
     defaultValue: "comum"
+  },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: true,
+    defaultValue: null
   }
 }, {
   sequelize,
@@ -65,3 +72,4 @@ Employee.init({
 });
 
 export default Employee;
+export type { EmployeeCreationAttributes };
