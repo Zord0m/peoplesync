@@ -10,24 +10,25 @@ form.addEventListener("submit", (event) => {
 async function sendData()
 {
     const formData = new FormData(form);
-    const values = formData.entries();
+    const entriesArray = Array.from(formData.entries());
     const postData = Object.fromEntries(formData.entries());
 
-    values.forEach((entrie) => {
+    entriesArray.forEach((entrie) => {
         verifyCompletude(entrie);
     });
-    console.log(postData)
 
     try 
     {
         // const testData = {
-        //   name: "Rafael Santos",
-        //   email: "teste@valido.com", // Email que você sabe que funciona no Swagger
-        //   contractType: "clt",
-        //   role: "Descarregador",
-        //   type: "comum",
-        //   register: "020202",
+            // name: "Rafael Santos",
+            // email: "teste@valido.com", // Email que você sabe que funciona no Swagger
+            // contractType: "clt",
+            // role: "Descarregador",
+            // type: "comum",
+            // register: "020202",
         // };
+
+        console.log(postData);
         
         const response = await fetch("http://localhost:4444/employees", {
             method: "POST",
