@@ -7,6 +7,9 @@ form.addEventListener("submit", (event) => {
     sendData();
 })
 
+/**
+ * Função para registro de funcionário
+ */
 async function sendData()
 {
     const formData = new FormData(form);
@@ -19,17 +22,6 @@ async function sendData()
 
     try 
     {
-        // const testData = {
-            // name: "Rafael Santos",
-            // email: "teste@valido.com", // Email que você sabe que funciona no Swagger
-            // contractType: "clt",
-            // role: "Descarregador",
-            // type: "comum",
-            // register: "020202",
-        // };
-
-        console.log(postData);
-        
         const response = await fetch("http://localhost:4444/employees", {
             method: "POST",
             headers: {
@@ -45,6 +37,10 @@ async function sendData()
     }
 }
 
+/**
+ * Função para validar a esntrada de dados além das validações no HTML
+ * @param {string} entrieValue 
+ */
 function verifyCompletude(entrieValue)
 {
     const fieldName = entrieValue[0];
