@@ -3,7 +3,7 @@ import employeeRoutes from './employee.routes';
 import authroutes from './auth.routes';
 import createProject from './projectRoutes';
 import timeRecordRoutes from './timeRecord.routes';
-import timeRecordRoutes from './timeRecord.routes';
+
 
 const router = Router();
 
