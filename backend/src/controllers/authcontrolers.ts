@@ -3,7 +3,7 @@ import { loginService } from "../services/AuthService";
 
 /**
  * @swagger
- * /login:
+ * /auth/login:
  *   post:
  *     summary: Realiza o login de um usuário
  *     tags:
