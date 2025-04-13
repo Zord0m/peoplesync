@@ -7,20 +7,21 @@ interface JwtPayload {
   role: string;
 }
 
-export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
+export const authMiddleware = (req: Request, res: Response, next: NextFunction): void => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return res.status(401).json({ error: "Token não fornecido" });
+    res.status(401).json({ error: "Token não fornecido" });
+    return;
   }
 
   const token = authHeader.split(" ")[1];
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET || 'defaultsecret') as JwtPayload;
-    req.user = decoded; // Você pode tipar isso globalmente se quiser
+    req.user = decoded;
     next();
   } catch (err) {
-    return res.status(401).json({ error: "Token inválido ou expirado" });
+    res.status(401).json({ error: "Token inválido ou expirado" });
   }
 };

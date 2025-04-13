@@ -1,6 +1,6 @@
 import Employee from "../models/Employee";
 import bcrypt from "bcryptjs";
-import { EmployeeCreationAttributes } from "../models/Employee"; // <- você pode exportar isso no model
+import { EmployeeCreationAttributes } from "../models/Employee"; 
 
 export const createEmployee = async (data: EmployeeCreationAttributes) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
