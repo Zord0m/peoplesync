@@ -1,6 +1,82 @@
-#home {
-    
-    & h2 {
-        color: red;
-    }
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #043B64;
+    height: 70px;
+}
+
+header img{
+    height: 50px;
+    width: 50px;
+    margin-left: 50px;
+}
+
+header nav{
+    margin-right: 50px;
+    display: flex;  
+    justify-content: space-between;
+    width: 200px;
+    align-items: center;
+}
+
+header a{
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+}
+
+header button{
+    background-color: #FFECD1;
+    border: none;
+    height: 40px;
+    width: 120px;
+    border-radius: 10px;
+}
+
+header button p{
+    font-size: 20px;
+}
+
+header button:hover{
+    background-color: #FFECD1;
+    cursor: pointer;
+}
+
+main{
+    height: 200vh;
+    background-image: linear-gradient( #043B64 10%, #1B1B1B 62%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+main img{
+    height: 250px;
+    width: 250px;
+    margin-top: 50px;
+}
+
+
+
+.container{
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 70%;
+}
+
+.slogan h1{
+    color: white;
+    font-size: 100px;
+    margin-top: 20px;
 }
