@@ -51,8 +51,8 @@ header button:hover{
 }
 
 main{
-    height: 200vh;
-    background-image: linear-gradient( #043B64 10%, #1B1B1B 62%);
+    height: 100%;
+    background-image: linear-gradient( #043B64 10%, #1B1B1B 28%);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -75,8 +75,110 @@ main img{
     width: 70%;
 }
 
+.slogan{
+    width: 100%
+}
+
 .slogan h1{
     color: white;
-    font-size: 100px;
+    font-size: 90px;
     margin-top: 20px;
+}
+
+.containerlist{
+    width: 100%;
+    color: white;
+}
+
+.containerlist p{
+    margin-top: 100px;
+    color: white;
+    font-size: 35px;
+}
+
+
+
+.containerlist ul{
+    margin-top: 80px;
+    font-size: 35px;
+}
+
+.container-nuvem{
+    margin-top: 150px;
+    margin-bottom: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+}
+
+.container-nuvem img{
+    height: 300px;
+    width: 90%;
+    height: 75%;
+}
+
+.card-descricao{
+    margin-top: 200px;
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.card-descricao .card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: #7697A0;
+    border-radius: 12px;
+    height: 250px;
+    width: 400px;
+}
+
+.card-descricao .card h1{
+    font-size: 40px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+
+}
+
+.card-descricao .card p{
+    font-size: 27px;
+    padding: 20px;
+    
+}
+
+
+
+footer{
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 170px;
+    width: 100%;
+}
+
+footer hr{
+    width: 70%;
+    margin-bottom: 20px;
+}
+
+.container-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    width: 12%;
+}
+
+.container-footer img{
+    height: 50px;
+    width: 50px;
+    margin-left: 50px;
 }
