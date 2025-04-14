@@ -9,18 +9,18 @@ header{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #043B64;
+    background-color: #1B1B1B;
     height: 70px;
 }
 
 header img{
     height: 50px;
     width: 50px;
-    margin-left: 50px;
+    margin-left: 17%;
 }
 
 header nav{
-    margin-right: 50px;
+    margin-right: 17%;
     display: flex;  
     justify-content: space-between;
     width: 200px;
@@ -41,6 +41,11 @@ header button{
     border-radius: 10px;
 }
 
+header button:hover{
+    transform: scale(1.05); 
+    transition: all .2s ease-in-out
+}
+
 header button p{
     font-size: 20px;
 }
@@ -52,55 +57,82 @@ header button:hover{
 
 main{
     height: 100%;
-    background-image: linear-gradient( #043B64 10%, #1B1B1B 28%);
+    background-image: linear-gradient( #043B64 2%, #1B1B1B 10%);
     display: flex;
     flex-direction: column;
+    
     align-items: center;
 }
 
-main img{
-    height: 250px;
-    width: 250px;
+.container-first{
+    margin-top: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-first img{
+    height: 400px;
+    width: 400px;
     margin-top: 50px;
+    margin-left: 50px;
+    background-color: rgba(158, 158, 158, 0.37);
+    border-radius: 50px;
+}
+
+.container-first img:hover{
+    transform: scale(1.05); 
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    transition: all .2s ease-in-out
 }
 
 
 
 .container{
     margin-top: 50px;
-    display: flex;
-    justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 70%;
+    width: 50%;
 }
 
 .slogan{
-    width: 100%
+    width: 70%,
+    
 }
 
 .slogan h1{
     color: white;
-    font-size: 90px;
+    font-size: 50px;
     margin-top: 20px;
 }
 
 .containerlist{
-    width: 100%;
+    background-color: rgba(158, 158, 158, 0.11);
+    width: 63%;
+    border-radius: 12px;
     color: white;
+}
+
+.containerlist:hover {
+    transform: scale(1.05); 
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    transition: all .2s ease-in-out
 }
 
 .containerlist p{
     margin-top: 100px;
     color: white;
-    font-size: 35px;
+
+    font-size: 30px;
+    padding: 20px;
 }
 
 
 
 .containerlist ul{
-    margin-top: 80px;
-    font-size: 35px;
+    padding: 60px;
+    
+    font-size: 30px;
 }
 
 .container-nuvem{
@@ -113,7 +145,7 @@ main img{
 
 .container-nuvem img{
     height: 300px;
-    width: 90%;
+    width: 50%;
     height: 75%;
 }
 
@@ -121,11 +153,11 @@ main img{
     margin-top: 200px;
     display: flex;
     justify-content: space-between;
-    width: 70%;
+    width: 62%;
     align-items: center;
     flex-direction: row;
     margin-top: 50px;
-    margin-bottom: 50px;
+    margin-bottom: 100px;
 }
 
 .card-descricao .card{
@@ -140,17 +172,22 @@ main img{
 }
 
 .card-descricao .card h1{
-    font-size: 40px;
-    padding: 40px;
+    font-size: 30px;
+    padding: 35px;
 
 }
 
 .card-descricao .card p{
-    font-size: 27px;
+    font-size: 23px;
     padding: 20px;
     
 }
 
+.tecnologias{
+    height: 500px;
+    background-color: #BCBCBC;
+    width: 100%;
+}
 
 
 footer{
@@ -162,6 +199,7 @@ footer{
     height: 170px;
     width: 100%;
 }
+
 
 footer hr{
     width: 70%;
