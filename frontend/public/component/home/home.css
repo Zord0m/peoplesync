@@ -92,7 +92,7 @@ main{
     margin-top: 50px;
     align-items: center;
     flex-direction: column;
-    width: 50%;
+    width: 46.5%;
 }
 
 .slogan{
@@ -108,7 +108,7 @@ main{
 
 .containerlist{
     background-color: rgba(158, 158, 158, 0.11);
-    width: 63%;
+    width: 90%;
     border-radius: 12px;
     color: white;
 }
@@ -149,44 +149,138 @@ main{
     height: 75%;
 }
 
-.card-descricao{
-    margin-top: 200px;
+.card-descricao {
     display: flex;
     justify-content: space-between;
-    width: 62%;
     align-items: center;
-    flex-direction: row;
-    margin-top: 50px;
-    margin-bottom: 100px;
+    flex-wrap: wrap;
+    gap: 30px;
+    width: 70%;
+    margin: 50px auto 100px auto;
 }
 
-.card-descricao .card{
+.card-descricao .card {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     background-color: #7697A0;
     border-radius: 12px;
-    height: 30%;
-    width: 27%;
-}
-
-.card-descricao .card h1{
-    font-size: 30px;
-    padding: 35px;
-
-}
-
-.card-descricao .card p{
-    font-size: 23px;
     padding: 20px;
+    flex: 1 1 250px; 
+    height: 300px;
+    max-width: 30%;
+    box-sizing: border-box;
+}
+
+.card-descricao .card h1 {
+    font-size: 35x;
+    padding: 20px 10px;
+    color: rgb(0, 0, 0);
+}
+
+.card-descricao .card p {
+    font-size: 25px;
+    margin-top: 40px;
+    padding: 0 15px 20px;
+    color: rgb(0, 0, 0);
+}
+
+
+@media screen and (max-width: 900px) {
+    
+    .logoimg{
+        display: none;
+    }
+    
+    .card-descricao {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .card-descricao .card {
+        max-width: 100%;
+    }
+
+    .containerlist p{
+        margin-top: 100px;
+        color: white;
+    
+        font-size: 15px;
+        padding: 20px;
+    }
+    
+    
+    
+    .containerlist ul{
+        padding: 40px;
+        
+        font-size: 15px;
+    }
+
+    .containerlist ul li{
+        margin-top: 20px;
+    }
+
+    
+    
     
 }
 
-.tecnologias{
-    height: 500px;
+@media screen and (max-width: 1300px) {
+
+    .slogan h1{
+        color: white;
+        font-size: 30px;
+        margin-top: 20px;
+    }
+
+    .card-descricao {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .card-descricao .card {
+        max-width: 100%;
+    }
+}
+
+.tecnologias {
     background-color: #BCBCBC;
     width: 100%;
+    padding: 60px 0;
+}
+
+.tecnologias-container {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.tecnologias .title h1 {
+    font-family: Arial, sans-serif;
+    font-size: 32px;
+    font-weight: 400;
+    margin-bottom: 30px;
+    color: #1d1d1d;
+}
+
+.elements {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+}
+
+.elements img {
+    height: 100px;
+    max-width: 120px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.elements img:hover {
+    transform: scale(1.1);
 }
 
 
