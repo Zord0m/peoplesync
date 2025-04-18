@@ -69,6 +69,8 @@ export const registerTime = async (req: Request, res: Response) => {
  *     responses:
  *       200:
  *         description: Registro manual realizado com sucesso
+ *       401:
+ *         description: Não autorizado (token ausente ou inválido)
  */
 export const registerTimeAdmin = async (req: Request, res: Response) => {
   try {

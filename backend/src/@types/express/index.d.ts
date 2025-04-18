@@ -8,7 +8,7 @@ declare global {
       user?: {
         id: number;
         register: string;
-        role: string;
+        type: string;
       };
     }
   }

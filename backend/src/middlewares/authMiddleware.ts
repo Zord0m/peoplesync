@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 export interface JwtPayload {
   id: number;
   register: string;
-  role: string;
+  type: string;
 }
 
 export const authMiddleware = (req: Request, res: Response, next: NextFunction): void => {
@@ -18,8 +18,8 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction):
   const token = authHeader.split(" ")[1];
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'defaultsecret') as JwtPayload;
-    req.user = decoded; // Você pode tipar isso globalmente se quiser
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || "defaultsecret") as JwtPayload;
+    req.user = decoded;
     next();
   } catch (err) {
     res.status(401).json({ error: "Token inválido ou expirado" });

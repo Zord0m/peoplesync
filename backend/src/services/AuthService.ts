@@ -20,7 +20,7 @@ export const loginService = async (data: LoginInput) => {
   }
 
   const token = jwt.sign(
-    { id: user.id, register: user.register, role: user.role },
+    { id: user.id, register: user.register, type: user.type },
     process.env.JWT_SECRET || 'defaultsecret',
     { expiresIn: '1h' }
   );
