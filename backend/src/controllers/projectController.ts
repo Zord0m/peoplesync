@@ -8,6 +8,8 @@ import { createProjectService } from "../services/ProjectsService";
  *     summary: Realiza o cadastro de projetos
  *     tags:
  *       - Projetos
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -36,12 +38,15 @@ import { createProjectService } from "../services/ProjectsService";
  *     responses:
  *       201:
  *         description: Projeto criado com sucesso
- *       400:
- *         description: Dados inválidos
+ *       401:
+ *         description: Não autorizado (token ausente ou inválido)
+ *       403:
+ *         description: Acesso negado
  *       500:
  *         description: Erro interno do servidor
  */
-export const createProject = async (req: Request, res: Response) => {
+
+export const createProject = async (req: Request, res: Response): Promise<void> => {
   const { name_project, tag, description, status } = req.body;
 
   try {

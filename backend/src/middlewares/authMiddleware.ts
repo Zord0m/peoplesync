@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
-interface JwtPayload {
+export interface JwtPayload {
   id: number;
   register: string;
   role: string;
@@ -19,7 +19,7 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction):
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET || 'defaultsecret') as JwtPayload;
-    req.user = decoded;
+    req.user = decoded; // Você pode tipar isso globalmente se quiser
     next();
   } catch (err) {
     res.status(401).json({ error: "Token inválido ou expirado" });
