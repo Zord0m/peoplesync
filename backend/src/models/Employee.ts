@@ -73,8 +73,7 @@ Employee.init({
     defaultValue: null
   },
   pcd: {
-    type: DataTypes.ENUM("sim", "nao"),
-    defaultValue: "nao",
+    type: DataTypes.BOOLEAN(),
     allowNull: false,
   },
   birthDate: {

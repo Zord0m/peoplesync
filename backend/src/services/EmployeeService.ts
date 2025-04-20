@@ -21,13 +21,16 @@ export const createEmployee = async (data: EmployeeCreationAttributes) => {
     throw new Error("Matrícula deve conter exatamente 6 números.");
   }
   if (![true, false].includes(data.pcd)) {
-    throw new Error("Campo PCD deve ser 'sim' ou 'nao'.");
+    throw new Error("Campo PCD deve ser true ou false.");
   }
   if (!["masculino", "feminino", "outros"].includes(data.gender)) {
     throw new Error("Sexo deve ser 'masculino', 'feminino' ou 'outros'.");
   }
-  if (!/^\d{2}\/\m{2}\/\a{4}$/.test(data.birthDate)) {
-    throw new Error("Formato de data inválido. Use dd/mm/aaaa.");
+  const [day, month, year] = data.birthDate.split('/').map(Number);
+  const isValidDate = !isNaN(Date.parse(`${year}-${month}-${day}`));
+  
+  if (!isValidDate) {
+    throw new Error("Data inválida.");
   }
   
   const exists = await Employee.findOne({ where: { email: data.email } });
@@ -89,26 +92,36 @@ export const updateEmployee = async (register: string, data: Partial<EmployeeCre
   return employee;
 };
 
-export const updatePassword = async (register: string, currentPassword: string, newPassword: string, confirmPassword: string) => {
+export const updatePassword = async (register: string, currentPassword: string, newPassword: string, confirmPassword: string, authenticatedRegister: string) => {
+  // Verifica se o funcionário está tentando alterar sua própria senha
+  if (register !== authenticatedRegister) {
+    throw new Error("Você não tem permissão para alterar a senha de outro funcionário.");
+  }
+
+  // Verifica se as senhas coincidem
   if (newPassword !== confirmPassword) {
     throw new Error("As senhas não coincidem.");
   }
 
+  // Regex para validação da senha
   const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
   if (!passwordRegex.test(newPassword)) {
     throw new Error("A senha deve conter pelo menos 8 caracteres, uma letra maiúscula e um número.");
   }
 
+  // Busca o funcionário no banco
   const employee = await Employee.findOne({ where: { register } });
   if (!employee) {
     throw new Error("Funcionário não encontrado.");
   }
 
+  // Verifica se a senha atual está correta
   const isPasswordCorrect = await bcrypt.compare(currentPassword, employee.password || "");
   if (!isPasswordCorrect) {
     throw new Error("Senha atual incorreta.");
   }
 
+  // Criptografa a nova senha e a salva no banco
   const hashedPassword = await bcrypt.hash(newPassword, 10);
   employee.password = hashedPassword;
   await employee.save();

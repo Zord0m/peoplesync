@@ -270,11 +270,23 @@ export const updateEmployeeHandler = async (req: Request, res: Response) => {
 
 
 // Editar senha
-export const updatePasswordHandler = async (req: Request, res: Response) => {
+export const updatePasswordHandler = async (req: Request, res: Response): Promise<void> => {
   try {
     const { register } = req.params;
     const { currentPassword, newPassword, confirmPassword } = req.body;
-    const result = await updatePassword(register, currentPassword, newPassword, confirmPassword);
+    const authenticatedRegister = req.user?.register; // Supondo que o registro do usuário autenticado esteja em req.user
+
+    if (!authenticatedRegister) {
+      res.status(403).json({ error: 'Usuário não autenticado.' });
+      return;
+    }
+
+    if (register !== authenticatedRegister) {
+      res.status(403).json({ error: 'Você só pode atualizar a sua própria senha.' });
+      return;
+    }
+
+    const result = await updatePassword(register, currentPassword, newPassword, confirmPassword, authenticatedRegister);
     res.status(200).json(result);
   } catch (error: any) {
     res.status(400).json({ error: error.message });
