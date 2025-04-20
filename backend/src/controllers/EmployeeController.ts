@@ -52,7 +52,7 @@ import bcrypt from "bcryptjs";
  *                enum: [sim, nao]
  *               birthDate:
  *                type: string
- *                pattern: '^\\d{2}/\\d{2}/\\d{4}$'
+ *                pattern: '^\\d{2}/\\m{2}/\\a{4}$'
  *               gender:
  *                type: string
  *                enum: [masculino, feminino, outros]
@@ -189,7 +189,7 @@ export const setEmployeePassword = async (req: Request, res: Response) => {
  *                 example: nao  
  *                birthDate:
  *                 type: string
- *                 pattern: '^\\d{2}/\\d{2}/\\d{4}$'
+ *                 pattern: '^\\d{2}/\\m{2}/\\a{4}$'
  *                 example: 01/01/2000 
  *               gender:
  *                 type: string

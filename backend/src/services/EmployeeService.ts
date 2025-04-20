@@ -26,7 +26,7 @@ export const createEmployee = async (data: EmployeeCreationAttributes) => {
   if (!["masculino", "feminino", "outros"].includes(data.gender)) {
     throw new Error("Sexo deve ser 'masculino', 'feminino' ou 'outros'.");
   }
-  if (!/^\d{2}\/\d{2}\/\d{4}$/.test(data.birthDate)) {
+  if (!/^\d{2}\/\m{2}\/\a{4}$/.test(data.birthDate)) {
     throw new Error("Formato de data inválido. Use dd/mm/aaaa.");
   }
   
