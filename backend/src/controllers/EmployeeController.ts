@@ -23,6 +23,9 @@ import bcrypt from "bcryptjs";
  *               - contractType
  *               - register
  *               - type
+ *               - pcd
+ *               - birthDate
+ *               - gender
  *             properties:
  *               name:
  *                 type: string
@@ -44,6 +47,16 @@ import bcrypt from "bcryptjs";
  *                 type: string
  *                 enum: [comum, admin]
  *                 example: comum
+ *               pcd:
+ *                type: string
+ *                enum: [sim, nao]
+ *               birthDate:
+ *                type: string
+ *                pattern: '^\\d{2}/\\d{2}/\\d{4}$'
+ *               gender:
+ *                type: string
+ *                enum: [masculino, feminino, outros]
+ * 
  *     responses:
  *       201:
  *         description: Funcionário cadastrado com sucesso
@@ -170,6 +183,18 @@ export const setEmployeePassword = async (req: Request, res: Response) => {
  *                 type: string
  *                 enum: [comum, admin]
  *                 example: comum
+ *               pcd:
+ *                 type: string
+ *                 enum: [sim, nao]
+ *                 example: nao  
+ *                birthDate:
+ *                 type: string
+ *                 pattern: '^\\d{2}/\\d{2}/\\d{4}$'
+ *                 example: 01/01/2000 
+ *               gender:
+ *                 type: string
+ *                 enum: [masculino, feminino, outros]
+ *                 example: masculino           
  *     responses:
  *       200:
  *         description: Funcionário atualizado com sucesso

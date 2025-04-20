@@ -11,6 +11,9 @@ interface EmployeeAttributes {
   register: string;
   type: "comum" | "admin";
   password?: string | null;
+  pcd: boolean; // formato dd/mm/yyyy
+  birthDate: string;
+  gender: "masculino" | "feminino" | "outro";
 }
 
 // Interface com os atributos necessários para criação (id e password são opcionais)
@@ -26,6 +29,9 @@ class Employee extends Model<EmployeeAttributes, EmployeeCreationAttributes> imp
   public register!: string;
   public type!: "comum" | "admin";
   public password?: string | null;
+  public pcd!: boolean;
+  public birthDate!: string;
+  public gender!: "masculino" | "feminino" | "outro";
 }
 
 Employee.init({
@@ -65,6 +71,20 @@ Employee.init({
     type: DataTypes.STRING,
     allowNull: true,
     defaultValue: null
+  },
+  pcd: {
+    type: DataTypes.ENUM("sim", "nao"),
+    defaultValue: "nao",
+    allowNull: false,
+  },
+  birthDate: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  gender: {
+    type: DataTypes.ENUM("masculino", "feminino", "outro"),
+    defaultValue: "masculino",
+    allowNull: false,
   }
 }, {
   sequelize,

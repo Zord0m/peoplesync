@@ -20,7 +20,16 @@ export const createEmployee = async (data: EmployeeCreationAttributes) => {
   if (!/^[0-9]{6}$/.test(data.register)) {
     throw new Error("Matrícula deve conter exatamente 6 números.");
   }
-
+  if (!["sim", "nao"].includes(data.pcd)) {
+    throw new Error("Campo PCD deve ser 'sim' ou 'nao'.");
+  }
+  if (!["masculino", "feminino", "outros"].includes(data.gender)) {
+    throw new Error("Sexo deve ser 'masculino', 'feminino' ou 'outros'.");
+  }
+  if (!/^\d{2}\/\d{2}\/\d{4}$/.test(data.birthDate)) {
+    throw new Error("Formato de data inválido. Use dd/mm/aaaa.");
+  }
+  
   const exists = await Employee.findOne({ where: { email: data.email } });
   if (exists) {
     throw new Error("Email já cadastrado.");
