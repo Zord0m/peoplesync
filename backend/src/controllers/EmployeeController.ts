@@ -48,8 +48,8 @@ import bcrypt from "bcryptjs";
  *                 enum: [comum, admin]
  *                 example: comum
  *               pcd:
- *                type: string
- *                enum: [sim, nao]
+ *                type: boolean
+ *                enum: [true, false]
  *               birthDate:
  *                type: string
  *                pattern: '^\\d{2}/\\m{2}/\\a{4}$'
@@ -184,9 +184,9 @@ export const setEmployeePassword = async (req: Request, res: Response) => {
  *                 enum: [comum, admin]
  *                 example: comum
  *               pcd:
- *                 type: string
- *                 enum: [sim, nao]
- *                 example: nao  
+ *                 type: boolean
+ *                 enum: [true, false]
+ *                 example: false  
  *                birthDate:
  *                 type: string
  *                 pattern: '^\\d{2}/\\m{2}/\\a{4}$'

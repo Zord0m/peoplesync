@@ -20,7 +20,7 @@ export const createEmployee = async (data: EmployeeCreationAttributes) => {
   if (!/^[0-9]{6}$/.test(data.register)) {
     throw new Error("Matrícula deve conter exatamente 6 números.");
   }
-  if (!["sim", "nao"].includes(data.pcd)) {
+  if (![true, false].includes(data.pcd)) {
     throw new Error("Campo PCD deve ser 'sim' ou 'nao'.");
   }
   if (!["masculino", "feminino", "outros"].includes(data.gender)) {
