@@ -3,49 +3,50 @@ import { markTime, markTimeManual } from "../services/TimeRecordService";
 
 /**
  * @swagger
- * /timerecord:
+ * /time-record:
  *   post:
- *     summary: Registra um horário de ponto (funcionário comum)
+ *     summary: Registra entrada/saída do funcionário logado
  *     tags: [Registro de Ponto]
- *     security:
- *       - bearerAuth: []
+ *     security: [ { bearerAuth: [] } ]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
  *             type: object
- *             required: [employeeId, timeType, timestamp]
+ *             required: [timeType]            
  *             properties:
- *               employeeId:
- *                 type: integer
  *               timeType:
  *                 type: string
  *                 enum: [entry1, exit1, entry2, exit2, entry3, exit3]
  *               timestamp:
  *                 type: string
- *                 example: "08:00:00"
+ *                 description: Horário HH:mm:ss (opcional – servidor usa horário atual se omitido)
  *     responses:
- *       200:
- *         description: Ponto registrado com sucesso
+ *       200: { description: Ponto registrado com sucesso }
+ *       409: { description: Campo já preenchido }
+ *       422: { description: Ordem inválida }
  */
 export const registerTime = async (req: Request, res: Response) => {
   try {
-    const result = await markTime(req.body);
-    res.json(result);
-  } catch (error: any) {
-    res.status(400).json({ error: error.message });
+    const employeeId = req.user!.id;               
+    const { timeType, timestamp } = req.body;
+
+    const record = await markTime({ employeeId, timeType, timestamp });
+    res.json(record);
+  } catch (err: any) {
+    const status = err.statusCode ?? 400;
+    res.status(status).json({ error: err.message });
   }
 };
 
 /**
  * @swagger
- * /timerecord/admin:
+ * /time-record/admin:
  *   post:
- *     summary: Corrige ou insere registros manuais de ponto (apenas RH/admin)
+ *     summary: Ajuste manual de ponto (somente RH/Admin)
  *     tags: [Registro de Ponto]
- *     security:
- *       - bearerAuth: []
+ *     security: [ { bearerAuth: [] } ]
  *     requestBody:
  *       required: true
  *       content:
@@ -54,29 +55,18 @@ export const registerTime = async (req: Request, res: Response) => {
  *             type: object
  *             required: [register, date]
  *             properties:
- *               register:
- *                 type: string
- *                 example: "123456"
- *               date:
- *                 type: string
- *                 example: "2025-04-06"
- *               entry1:
- *                 type: string
- *                 example: "08:00:00"
- *               exit1:
- *                 type: string
- *                 example: "12:00:00"
+ *               register: { type: string, example: "123456" }
+ *               date:     { type: string, example: "06/04/2025", description: "DD/MM/AAAA" }
+ *               entry1:   { type: string, example: "" }
+ *               exit1:    { type: string, example: "" }
  *     responses:
- *       200:
- *         description: Registro manual realizado com sucesso
- *       401:
- *         description: Não autorizado (token ausente ou inválido)
+ *       200: { description: Ajuste realizado }
  */
 export const registerTimeAdmin = async (req: Request, res: Response) => {
   try {
-    const result = await markTimeManual(req.body);
-    res.json(result);
-  } catch (error: any) {
-    res.status(400).json({ error: error.message });
+    const record = await markTimeManual(req.body);
+    res.json(record);
+  } catch (err: any) {
+    res.status(400).json({ error: err.message });
   }
 };

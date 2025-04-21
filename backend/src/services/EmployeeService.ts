@@ -23,8 +23,8 @@ export const createEmployee = async (data: EmployeeCreationAttributes) => {
   if (![true, false].includes(data.pcd)) {
     throw new Error("Campo PCD deve ser true ou false.");
   }
-  if (!["masculino", "feminino", "outros"].includes(data.gender)) {
-    throw new Error("Sexo deve ser 'masculino', 'feminino' ou 'outros'.");
+  if (!["masculino", "feminino", "outro"].includes(data.gender)) {
+    throw new Error("Sexo deve ser 'masculino', 'feminino' ou 'outro'.");
   }
   const [day, month, year] = data.birthDate.split('/').map(Number);
   const isValidDate = !isNaN(Date.parse(`${year}-${month}-${day}`));

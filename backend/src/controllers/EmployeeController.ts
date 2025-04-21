@@ -48,14 +48,17 @@ import bcrypt from "bcryptjs";
  *                 enum: [comum, admin]
  *                 example: comum
  *               pcd:
- *                type: boolean
- *                enum: [true, false]
+ *                 type: boolean
+ *                 description: true = "sim", false = "não"
+ *                 example: false
  *               birthDate:
- *                type: string
- *                pattern: '^\\d{2}/\\m{2}/\\a{4}$'
+ *                 type: string
+ *                 pattern: '^\\d{2}/\\m{2}/\\a{4}$'
+ *                 example: "01/01/2000"
  *               gender:
- *                type: string
- *                enum: [masculino, feminino, outros]
+ *                 type: string
+ *                 enum: [masculino, feminino, outro]
+ *                 example: masculino
  * 
  *     responses:
  *       201:
@@ -122,8 +125,7 @@ export const setEmployeePassword = async (req: Request, res: Response) => {
  * /employees/{register}:
  *   get:
  *     summary: Obtém informações de um funcionário pelo registro
- *     tags:
- *       - Funcionários
+ *     tags: [Funcionários]
  *     parameters:
  *       - in: path
  *         name: register
@@ -137,10 +139,47 @@ export const setEmployeePassword = async (req: Request, res: Response) => {
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Employee'
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                   example: 1
+ *                 name:
+ *                   type: string
+ *                   example: Nome Sobrenome
+ *                 email:
+ *                   type: string
+ *                   example: email@exemplo.com
+ *                 role:
+ *                   type: string
+ *                   example: Cargo
+ *                 contractType:
+ *                   type: string
+ *                   enum: [clt, pj, estagio]
+ *                   example: clt
+ *                 register:
+ *                   type: string
+ *                   example: "123456"
+ *                 type:
+ *                   type: string
+ *                   enum: [comum, admin]
+ *                   example: comum
+ *                 pcd:
+ *                   type: boolean
+ *                   description: true = "sim", false = "não"
+ *                   example: false
+ *                 birthDate:
+ *                   type: string
+ *                   pattern: '^\\d{2}/\\d{2}/\\d{4}$'
+ *                   example: "01/01/2000"
+ *                 gender:
+ *                   type: string
+ *                   enum: [masculino, feminino, outro]
+ *                   example: masculino
  *       400:
  *         description: Funcionário não encontrado
  */
+
 
 
 //Editar funcionário
@@ -185,15 +224,15 @@ export const setEmployeePassword = async (req: Request, res: Response) => {
  *                 example: comum
  *               pcd:
  *                 type: boolean
- *                 enum: [true, false]
+ *                 description: true = "sim", false = "não"
  *                 example: false  
- *                birthDate:
+ *               birthDate:
  *                 type: string
  *                 pattern: '^\\d{2}/\\m{2}/\\a{4}$'
  *                 example: 01/01/2000 
  *               gender:
  *                 type: string
- *                 enum: [masculino, feminino, outros]
+ *                 enum: [masculino, feminino, outro]
  *                 example: masculino           
  *     responses:
  *       200:
