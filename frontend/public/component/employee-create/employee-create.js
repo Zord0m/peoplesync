@@ -20,7 +20,7 @@ async function sendData()
         verifyCompletude(entrie);
     });
 
-    try 
+    try
     {
         const response = await fetch("http://localhost:4444/employees", {
             method: "POST",
@@ -38,7 +38,7 @@ async function sendData()
 }
 
 /**
- * Função para validar a esntrada de dados além das validações no HTML
+ * Função para validar a entrada de dados além das validações no HTML
  * @param {string} entrieValue 
  */
 function verifyCompletude(entrieValue)

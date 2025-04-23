@@ -1,1 +1,14 @@
-/* CSS para employee-create */ 
+/* CSS para employee-create */
+@import url("../../css/variables.css");
+
+#employeeCreate {
+    background-color: var(--medium-blue-color);
+    min-height: 100dvh;
+    padding: 10px;
+
+    & h2 {
+        color: var(--black-color);
+        text-transform: uppercase;
+
+    }
+}

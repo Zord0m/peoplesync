@@ -1,8 +1,8 @@
 const routes = {
-    "/": "./public/component/login/login.html",
-    "/employee-register": "./public/component/employee-register/employee-register.html",
+    "/": "./public/component/home/home.html",
     "/employee-create": "./public/component/employee-create/employee-create.html",
-    "/home": "./public/component/home/home.html",
+    "/login": "./public/component/login/login.html",
+    "/employee-register": "./public/component/employee-register/employee-register.html",
 };
 
 function loadPage(url) {
@@ -67,7 +67,7 @@ async function updateScript(scriptPath)
         existingScript.remove(); // Remove o script anterior para evitar duplicação
     }
     let script = document.createElement("script");
-    script.src = scriptPath;
+    script.src = `${scriptPath}?v=${new Date().getTime()}`;
     script.id = "dynamic-script";
     script.defer = true;
     document.body.appendChild(script);
