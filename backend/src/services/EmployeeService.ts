@@ -64,6 +64,8 @@ export const setPasswordByRegister = async (register: string, password: string, 
   return { message: "Senha cadastrada com sucesso." };
 };
 
+//ver funcionário
+
 export const getEmployee = async (register: string) => {
   const employee = await Employee.findOne({ where: { register } });
   if (!employee) {
@@ -72,13 +74,23 @@ export const getEmployee = async (register: string) => {
   return employee;
 };
 
+//ver vários funcionários
+export const getEmployees = async (limit: number, offset: number) => {
+  const employees = await Employee.findAll({
+    limit,
+    offset,
+    order: [['id', 'ASC']], // opcional, para manter uma ordem
+  });
+  return employees;
+};
+
 export const updateEmployee = async (register: string, data: Partial<EmployeeCreationAttributes>) => {
   const employee = await Employee.findOne({ where: { register } });
   if (!employee) {
     throw new Error("Funcionário não encontrado.");
   }
 
-  // Validação de campos opcionais, se desejar, como contrato e tipo de funcionário
+  // Validação de campos opcionais, como o e-mail
   if (data.email) {
     const emailExists = await Employee.findOne({ where: { email: data.email } });
     if (emailExists) {
@@ -86,11 +98,20 @@ export const updateEmployee = async (register: string, data: Partial<EmployeeCre
     }
   }
 
-  // Atualiza apenas os campos que foram passados
+  // Remove campos com valor vazio ("") dos dados antes de atualizar
+  Object.keys(data).forEach((key) => {
+    // TypeScript pode gerar erro aqui, então precisamos verificar se a chave é realmente uma propriedade de EmployeeCreationAttributes
+    if (data[key as keyof EmployeeCreationAttributes] === "") {
+      delete data[key as keyof EmployeeCreationAttributes]; // Remover a chave
+    }
+  });
+
+  // Atualiza apenas os campos que não foram removidos
   await employee.update(data);
 
   return employee;
 };
+
 
 export const updatePassword = async (register: string, currentPassword: string, newPassword: string, confirmPassword: string, authenticatedRegister: string) => {
   // Verifica se o funcionário está tentando alterar sua própria senha

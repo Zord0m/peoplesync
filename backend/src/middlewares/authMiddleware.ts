@@ -1,3 +1,4 @@
+// middlewares/authMiddleware.ts
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
@@ -5,6 +6,14 @@ export interface JwtPayload {
   id: number;
   register: string;
   type: string;
+  isActive: boolean;
+}
+
+// Estender o Request
+declare module 'express-serve-static-core' {
+  interface Request {
+    user?: JwtPayload;
+  }
 }
 
 export const authMiddleware = (req: Request, res: Response, next: NextFunction): void => {

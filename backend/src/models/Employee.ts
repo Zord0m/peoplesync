@@ -11,9 +11,10 @@ interface EmployeeAttributes {
   register: string;
   type: "comum" | "admin";
   password?: string | null;
-  pcd: boolean; // formato dd/mm/yyyy
+  pcd: boolean; 
   birthDate: string;
   gender: "masculino" | "feminino" | "outro";
+  isActive: boolean;
 }
 
 // Interface com os atributos necessários para criação (id e password são opcionais)
@@ -32,6 +33,7 @@ class Employee extends Model<EmployeeAttributes, EmployeeCreationAttributes> imp
   public pcd!: boolean;
   public birthDate!: string;
   public gender!: "masculino" | "feminino" | "outro";
+  public isActive!: boolean;
 }
 
 Employee.init({
@@ -84,6 +86,10 @@ Employee.init({
     type: DataTypes.ENUM("masculino", "feminino", "outro"),
     defaultValue: "masculino",
     allowNull: false,
+  },
+  isActive: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: true, // Por padrão, todo funcionário novo é ativo
   }
 }, {
   sequelize,
