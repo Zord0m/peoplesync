@@ -35,7 +35,10 @@ async function sendLogin() {
 
     const result = await response.json();
     console.log("Login bem-sucedido:", result);
-    // Redirecionar ou atualizar a página (ex.: window.location.href = "/dashboard")
+
+    // Salvar o token e o tipo de usuário
+    localStorage.setItem("token", result.token);
+    window.location.href = "/#/dashboard-horario";
 }
 
 function validateLoginInputs(formData) {

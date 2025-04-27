@@ -1,9 +1,90 @@
-<article class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Empresa</h5>
+<section class="offcanvas offcanvas-start" tabindex="-1" id="projectSidebar" aria-labelledby="projectSidebarLabel">
+    <article class="offcanvas-header">
+        <h4 id="projectSidebarLabel">
+            Rafael Santos da Silva
+        </h4>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
+    </article>
+
     <div class="offcanvas-body">
+        <div class="info-box">
+            <div class="info-box__role">
+                Cargo: Desenvolvedor Junior
+            </div>
+            <div class="info-box__register">
+                Matrícula: 117612
+            </div>
+        </div>
+        <div class="categories-box">
+            <div class="categories-box__horarios">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-clock"></i>
+                        Horários
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-item">
+                            <button>
+                                Registrar Ponto
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="categories-box__projetos">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-clock"></i>
+                        Projetos
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-item">
+                            <button>
+                                Visualizar Projetos
+                            </button>
+                        </li>
+                        <li class="dropdown-item">
+                            <button>
+                                Registrar Projeto
+                            </button>
+                        </li>
+                        <li class="dropdown-item">
+                            <button>
+                                Remover Projeto
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="categories-box__funcionarios">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-clock"></i>
+                        Funcionários
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-item">
+                            <button>
+                                Visualizar Funcionários
+                            </button>
+                        </li>
+                        <li class="dropdown-item">
+                            <button data-bs-toggle="modal" data-bs-target="#employeeCreateModal">
+                                Registrar Funcionário
+                            </button>
+                        </li>
+                        <li class="dropdown-item">
+                            <button>
+                                Remover Funcionário
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+        <!--
         <div class="button-group">
             <a href="">Registrar Ponto</a>
             <a href="/employee-create">Adicionar Funcionário</a>
@@ -12,7 +93,7 @@
             <a href=""><i class="bi bi-stopwatch"></i>Horários</a>
             <a href=""><i class="bi bi-building"></i>Empresa</a>
             <a href=""><i class="bi bi-person-badge"></i>Funcionários</a>
-        </div>
+        </div> -->
         <!-- <div>
             Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists,
             etc.
@@ -27,9 +108,11 @@
                 <li><a class="dropdown-item" href="#">Something else here</a></li>
             </ul>
         </div> -->
-    </div>
-</article>
-<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
-    aria-controls="offcanvasExample">
+    <!-- </div> -->
+</section>
+<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#projectSidebar"
+    aria-controls="projectSidebar">
     >
 </button>
+
+<component src="public/component/employee-create/employee-create.html"></component>

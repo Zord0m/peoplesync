@@ -1,14 +1,62 @@
 /* CSS para employee-create */
 @import url("../../css/variables.css");
 
-#employeeCreate {
-    background-color: var(--medium-blue-color);
-    min-height: 100dvh;
-    padding: 10px;
+#employeeCreateModal .modal-dialog .modal-content{
+    background-color: var(--white-color);
 
-    & h2 {
-        color: var(--black-color);
-        text-transform: uppercase;
+    & .modal-body {
 
+        & #createForm {
+            padding:0;
+
+            & .row {
+                margin: 0;
+                padding: 5px;
+                justify-content: space-between;
+                background-color: var(--white-lighter-color);
+                box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
+                border-radius: 8px;
+
+                &:nth-child(even) {
+                    margin: 20px 0;
+                }
+
+                & input,
+                & select {
+
+                    &:focus {
+                        border: 2px solid var(--black-color);
+                        box-shadow: none;
+                    }
+
+                    &:-webkit-autofill {
+                        background-color: #FFFFFF !important;
+                        -webkit-box-shadow: 0 0 0 30px #FFFFFF inset !important;
+                        -webkit-text-fill-color: #000 !important;
+                    }
+                }
+
+                & > div {
+                    padding: 5px;
+                    display: flex;
+                    align-items: center;
+                }
+
+                & .form-floating label {
+                    padding: 1.25rem 1rem 1rem 1rem;
+                }
+
+                & .form-check {
+
+                    & .form-check-input {
+                        margin-left: 0;
+                    }
+
+                    & .form-check-label {
+                        padding-left: 5px;
+                    }
+                }
+            }
+        }
     }
 }

@@ -1,8 +1,9 @@
 const routes = {
     "/": "./public/component/home/home.html",
-    "/employee-create": "./public/component/employee-create/employee-create.html",
     "/login": "./public/component/login/login.html",
     "/employee-register": "./public/component/employee-register/employee-register.html",
+    "/dashboard-horario": "./public/component/dashboard-horario/dashboard-horario.html",
+    "/employee-create": "./public/component/employee-create/employee-create.html",
 };
 
 function loadPage(url) {
@@ -27,19 +28,56 @@ function loadPage(url) {
 
 async function loadComponent(element)
 {
-    const src = element.getAttribute("src");
+    let src = element.getAttribute("src");
     if (!src) return;
+
+    // Forçar atualização para evitar cache
+    const noCacheSrc = `${src}?v=${new Date().getTime()}`;
+
     try
     {
-        const response = await fetch(src);
+        const response = await fetch(noCacheSrc);
         const html = await response.text();
         element.outerHTML = html;
-        processNestedComponent();
+
+        // Depois de injetar o HTML, carregar o JS do componente
+        await loadComponentScript(src);
+        await loadComponentStyle(src);
+
+        processNestedComponent(); // Carrega componentes aninhados, se houver
     }
     catch (error)
     {
         console.error("Erro:", error);
     }
+}
+
+async function loadComponentScript(componentPath)
+{
+    // Exemplo: public/component/sidebar/sidebar.html -> sidebar.js
+    const basePath = componentPath.substring(0, componentPath.lastIndexOf("/"));
+    const componentName = basePath.split("/").pop();
+    const scriptPath = `${basePath}/${componentName}.js?v=${new Date().getTime()}`;
+
+    // Criar e inserir o script
+    const script = document.createElement("script");
+    script.src = scriptPath;
+    script.defer = true;
+    document.body.appendChild(script);
+}
+
+async function loadComponentStyle(componentPath)
+{
+    // Exemplo: public/component/sidebar/sidebar.html -> sidebar.js
+    const basePath = componentPath.substring(0, componentPath.lastIndexOf("/"));
+    const componentName = basePath.split("/").pop();
+    const stylePath = `./${basePath}/${componentName}.css?v=${new Date().getTime()}`;
+
+    // Criar e inserir o script
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = stylePath;
+    document.head.appendChild(link);
 }
 
 function processNestedComponent()

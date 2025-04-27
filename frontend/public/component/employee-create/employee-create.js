@@ -16,6 +16,14 @@ async function sendData()
     const entriesArray = Array.from(formData.entries());
     const postData = Object.fromEntries(formData.entries());
 
+    postData.pcd = document.getElementById("pcdCheckbox").checked;
+
+    const [year, month, day] = postData.birthDate.split("-");
+    postData.birthDate = `${day}/${month}/${year}`;
+
+
+    console.log(postData)
+
     entriesArray.forEach((entrie) => {
         verifyCompletude(entrie);
     });

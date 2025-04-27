@@ -1,48 +1,83 @@
-<section id="employeeCreate">
-    <component src="public/component/sidebar/sidebar.html"></component>
-    <h2>Criação de funcionário</h2>
-    <form id="createForm">
-        <div class="form-floating mb-3">
-            <input required name="name" type="text" class="form-control" id="nameInput"
-                placeholder="Nome do funcionário">
-            <label for="nameInput">Nome do Funcionário</label>
+<div class="modal fade" id="employeeCreateModal" tabindex="-1" aria-labelledby="employeeCreateModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="employeeCreateModalLabel">Registro de Novo Funcionário</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+                <form id="createForm" class="container">
+                    <div class="input-info-group row">
+                        <div class="form-floating col-12">
+                            <input required name="name" type="text" class="form-control" id="nameInput" placeholder="Nome do funcionário">
+                            <label for="nameInput">Nome do Funcionário</label>
+                        </div>
+                        <div class="form-floating col-12">
+                            <input required name="email" type="email" class="form-control" id="emailInput" placeholder="Email">
+                            <label for="emailInput">Email</label>
+                        </div>
+                        <div class="form-floating col-6">
+                            <input required name="birthDate" type="date" class="form-control" id="birthdayInput" placeholder="Data de nascimento">
+                            <label for="birthdayInput">Data de nascimento</label>
+                        </div>
+                        <div class="col-3">
+                            <!-- <label for="genderInput" class="form-label">Sexo</label> -->
+                            <select class="form-select form-control" required name="gender" aria-label="Sexo" id="genderInput">
+                                <option selected>Sexo</option>
+                                <option value="masculino">masculino</option>
+                                <option value="feminino">feminino</option>
+                                <option value="outro">outro</option>
+                            </select>
+                        </div>
+                        <div class="form-check col-3">
+                            <input name="pcd" class="form-check-input" type="checkbox" id="pcdCheckbox">
+                            <label class="form-check-label" for="pcdCheckbox">
+                                PCD
+                            </label>
+                        </div>
+                    </div>
+                    <div class="input-info-group row">
+                        <div class="form-floating col-6">
+                            <input required name="role" type="text" class="form-control" id="roleInput" placeholder="Cargo">
+                            <label for="roleInput">Cargo</label>
+                        </div>
+                        <div class="col-6">
+                            <select required name="contractType" class="form-select form-control" id="contractInput">
+                                <option value="">Contratação</option>
+                                <option value="clt">CLT</option>
+                                <option value="pj">PJ</option>
+                                <option value="estagio">Estagiário</option>
+                            </select>
+                            <!-- <label for="contractInput">Contrato</label> -->
+                        </div>
+                        <div class="col-12">
+                            <select required name="type" class="form-select form-control" id="typeInput">
+                                <option value="">Tipo de Usuário</option>
+                                <option value="comum">Comum</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                            <!-- <label for="typeInput">Tipo de Usuário</label> -->
+                        </div>
+                    </div>
+                    <div class="input-info-group row">
+                        <div class="form-floating">
+                            <input required name="register" type="text" class="form-control" id="registerInput" placeholder="Matrícula">
+                            <label for="registerInput">Matrícula</label>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button type="button" id="resetDataButton" class="btn btn-warning">
+                            Reiniciar dados
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            Cadastrar
+                        </button>
+                    </div>
+                </form>
+                <div class="img-box">
+                    
+                </div>
+            </div>
         </div>
-
-        <div class="form-floating mb-3">
-            <input required name="email" type="email" class="form-control" id="emailInput" placeholder="Email">
-            <label for="emailInput">Email</label>
-            <div class="invalid-feedback" id="emailError"></div>
-        </div>
-
-        <div class="form-floating mb-3">
-            <select required name="contractType" class="form-control" id="contractInput">
-                <option value="">Selecione...</option>
-                <option value="clt">CLT</option>
-                <option value="pj">PJ</option>
-                <option value="estagio">Estagiário</option>
-            </select>
-            <label for="contractInput">Contrato</label>
-        </div>
-
-        <div class="form-floating mb-3">
-            <input required name="role" type="text" class="form-control" id="roleInput" placeholder="Cargo">
-            <label for="roleInput">Cargo</label>
-        </div>
-
-        <div class="form-floating mb-3">
-            <select required name="type" class="form-control" id="typeInput">
-                <option value="">Selecione...</option>
-                <option value="comum">Comum</option>
-                <option value="admin">Admin</option>
-            </select>
-            <label for="typeInput">Tipo</label>
-        </div>
-
-        <div class="form-floating mb-3">
-            <input required name="register" type="text" class="form-control" id="registerInput" placeholder="Matrícula">
-            <label for="registerInput">Matrícula</label>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Cadastrar</button>
-    </form>
-</section>
+    </div>
+</div>
