@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
-import { createEmployee, getEmployee, setPasswordByRegister, updateEmployee, updatePassword } from "../services/EmployeeService";
+import { createEmployee, getEmployee, getEmployees, setPasswordByRegister, updateEmployee, updatePassword } from "../services/EmployeeService";
 import Employee, { EmployeeCreationAttributes } from "../models/Employee";
-import bcrypt from "bcryptjs";
 
 /**
  * @swagger
@@ -118,7 +117,7 @@ export const setEmployeePassword = async (req: Request, res: Response) => {
   }
 };
 
-//Ver funcionários
+//Ver funcionário
 
 /**
  * @swagger
@@ -181,6 +180,37 @@ export const setEmployeePassword = async (req: Request, res: Response) => {
  */
 
 
+// Ver vários funcionários
+/**
+ * @swagger
+ * /employees:
+ *   get:
+ *     summary: Obtém uma lista de funcionários
+ *     tags: [Funcionários]
+ *     parameters:
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *         description: Quantidade de funcionários para buscar (padrão 50)
+ *       - in: query
+ *         name: offset
+ *         schema:
+ *           type: integer
+ *         description: Offset para paginação
+ *     responses:
+ *       200:
+ *         description: Lista de funcionários
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Employee' 
+ *       400:
+ *         description: Erro ao buscar funcionários
+ */
+
 
 //Editar funcionário
 
@@ -207,33 +237,33 @@ export const setEmployeePassword = async (req: Request, res: Response) => {
  *             properties:
  *               name:
  *                 type: string
- *                 example: Nome Sobrenome
+ *                 example: ""
  *               email:
  *                 type: string
- *                 example: email@email.com
+ *                 example: ""
  *               role:
  *                 type: string
- *                 example: Cargo
+ *                 example: 
  *               contractType:
  *                 type: string
  *                 enum: [clt, pj, estagio]
- *                 example: clt
+ *                 example: ""
  *               type:
  *                 type: string
  *                 enum: [comum, admin]
- *                 example: comum
+ *                 example: ""
  *               pcd:
  *                 type: boolean
  *                 description: true = "sim", false = "não"
- *                 example: false  
+ *                 example: false
  *               birthDate:
  *                 type: string
  *                 pattern: '^\\d{2}/\\m{2}/\\a{4}$'
- *                 example: 01/01/2000 
+ *                 example: ""
  *               gender:
  *                 type: string
  *                 enum: [masculino, feminino, outro]
- *                 example: masculino           
+ *                 example: ""    
  *     responses:
  *       200:
  *         description: Funcionário atualizado com sucesso
@@ -296,6 +326,20 @@ export const getEmployeeHandler = async (req: Request, res: Response) => {
   }
 };
 
+//ver vários funcionários por range
+
+export const getEmployeesHandler = async (req: Request, res: Response) => {
+  try {
+    const limit = parseInt(req.query.limit as string) || 50; // padrão 50 funcionários
+    const offset = parseInt(req.query.offset as string) || 0; // para paginação (opcional)
+
+    const employees = await getEmployees(limit, offset);
+    res.status(200).json(employees);
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 // Editar funcionário
 export const updateEmployeeHandler = async (req: Request, res: Response) => {
   try {
@@ -327,6 +371,26 @@ export const updatePasswordHandler = async (req: Request, res: Response): Promis
 
     const result = await updatePassword(register, currentPassword, newPassword, confirmPassword, authenticatedRegister);
     res.status(200).json(result);
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+// ativo ou inativo
+
+export const deactivateEmployeeHandler = async (req: Request, res: Response) => {
+  try {
+    const { register } = req.params;
+
+    const employee = await Employee.findOne({ where: { register } });
+    if (!employee) {
+      return res.status(404).json({ error: 'Funcionário não encontrado' });
+    }
+
+    employee.isActive = false;
+    await employee.save();
+
+    res.status(200).json({ message: 'Funcionário desativado com sucesso' });
   } catch (error: any) {
     res.status(400).json({ error: error.message });
   }

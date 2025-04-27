@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { createProject, deleteProject, getProjects, updateProject } from '../controllers/projectController';
 import { authMiddleware } from '../middlewares/authMiddleware';
 import { isAdmin } from '../middlewares/isAdmin';
+import { isActiveMiddleware } from '../middlewares/isActive';
 
 const router = Router();
 

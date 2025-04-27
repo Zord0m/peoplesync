@@ -27,3 +27,4 @@ export const loginService = async (data: LoginInput) => {
 
   return token;
 };
+
