@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import './models';
 import { sequelize } from './config/database';
 import routes from './routes';
 import swaggerUI from 'swagger-ui-express';
