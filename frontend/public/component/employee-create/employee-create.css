@@ -5,9 +5,11 @@
     background-color: var(--white-color);
 
     & .modal-body {
+        display: flex;
 
         & #createForm {
-            padding:0;
+            padding: 0;
+            width: 60%;
 
             & .row {
                 margin: 0;
@@ -56,6 +58,21 @@
                         padding-left: 5px;
                     }
                 }
+            }
+
+            & .action-buttons {
+                margin-top: 20px;
+                display: flex;
+                justify-content: flex-end;
+                column-gap: 10px;
+            }
+        }
+
+        & .img-box {
+            width: 40%;
+
+            & img {
+                width: 100%;
             }
         }
     }

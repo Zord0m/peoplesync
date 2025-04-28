@@ -18,13 +18,13 @@
         <div class="categories-box">
             <div class="categories-box__horarios">
                 <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown">
                         <i class="bi bi-clock"></i>
                         Horários
                     </button>
                     <ul class="dropdown-menu">
                         <li class="dropdown-item">
-                            <button>
+                            <button class="btn btn-secondary">
                                 Registrar Ponto
                             </button>
                         </li>
@@ -33,23 +33,23 @@
             </div>
             <div class="categories-box__projetos">
                 <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                        <i class="bi bi-clock"></i>
+                    <button class="btn  dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-kanban"></i>
                         Projetos
                     </button>
                     <ul class="dropdown-menu">
                         <li class="dropdown-item">
-                            <button>
+                            <button class="btn btn-info">
                                 Visualizar Projetos
                             </button>
                         </li>
                         <li class="dropdown-item">
-                            <button>
+                            <button class="btn btn-primary">
                                 Registrar Projeto
                             </button>
                         </li>
                         <li class="dropdown-item">
-                            <button>
+                            <button class="btn btn-outline-danger">
                                 Remover Projeto
                             </button>
                         </li>
@@ -58,61 +58,35 @@
             </div>
             <div class="categories-box__funcionarios">
                 <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                        <i class="bi bi-clock"></i>
+                    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-person-raised-hand"></i>
                         Funcionários
                     </button>
                     <ul class="dropdown-menu">
                         <li class="dropdown-item">
-                            <button>
+                            <button class="btn btn-info">
                                 Visualizar Funcionários
                             </button>
                         </li>
                         <li class="dropdown-item">
-                            <button data-bs-toggle="modal" data-bs-target="#employeeCreateModal">
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#employeeCreateModal">
                                 Registrar Funcionário
                             </button>
                         </li>
                         <li class="dropdown-item">
-                            <button>
+                            <button class="btn btn-outline-danger">
                                 Remover Funcionário
                             </button>
                         </li>
                     </ul>
                 </div>
-    
             </div>
         </div>
     </div>
-        <!--
-        <div class="button-group">
-            <a href="">Registrar Ponto</a>
-            <a href="/employee-create">Adicionar Funcionário</a>
-        </div>
-        <div class="sections-group">
-            <a href=""><i class="bi bi-stopwatch"></i>Horários</a>
-            <a href=""><i class="bi bi-building"></i>Empresa</a>
-            <a href=""><i class="bi bi-person-badge"></i>Funcionários</a>
-        </div> -->
-        <!-- <div>
-            Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists,
-            etc.
-        </div>
-        <div class="dropdown mt-3">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                Dropdown button
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-        </div> -->
-    <!-- </div> -->
 </section>
-<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#projectSidebar"
+<button class="menu-button sidebar-button-open" type="button" data-bs-toggle="offcanvas" data-bs-target="#projectSidebar"
     aria-controls="projectSidebar">
-    >
+    <i class="bi bi-list"></i>
 </button>
 
 <component src="public/component/employee-create/employee-create.html"></component>

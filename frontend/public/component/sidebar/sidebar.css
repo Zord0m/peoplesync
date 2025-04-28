@@ -1,1 +1,78 @@
 /* CSS para sidebar */ 
+
+#projectSidebar {
+    background-color: var(--white-color);
+
+    & .categories-box {
+        display: flex;
+        flex-direction: column;
+        row-gap: 10px;
+        margin: 1em 0;
+
+        & > div {
+
+            & .dropdown {
+                
+                & .dropdown-menu {
+                    width: 100%;
+                    background-color: var(--white-lighter-color);
+                    border-radius: 4px;
+                    
+                    &.show {
+                        margin-top: 5px !important;
+                        position: relative !important;
+                        transform: none !important;
+                    }
+
+                    & .dropdown-item {
+                        padding: 6px 15px;
+                        margin-bottom: 5px;
+
+                        &:active,
+                        &:hover {
+                            background-color: transparent;
+                        }
+
+                        & > button {
+                            width: 100%;
+                        }
+                    }
+                }
+                
+                & > button {
+                    border: 1px solid #C4C4C4;
+                    border-radius: 4px;
+                    width: 100%;
+                    height: 100%;
+                    padding: 8px 10px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    background-color: var(--white-lighter-color);
+
+                    & i {
+                        font-size: 22px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.sidebar-button-open.menu-button {
+    border: none;
+    background-color: transparent;
+    padding: 8px 16px;
+
+    & i {
+        color: var(--black-color);
+    }
+
+    &:hover {
+        cursor: pointer;
+
+        & i {
+            color: #000000;
+        }
+    }
+}
