@@ -1,5 +1,3 @@
-// types/express/index.d.ts
-
 import "express";
 
 declare global {
@@ -8,7 +6,7 @@ declare global {
       user?: {
         id: number;
         register: string;
-        type: string;
+        role: "comum" | "admin";   //  ← acrescentado
       };
     }
   }

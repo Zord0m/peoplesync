@@ -1,55 +1,53 @@
-import { DataTypes, Model, Optional } from "sequelize";
-import { sequelize } from "../config/database";
+import { DataTypes, Model, Optional, Association } from 'sequelize';
+import { sequelize } from '../config/database';
+import TimeEntry from './TimeEntry';
 
-// Interface com os atributos do modelo
+/* ---------- Tipagens ---------- */
 interface ProjectAttributes {
   id: number;
   name_project: string;
   tag: string;
   description: string;
-  status: "active" | "inactive";
+  status: 'active' | 'inactive';
 }
+type ProjectCreationAttributes = Optional<ProjectAttributes, 'id'>;
 
-// Interface para criação (id é opcional)
-type ProjectCreationAttributes = Optional<ProjectAttributes, "id">;
-
-// Classe modelada
-class Project extends Model<ProjectAttributes, ProjectCreationAttributes> implements ProjectAttributes {
+/* ---------- Modelo ---------- */
+class Project extends Model<ProjectAttributes, ProjectCreationAttributes>
+  implements ProjectAttributes {
   public id!: number;
   public name_project!: string;
   public tag!: string;
   public description!: string;
-  public status!: "active" | "inactive";
+  public status!: 'active' | 'inactive';
+
+  static associations: {
+    timeEntries: Association<Project, TimeEntry>;
+  };
+
+  static associate() {
+    this.hasMany(TimeEntry, { foreignKey: 'projectId', as: 'timeEntries' });
+  }
 }
 
-// Definição do modelo
-Project.init({
-  id: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
-    primaryKey: true
+Project.init(
+  {
+    id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+    name_project: { type: DataTypes.STRING, allowNull: false },
+    tag: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true, // tag única para facilitar lookup
+    },
+    description: { type: DataTypes.TEXT, allowNull: false },
+    status: {
+      type: DataTypes.ENUM('active', 'inactive'),
+      allowNull: false,
+      defaultValue: 'active',
+    },
   },
-  name_project: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  tag: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  description: {
-    type: DataTypes.TEXT,
-    allowNull: false
-  },
-  status: {
-    type: DataTypes.ENUM("active", "inactive"),
-    allowNull: false,
-    defaultValue: "active"
-  }
-}, {
-  sequelize,
-  modelName: "Project"
-});
+  { sequelize, modelName: 'Project', tableName: 'Projects' }
+);
 
 export default Project;
 export type { ProjectCreationAttributes };
