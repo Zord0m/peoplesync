@@ -1,26 +1,26 @@
 const loginForm = document.getElementById("loginForm");
-console.log(loginForm);
+console.log(registerForm);
 
 
-if (loginForm) {
-    loginForm.addEventListener("submit", async (event) => {
+if (registerForm) {
+    registerForm.addEventListener("submit", async (event) => {
         event.preventDefault();
         try {
-            await sendLogin();
+            await sendRegister();
         } catch (error) {
             console.error("Erro no login:", error.message);
         }
     });
 }
 
-async function sendLogin() {
-    const formData = new FormData(loginForm);
+async function sendRegister() {
+    const formData = new FormData(registerForm);
     const loginData = Object.fromEntries(formData.entries());
 
     console.log(loginData);
     
 
-    validateLoginInputs(formData);
+    validateRegisterInputs(formData);
     const response = await fetch("http://localhost:4444/auth/login", {
         method: "POST",
         headers: {
@@ -41,7 +41,7 @@ async function sendLogin() {
     window.location.href = "/#/dashboard-horario";
 }
 
-function validateLoginInputs(formData) {
+function validateRegisterInputs(formData) {
     const entries = Array.from(formData.entries());
 
     entries.forEach(([fieldName, fieldValue]) => {

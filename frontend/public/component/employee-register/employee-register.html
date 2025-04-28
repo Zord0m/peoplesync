@@ -15,18 +15,18 @@
             </div>
         </div>
         <div class="register-box">
-            <div class="form-box">
+            <form class="form-box" id="registerForm">
                 <div class="form-floating">
-                    <input class="form-control" id="matriculaInput" type="number" minlength="6" placeholder="Matrícula">
+                    <input class="form-control" id="matriculaInput" type="number" name="register" minlength="6" placeholder="Matrícula">
                     <label for="matriculaInput">Matrícula</label>
                 </div>
                 <div class="passwords-box">
                     <div class="form-floating">
-                        <input class="form-control" id="passwordInput" type="password" placeholder="Senha">
+                        <input class="form-control" id="passwordInput" type="password" name="password" placeholder="Senha">
                         <label for="passwordInput">Senha</label>
                     </div>
                     <div class="form-floating">
-                        <input class="form-control" id="passwordConfirmInput" type="password" placeholder="Confirme sua senha">
+                        <input class="form-control" id="passwordConfirmInput" type="password" name="confirmPassword" placeholder="Confirme sua senha">
                         <label for="passwordConfirmInput">Confirme sua senha</label>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                         Registrar
                     </button>
                 </div>
-            </div>
+            </form>
             <div class="login-redirect-box">
                 <span class="redirect-text">Já possui cadastro? </span>
                 <a href="/login" id="loginButton">Login</a>
