@@ -58,6 +58,10 @@ import Employee, { EmployeeCreationAttributes } from "../models/Employee";
  *                 type: string
  *                 enum: [masculino, feminino, outro]
  *                 example: masculino
+ *               isActive:
+ *                 type: boolean
+ *                 description: Indica se o funcionário está ativo (true) ou inativo (false)
+ *                 example: true
  * 
  *     responses:
  *       201:
@@ -243,7 +247,7 @@ export const setEmployeePassword = async (req: Request, res: Response) => {
  *                 example: ""
  *               role:
  *                 type: string
- *                 example: 
+ *                 example: ""
  *               contractType:
  *                 type: string
  *                 enum: [clt, pj, estagio]
@@ -263,7 +267,11 @@ export const setEmployeePassword = async (req: Request, res: Response) => {
  *               gender:
  *                 type: string
  *                 enum: [masculino, feminino, outro]
- *                 example: ""    
+ *                 example: ""
+ *               isActive:
+ *                 type: boolean
+ *                 description: Indica se o funcionário está ativo (true) ou inativo (false)
+ *                 example: true
  *     responses:
  *       200:
  *         description: Funcionário atualizado com sucesso

@@ -85,6 +85,7 @@ export const getEmployees = async (limit: number, offset: number) => {
 };
 
 export const updateEmployee = async (register: string, data: Partial<EmployeeCreationAttributes>) => {
+  // Encontra o funcionário com o registro fornecido
   const employee = await Employee.findOne({ where: { register } });
   if (!employee) {
     throw new Error("Funcionário não encontrado.");
@@ -100,9 +101,8 @@ export const updateEmployee = async (register: string, data: Partial<EmployeeCre
 
   // Remove campos com valor vazio ("") dos dados antes de atualizar
   Object.keys(data).forEach((key) => {
-    // TypeScript pode gerar erro aqui, então precisamos verificar se a chave é realmente uma propriedade de EmployeeCreationAttributes
     if (data[key as keyof EmployeeCreationAttributes] === "") {
-      delete data[key as keyof EmployeeCreationAttributes]; // Remover a chave
+      delete data[key as keyof EmployeeCreationAttributes]; // Remove a chave
     }
   });
 
@@ -111,6 +111,7 @@ export const updateEmployee = async (register: string, data: Partial<EmployeeCre
 
   return employee;
 };
+
 
 
 export const updatePassword = async (register: string, currentPassword: string, newPassword: string, confirmPassword: string, authenticatedRegister: string) => {

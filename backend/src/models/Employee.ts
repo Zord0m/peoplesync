@@ -33,6 +33,7 @@ class Employee extends Model<EmployeeAttributes, EmployeeCreationAttributes>
   public pcd!: boolean;
   public birthDate!: string;
   public gender!: 'masculino' | 'feminino' | 'outro';
+  public isActive!: boolean;
 
   /* Association helpers (opcional) */
   public static associations: {
@@ -68,6 +69,7 @@ Employee.init(
       allowNull: false,
       defaultValue: 'masculino',
     },
+    isActive: {type: DataTypes.BOOLEAN, allowNull: false },
   },
   { sequelize, modelName: 'Employee', tableName: 'Employees' }
 );
