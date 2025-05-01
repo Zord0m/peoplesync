@@ -11,7 +11,7 @@ interface EmployeeAttributes {
   register: string;
   type: "comum" | "admin";
   password?: string | null;
-  pcd: boolean; // formato dd/mm/yyyy
+  pcd: boolean; 
   birthDate: string;
   gender: "masculino" | "feminino" | "outro";
 }

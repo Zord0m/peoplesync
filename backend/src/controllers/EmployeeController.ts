@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createEmployee, getEmployee, setPasswordByRegister, updateEmployee, updatePassword } from "../services/EmployeeService";
+import { createEmployee, getEmployee, setPasswordByRegister, updateEmployee, updatePassword, getPublicCommonEmployee } from "../services/EmployeeService";
 import Employee, { EmployeeCreationAttributes } from "../models/Employee";
 import bcrypt from "bcryptjs";
 
@@ -246,6 +246,38 @@ export const setEmployeePassword = async (req: Request, res: Response) => {
  *         description: Erro de validação ou senha incorreta
  */
 
+// Ver funcionário comum (sem autenticação)
+/**
+ * @swagger
+ * /employees/{register}doc/public:
+ *   get:
+ *     summary: Visualizar funcionário comum (sem autenticação)
+ *     tags: [Employees]
+ *     parameters:
+ *       - in: path
+ *         name: register
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Registro do funcionário
+ *     responses:
+ *       200:
+ *         description: Dados do funcionário comum
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 nome:
+ *                   type: string
+ *                 cargo:
+ *                   type: string
+ *                 registro:
+ *                   type: string
+ *       404:
+ *         description: Funcionário comum não encontrado
+ */
+ 
 // Ver funcionário
 export const getEmployeeHandler = async (req: Request, res: Response) => {
   try {
@@ -254,6 +286,22 @@ export const getEmployeeHandler = async (req: Request, res: Response) => {
     res.status(200).json(employee);
   } catch (error: any) {
     res.status(400).json({ error: error.message });
+  }
+};
+
+//visualizar dados gerais de um funcionario comum 
+export const getPublicCommonEmployeeHandler = async (req: Request, res: Response) => {
+  const { register } = req.params;
+  try{
+    const employee = await getPublicCommonEmployee(register);
+
+    if (!employee) {
+      return res.status(404).json({ error: "Funcionario comum nao encontrado"});
+    }
+    return res.status(200).json(employee);
+  } catch (error) {
+    console.error("Erro ao buscar funcionario comum:", error);
+    return res.status(400).json({ error: "Erro ao buscar funcionario comum" });
   }
 };
 

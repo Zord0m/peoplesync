@@ -1,6 +1,7 @@
 import Employee from "../models/Employee";
 import bcrypt from "bcryptjs";
 import { EmployeeCreationAttributes } from "../models/Employee"; 
+import e from "express";
 
 export const createEmployee = async (data: EmployeeCreationAttributes) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -114,4 +115,20 @@ export const updatePassword = async (register: string, currentPassword: string, 
   await employee.save();
 
   return { message: "Senha atualizada com sucesso." };
+};
+
+// Buscar funcionario comum 
+export const getPublicCommonEmployee = async (register: string) => {
+  const employee = await Employee.findOne({
+    where: { register, type: "common" },
+    attributes: ["name", "role", "register"]
+  });
+
+  if (!employee) return null;
+
+  return {
+    name: employee.name,
+    role: employee.role,
+    register: employee.register
+  };
 };
