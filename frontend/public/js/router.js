@@ -2,8 +2,7 @@ const routes = {
     "/": "./public/component/home/home.html",
     "/login": "./public/component/login/login.html",
     "/employee-register": "./public/component/employee-register/employee-register.html",
-    "/dashboard-horario": "./public/component/dashboard-horario/dashboard-horario.html",
-    "/employee-create": "./public/component/employee-create/employee-create.html",
+    "/dashboard-horario": "./public/component/dashboard-horario/dashboard-horario.html"
 };
 
 function loadPage(url) {

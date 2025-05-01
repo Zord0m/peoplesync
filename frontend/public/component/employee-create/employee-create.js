@@ -30,10 +30,12 @@ async function sendData()
 
     try
     {
+        const token = localStorage.getItem("token");
         const response = await fetch("http://localhost:4444/employees", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify(postData)
         });

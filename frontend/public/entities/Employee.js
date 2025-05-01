@@ -1,4 +1,4 @@
-export class Employee 
+class Employee 
 {
     constructor
         (
