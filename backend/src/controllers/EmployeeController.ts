@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createEmployee, getEmployee, getEmployees, setPasswordByRegister, updateEmployee, updatePassword } from "../services/EmployeeService";
+import { createEmployee, getEmployee, getEmployees, getPublicCommonEmployee, setPasswordByRegister, updateEmployee, updatePassword } from "../services/EmployeeService";
 import Employee, { EmployeeCreationAttributes } from "../models/Employee";
 
 /**
@@ -322,6 +322,36 @@ export const setEmployeePassword = async (req: Request, res: Response) => {
  *       400:
  *         description: Erro de validação ou senha incorreta
  */
+/**
+ * @swagger
+ * /employees/public/{register}:
+ *   get:
+ *     summary: Visualizar funcionário comum (sem autenticação)
+ *     tags: [Employees]
+ *     parameters:
+ *       - in: path
+ *         name: register
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Registro do funcionário
+ *     responses:
+ *       200:
+ *         description: Dados do funcionário comum
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 nome:
+ *                   type: string
+ *                 cargo:
+ *                   type: string
+ *                 registro:
+ *                   type: string
+ *       404:
+ *         description: Funcionário comum não encontrado
+ */
 
 // Ver funcionário
 export const getEmployeeHandler = async (req: Request, res: Response) => {
@@ -403,3 +433,20 @@ export const deactivateEmployeeHandler = async (req: Request, res: Response) => 
     res.status(400).json({ error: error.message });
   }
 };
+
+// ver funcionario comum 
+export const getPublicCommonEmployeeHandler = async (req: Request, res: Response) => {
+  const { register } = req.params;
+
+  try{
+    const employee = await getPublicCommonEmployee (register);
+
+    if (!employee) {
+      return res.status(404).json({ error: 'Funcionário não encontrado' });
+    }
+    return res.status(200).json(employee);
+  } catch (error) {
+    console.error('Erro ao buscar funcionário:', error);
+    return res.status(400).json({ error: 'Erro ao buscar funcionário' });
+  }
+}

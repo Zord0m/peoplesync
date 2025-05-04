@@ -150,3 +150,18 @@ export const updatePassword = async (register: string, currentPassword: string, 
 
   return { message: "Senha atualizada com sucesso." };
 };
+
+//visualizar funcionário comum 
+export const getPublicCommonEmployee = async (register: string) => {
+  const employee = await Employee.findOne({ 
+    where: { register, type:"comum" },
+    attributes: ["name", "role", "register"]});
+
+  if (!employee) return null;
+
+  return{
+    name: employee.name,
+    role: employee.role,
+    register: employee.register,
+  };
+};
