@@ -1,4 +1,4 @@
-/* CSS para sidebar */ 
+/* CSS para sidebar */
 
 #projectSidebar {
     background-color: var(--white-color);
@@ -9,15 +9,15 @@
         row-gap: 10px;
         margin: 1em 0;
 
-        & > div {
+        &>div {
 
             & .dropdown {
-                
+
                 & .dropdown-menu {
                     width: 100%;
                     background-color: var(--white-lighter-color);
                     border-radius: 4px;
-                    
+
                     &.show {
                         margin-top: 5px !important;
                         position: relative !important;
@@ -33,13 +33,28 @@
                             background-color: transparent;
                         }
 
-                        & > button {
+                        &>button {
                             width: 100%;
+
+                            &:has(a) {
+                                display: flex;
+                                padding: 0;
+
+                                & a {
+                                    text-decoration: none;
+                                    color: var(--white-color);
+                                    height: 100%;
+                                    width: 100%;
+                                    text-align: center;
+                                    vertical-align: middle;
+                                    padding: 6px 15px;
+                                }
+                            }
                         }
                     }
                 }
-                
-                & > button {
+
+                &>button {
                     border: 1px solid #C4C4C4;
                     border-radius: 4px;
                     width: 100%;

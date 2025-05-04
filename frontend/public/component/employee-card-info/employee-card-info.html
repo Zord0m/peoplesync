@@ -1,28 +1,28 @@
-<article class="modal fade" id="employeeCreateModal" tabindex="-1" aria-labelledby="employeeCreateModalLabel"
+<!-- MODAL DE INFORMAÇÕES DO USUÁRIO -->
+<article class="modal fade" id="employeeDataInfoModal" tabindex="-1" aria-labelledby="employeeDataInfoModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content" id="modalContent">
             <div class="modal-header">
-                <h5 class="modal-title" id="employeeCreateModalLabel">Registro de Novo Funcionário</h5>
+                <h5 class="modal-title" id="employeeDataInfoModalLabel">Informações do funcionário</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
             <div class="modal-body">
                 <form id="createForm" class="container">
                     <div class="input-info-group row">
                         <div class="form-floating col-12">
-                            <input required name="name" type="text" class="form-control" id="nameInput"
-                                placeholder="Nome do funcionário">
-                            <label for="nameInput">Nome do Funcionário</label>
+                            <input required name="name" type="text" class="form-control" id="nameEditInput">
+                            <label for="nameEditInput">Nome do Funcionário</label>
                         </div>
                         <div class="form-floating col-12">
-                            <input required name="email" type="email" class="form-control" id="emailInput"
+                            <input required name="email" type="email" class="form-control" id="emailEditInput"
                                 placeholder="Email">
-                            <label for="emailInput">Email</label>
+                            <label for="emailEditInput">Email</label>
                         </div>
                         <div class="form-floating col-6">
-                            <input required name="birthDate" type="date" class="form-control" id="birthdayInput"
+                            <input required name="birthDate" type="date" class="form-control" id="birthDateEditInput"
                                 placeholder="Data de nascimento">
-                            <label for="birthdayInput">Data de nascimento</label>
+                            <label for="birthDateEditInput">Data de nascimento</label>
                         </div>
                         <div class="col-3">
                             <!-- <label for="genderInput" class="form-label">Sexo</label> -->
@@ -81,9 +81,6 @@
                         </button>
                     </div>
                 </form>
-                <div class="img-box">
-                    <img src="public/assets/img/illustrations/employee-create.svg" alt="">
-                </div>
             </div>
         </div>
     </div>

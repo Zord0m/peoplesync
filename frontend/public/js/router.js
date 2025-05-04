@@ -2,27 +2,42 @@ const routes = {
     "/": "./public/component/home/home.html",
     "/login": "./public/component/login/login.html",
     "/employee-register": "./public/component/employee-register/employee-register.html",
-    "/dashboard-horario": "./public/component/dashboard-horario/dashboard-horario.html"
+    "/dashboard-horario": "./public/component/dashboard-horario/dashboard-horario.html",
+    "/employees": "./public/component/employees-page/employees-page.html",
 };
 
 function loadPage(url) {
     const path = routes[url] || routes[""];
-    fetch(path)
-        .then((response) => response.text())
-        .then((html) => {
-            const app = document.getElementById("app");
-            app.innerHTML = html;
-            processNestedComponent();
-            const newTitle = document.querySelector("title");
-            if (newTitle)
-            {
-                document.title = newTitle.innerText;
-            }
-            const component = path.split("/")[3];
-            updateStylesheet(`./public/component/${component}/${component}.css`);
-            updateScript(`./public/component/${component}/${component}.js`);
-        })
-        .catch((error) => console.error("Erro ao carregar a página: ", error));
+    const component = path.split("/")[3];
+    const cssPath = `./public/component/${component}/${component}.css?v=${new Date().getTime()}`;
+    const jsPath = `./public/component/${component}/${component}.js?v=${new Date().getTime()}`;
+
+    // Cria o elemento de link para o CSS
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = cssPath;
+
+    // Define o evento onload para garantir que o CSS foi carregado
+    link.onload = () => {
+        fetch(path)
+            .then((response) => response.text())
+            .then((html) => {
+                const app = document.getElementById("app");
+                app.innerHTML = html;
+                processNestedComponent();
+
+                const newTitle = document.querySelector("title");
+                if (newTitle) {
+                    document.title = newTitle.innerText;
+                }
+
+                updateScript(jsPath);
+            })
+            .catch((error) => console.error("Erro ao carregar a página: ", error));
+    };
+
+    // Adiciona o link do CSS ao head
+    document.head.appendChild(link);
 }
 
 async function loadComponent(element)
@@ -97,12 +112,14 @@ async function updateStylesheet(stylePath)
     styleLink.href = `${stylePath}?v=${new Date().getTime()}`;
 }
 
-async function updateScript(scriptPath)
-{
+async function updateScript(scriptPath) {
+    // Remove o script anterior, se existir
     let existingScript = document.getElementById("dynamic-script");
     if (existingScript) {
-        existingScript.remove(); // Remove o script anterior para evitar duplicação
+        existingScript.remove();
     }
+
+    // Cria e adiciona o novo script
     let script = document.createElement("script");
     script.src = `${scriptPath}?v=${new Date().getTime()}`;
     script.id = "dynamic-script";
@@ -118,8 +135,8 @@ function navigateTo(url) {
 
 // Captura mudanças no histórico (botões de voltar/avançar)
 window.addEventListener("popstate", () => {
-    const pathName = window.location.pathname;
-    loadPage(pathName);
+    const path = window.location.hash.replace("#", "") || "/";
+    loadPage(path);
 });
 
 // Intercepta cliques em links para evitar recarregamento da página
@@ -127,7 +144,7 @@ document.addEventListener("click", (event) => {
     const target = event.target.closest("a");
     if (target && target.href.startsWith(window.location.origin)) {
         event.preventDefault();
-        navigateTo(new URL(target.href).pathname);
+        navigateTo(new URL(target.href).hash.replace("#", ""));
     }
 });
 

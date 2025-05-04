@@ -1,0 +1,10 @@
+/* CSS para employee-card-info */ 
+#employeeDataInfoModal {
+
+    & .modal-dialog {
+
+        & .buttons-box {
+            display: flex;
+        }
+    }
+}
