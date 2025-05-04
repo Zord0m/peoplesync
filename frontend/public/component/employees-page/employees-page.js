@@ -1,5 +1,7 @@
 // JS para employees-page 
 (function () {
+    let listOfEmployees = [];
+    document.getElementById("employeesContainer").innerHTML = '';
     async function getEmployeesList(employeesPerPage = 50, page = 1) {
         const token = localStorage.getItem("token");
         try {
@@ -13,9 +15,10 @@
             if (!response.ok) {
                 throw new Error("Erro na requisição");
             }
-            const employeesResult = await response.json();
-            console.log(employeesResult);
-            generateEmployeesCards(employeesResult);
+            listOfEmployees = await response.json();
+            console.log(listOfEmployees);
+            
+            generateEmployeesCards();
 
             const buttonsOpenModal = document.querySelectorAll(".employeeData");
             buttonsOpenModal.forEach((button) => {
@@ -24,15 +27,15 @@
                     // INSERÇÃO DOS DADOS DENTRO DO MODAL PÓS RENDERIZAÇÃO
                     modalInfo.setAttribute("data-name", button.getAttribute("data-emp-name"));
                     modalInfo.setAttribute("data-email", button.getAttribute("data-emp-email"));
-                    modalInfo.setAttribute("data-birthDate", button.getAttribute("data-emp-birthDate"));
+                    modalInfo.setAttribute("data-birthdate", button.getAttribute("data-emp-birthdate"));
                     modalInfo.setAttribute("data-gender", button.getAttribute("data-emp-gender"));
-                    modalInfo.setAttribute("data-isActive", button.getAttribute("data-emp-isActive"));
+                    modalInfo.setAttribute("data-isactive", button.getAttribute("data-emp-isactive"));
                     modalInfo.setAttribute("data-pcd", button.getAttribute("data-emp-pcd"));
                     modalInfo.setAttribute("data-register", button.getAttribute("data-emp-register"));
                     modalInfo.setAttribute("data-role", button.getAttribute("data-emp-role"));
                     modalInfo.setAttribute("data-type", button.getAttribute("data-emp-type"));
-                    modalInfo.setAttribute("data-createdAt", button.getAttribute("data-emp-createdAt"));
-                    modalInfo.setAttribute("data-contractType", button.getAttribute("data-emp-contractType"));
+                    modalInfo.setAttribute("data-createdat", button.getAttribute("data-emp-createdat"));
+                    modalInfo.setAttribute("data-contracttype", button.getAttribute("data-emp-contracttype"));
                 });
             });
         }
@@ -41,9 +44,9 @@
         }
     }
 
-    function generateEmployeesCards(employeesList = []) {
+    function generateEmployeesCards() {
         const employeesContainer = document.getElementById("employeesContainer");
-        employeesList.forEach((employee) => {
+        listOfEmployees.forEach((employee) => {
             // Coluna com o Card
             const cardBox = document.createElement("div");
             cardBox.classList.add('col-12', 'col-sm-6', 'col-md-4', 'col-lg-3', 'col-xl-2');
@@ -56,15 +59,15 @@
             // DEFINIÇÃO DOS DADOS DO FUNCIONÁRIO EM CADA CARD
             componentCard.setAttribute("data-emp-name", employee.name);
             componentCard.setAttribute("data-emp-email", employee.email);
-            componentCard.setAttribute("data-emp-birthDate", employee.birthDate);
+            componentCard.setAttribute("data-emp-birthdate", employee.birthDate);
             componentCard.setAttribute("data-emp-gender", employee.gender);
-            componentCard.setAttribute("data-emp-isActive", employee.isActive);
+            componentCard.setAttribute("data-emp-isactive", employee.isActive);
             componentCard.setAttribute("data-emp-pcd", employee.pcd);
             componentCard.setAttribute("data-emp-register", employee.register);
             componentCard.setAttribute("data-emp-role", employee.role);
             componentCard.setAttribute("data-emp-type", employee.type);
-            componentCard.setAttribute("data-emp-createdAt", employee.createdAt);
-            componentCard.setAttribute("data-emp-contractType", employee.contractType);
+            componentCard.setAttribute("data-emp-createdat", employee.createdAt);
+            componentCard.setAttribute("data-emp-contracttype", employee.contractType);
 
             //Card Header
             const cardHeader = document.createElement("div");

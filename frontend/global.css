@@ -10,6 +10,7 @@
 
 #pageSection {
     min-height: 100dvh;
+    overflow-x: auto;
 
     & .page-title {
         display: flex;

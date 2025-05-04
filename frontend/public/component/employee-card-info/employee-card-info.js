@@ -30,9 +30,17 @@
 
         propertiesNamestoPass.forEach((property) => {
             // NOME DO FUNCIONÁRIO
-            const modalDOMElement = document.getElementById(`${property}EditInput`);
-            const elementProperty = modalInfo.getAttribute(`data-${property}`);
+            const modalDOMElement = document.getElementById(`${property.toLowerCase()}EditInput`);
+            const actualAttribute = `data-${property.toLowerCase()}`;
+            let elementProperty = modalInfo.getAttribute(actualAttribute);
             if (modalDOMElement && elementProperty) {
+                if (actualAttribute == 'data-birthdate') {
+                    const [day, month, year] = elementProperty.split('/');
+                    elementProperty = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+                }
+                if (actualAttribute == 'data-pcd') {
+                    modalDOMElement.checked = elementProperty == 'true';
+                }
                 modalDOMElement.disabled = true;
                 modalDOMElement.readonly = true;
                 modalDOMElement.value = elementProperty;

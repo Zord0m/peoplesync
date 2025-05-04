@@ -2,11 +2,10 @@
   // JS para project-create
   const createProjectForm = document.getElementById("createProjectForm");
   if (createProjectForm) {
-    createProjectForm,
-      addEventListener("submit", (event) => {
-        event.preventDefault();
-        sendProjectCreationData();
-      });
+    createProjectForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      sendProjectCreationData();
+    });
   }
 
   async function sendProjectCreationData() {
