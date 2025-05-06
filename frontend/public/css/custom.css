@@ -1,0 +1,30 @@
+/* MODAL */
+.modal .modal-dialog {
+    max-width: 75dvw;
+}
+
+/* BUTTONS */
+.btn {
+
+    &.btn-primary {
+        background-color: var(--medium-blue-color);
+        border: none;
+    }
+
+    &.btn-secondary {
+        background-color: var(--medium-orange-color);
+        border: none;
+        color: var(--black-color);
+    }
+    
+    &.btn-success {
+        background-color: var(--light-blue-color);
+        border: none;
+    }
+    
+    &.btn-info {
+        background-color: var(--dark-blue-color);
+        border: none;
+        color: var(--white-color);
+    }
+}

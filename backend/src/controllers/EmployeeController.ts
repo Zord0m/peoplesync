@@ -1,7 +1,10 @@
 import { Request, Response } from "express";
+<<<<<<< HEAD
 import { createEmployee, getEmployee, setPasswordByRegister, updateEmployee, updatePassword, getPublicCommonEmployee } from "../services/EmployeeService";
+=======
+import { createEmployee, getEmployee, getEmployees, getPublicCommonEmployee, setPasswordByRegister, updateEmployee, updatePassword } from "../services/EmployeeService";
+>>>>>>> bd2d053ff93c3844b6f9cc7993de2d0215f4e81e
 import Employee, { EmployeeCreationAttributes } from "../models/Employee";
-import bcrypt from "bcryptjs";
 
 /**
  * @swagger
@@ -48,14 +51,21 @@ import bcrypt from "bcryptjs";
  *                 enum: [comum, admin]
  *                 example: comum
  *               pcd:
- *                type: boolean
- *                enum: [true, false]
+ *                 type: boolean
+ *                 description: true = "sim", false = "não"
+ *                 example: false
  *               birthDate:
- *                type: string
- *                pattern: '^\\d{2}/\\m{2}/\\a{4}$'
+ *                 type: string
+ *                 pattern: '^\\d{2}/\\m{2}/\\a{4}$'
+ *                 example: "01/01/2000"
  *               gender:
- *                type: string
- *                enum: [masculino, feminino, outros]
+ *                 type: string
+ *                 enum: [masculino, feminino, outro]
+ *                 example: masculino
+ *               isActive:
+ *                 type: boolean
+ *                 description: Indica se o funcionário está ativo (true) ou inativo (false)
+ *                 example: true
  * 
  *     responses:
  *       201:
@@ -115,15 +125,14 @@ export const setEmployeePassword = async (req: Request, res: Response) => {
   }
 };
 
-//Ver funcionários
+//Ver funcionário
 
 /**
  * @swagger
  * /employees/{register}:
  *   get:
  *     summary: Obtém informações de um funcionário pelo registro
- *     tags:
- *       - Funcionários
+ *     tags: [Funcionários]
  *     parameters:
  *       - in: path
  *         name: register
@@ -137,9 +146,77 @@ export const setEmployeePassword = async (req: Request, res: Response) => {
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Employee'
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                   example: 1
+ *                 name:
+ *                   type: string
+ *                   example: Nome Sobrenome
+ *                 email:
+ *                   type: string
+ *                   example: email@exemplo.com
+ *                 role:
+ *                   type: string
+ *                   example: Cargo
+ *                 contractType:
+ *                   type: string
+ *                   enum: [clt, pj, estagio]
+ *                   example: clt
+ *                 register:
+ *                   type: string
+ *                   example: "123456"
+ *                 type:
+ *                   type: string
+ *                   enum: [comum, admin]
+ *                   example: comum
+ *                 pcd:
+ *                   type: boolean
+ *                   description: true = "sim", false = "não"
+ *                   example: false
+ *                 birthDate:
+ *                   type: string
+ *                   pattern: '^\\d{2}/\\d{2}/\\d{4}$'
+ *                   example: "01/01/2000"
+ *                 gender:
+ *                   type: string
+ *                   enum: [masculino, feminino, outro]
+ *                   example: masculino
  *       400:
  *         description: Funcionário não encontrado
+ */
+
+
+// Ver vários funcionários
+/**
+ * @swagger
+ * /employees:
+ *   get:
+ *     summary: Obtém uma lista de funcionários
+ *     tags: [Funcionários]
+ *     parameters:
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *         description: Quantidade de funcionários para buscar (padrão 50)
+ *       - in: query
+ *         name: offset
+ *         schema:
+ *           type: integer
+ *         description: Offset para paginação
+ *     responses:
+ *       200:
+ *         description: Lista de funcionários
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Employee' 
+ *       400:
+ *         description: Erro ao buscar funcionários
  */
 
 
@@ -168,33 +245,37 @@ export const setEmployeePassword = async (req: Request, res: Response) => {
  *             properties:
  *               name:
  *                 type: string
- *                 example: Nome Sobrenome
+ *                 example: ""
  *               email:
  *                 type: string
- *                 example: email@email.com
+ *                 example: ""
  *               role:
  *                 type: string
- *                 example: Cargo
+ *                 example: ""
  *               contractType:
  *                 type: string
  *                 enum: [clt, pj, estagio]
- *                 example: clt
+ *                 example: ""
  *               type:
  *                 type: string
  *                 enum: [comum, admin]
- *                 example: comum
+ *                 example: ""
  *               pcd:
  *                 type: boolean
- *                 enum: [true, false]
- *                 example: false  
- *                birthDate:
+ *                 description: true = "sim", false = "não"
+ *                 example: false
+ *               birthDate:
  *                 type: string
  *                 pattern: '^\\d{2}/\\m{2}/\\a{4}$'
- *                 example: 01/01/2000 
+ *                 example: ""
  *               gender:
  *                 type: string
- *                 enum: [masculino, feminino, outros]
- *                 example: masculino           
+ *                 enum: [masculino, feminino, outro]
+ *                 example: ""
+ *               isActive:
+ *                 type: boolean
+ *                 description: Indica se o funcionário está ativo (true) ou inativo (false)
+ *                 example: true
  *     responses:
  *       200:
  *         description: Funcionário atualizado com sucesso
@@ -245,6 +326,36 @@ export const setEmployeePassword = async (req: Request, res: Response) => {
  *       400:
  *         description: Erro de validação ou senha incorreta
  */
+/**
+ * @swagger
+ * /employees/public/{register}:
+ *   get:
+ *     summary: Visualizar funcionário comum (sem autenticação)
+ *     tags: [Employees]
+ *     parameters:
+ *       - in: path
+ *         name: register
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Registro do funcionário
+ *     responses:
+ *       200:
+ *         description: Dados do funcionário comum
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 nome:
+ *                   type: string
+ *                 cargo:
+ *                   type: string
+ *                 registro:
+ *                   type: string
+ *       404:
+ *         description: Funcionário comum não encontrado
+ */
 
 // Ver funcionário comum (sem autenticação)
 /**
@@ -289,6 +400,7 @@ export const getEmployeeHandler = async (req: Request, res: Response) => {
   }
 };
 
+<<<<<<< HEAD
 //visualizar dados gerais de um funcionario comum 
 export const getPublicCommonEmployeeHandler = async (req: Request, res: Response) => {
   const { register } = req.params;
@@ -302,6 +414,19 @@ export const getPublicCommonEmployeeHandler = async (req: Request, res: Response
   } catch (error) {
     console.error("Erro ao buscar funcionario comum:", error);
     return res.status(400).json({ error: "Erro ao buscar funcionario comum" });
+=======
+//ver vários funcionários por range
+
+export const getEmployeesHandler = async (req: Request, res: Response) => {
+  try {
+    const limit = parseInt(req.query.limit as string) || 50; // padrão 50 funcionários
+    const offset = parseInt(req.query.offset as string) || 0; // para paginação (opcional)
+
+    const employees = await getEmployees(limit, offset);
+    res.status(200).json(employees);
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
+>>>>>>> bd2d053ff93c3844b6f9cc7993de2d0215f4e81e
   }
 };
 
@@ -318,13 +443,62 @@ export const updateEmployeeHandler = async (req: Request, res: Response) => {
 
 
 // Editar senha
-export const updatePasswordHandler = async (req: Request, res: Response) => {
+export const updatePasswordHandler = async (req: Request, res: Response): Promise<void> => {
   try {
     const { register } = req.params;
     const { currentPassword, newPassword, confirmPassword } = req.body;
-    const result = await updatePassword(register, currentPassword, newPassword, confirmPassword);
+    const authenticatedRegister = req.user?.register; // Supondo que o registro do usuário autenticado esteja em req.user
+
+    if (!authenticatedRegister) {
+      res.status(403).json({ error: 'Usuário não autenticado.' });
+      return;
+    }
+
+    if (register !== authenticatedRegister) {
+      res.status(403).json({ error: 'Você só pode atualizar a sua própria senha.' });
+      return;
+    }
+
+    const result = await updatePassword(register, currentPassword, newPassword, confirmPassword, authenticatedRegister);
     res.status(200).json(result);
   } catch (error: any) {
     res.status(400).json({ error: error.message });
   }
 };
+
+// ativo ou inativo
+
+export const deactivateEmployeeHandler = async (req: Request, res: Response) => {
+  try {
+    const { register } = req.params;
+
+    const employee = await Employee.findOne({ where: { register } });
+    if (!employee) {
+      return res.status(404).json({ error: 'Funcionário não encontrado' });
+    }
+
+    employee.isActive = false;
+    await employee.save();
+
+    res.status(200).json({ message: 'Funcionário desativado com sucesso' });
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+// ver funcionario comum 
+export const getPublicCommonEmployeeHandler = async (req: Request, res: Response) => {
+  const { register } = req.params;
+
+  try{
+    const employee = await getPublicCommonEmployee (register);
+
+    if (!employee) {
+      return res.status(404).json({ error: 'Funcionário não encontrado' });
+    }
+    return res.status(200).json(employee);
+  } catch (error) {
+    console.error('Erro ao buscar funcionário:', error);
+    return res.status(400).json({ error: 'Erro ao buscar funcionário' });
+  }
+}

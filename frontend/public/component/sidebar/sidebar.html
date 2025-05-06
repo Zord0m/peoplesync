@@ -1,35 +1,116 @@
-<article class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Empresa</h5>
+<section class="offcanvas offcanvas-start" tabindex="-1" id="projectSidebar" aria-labelledby="projectSidebarLabel">
+    <article class="offcanvas-header">
+        <h4 class="m-0" id="projectSidebarLabel">
+            <!-- NOME DO USUÁRIO -->
+        </h4>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
+    </article>
+
     <div class="offcanvas-body">
-        <div class="button-group">
-            <a href="">Registrar Ponto</a>
-            <a href="/employee-create">Adicionar Funcionário</a>
+        <div class="info-box">
+            <div class="info-box__role">
+                <h5 class="fw-normal" id="cargoText">
+                    <!-- CARGO DO USUÁRIO -->
+                </h5>
+            </div>
+            <div class="info-box__register">
+                <h6 class="fw-light" id="registerText">
+                    <!-- MATRÍCULA DO USUÁRIO -->
+                </h6>
+            </div>
         </div>
-        <div class="sections-group">
-            <a href=""><i class="bi bi-stopwatch"></i>Horários</a>
-            <a href=""><i class="bi bi-building"></i>Empresa</a>
-            <a href=""><i class="bi bi-person-badge"></i>Funcionários</a>
+        <div class="categories-box">
+            <div class="categories-box__horarios">
+                <div class="dropdown">
+                    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-clock"></i>
+                        Horários
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-item">
+                            <button class="btn btn-secondary">
+                                Registrar Ponto
+                            </button>
+                        </li>
+                        <li class="dropdown-item">
+                            <button class="btn btn-info">
+                                <a href="/#/dashboard-horario">
+                                    Meus Horários
+                                </a>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="categories-box__projetos">
+                <div class="dropdown">
+                    <button class="btn  dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-kanban"></i>
+                        Projetos
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-item">
+                            <button class="btn btn-info">
+                                Visualizar Projetos
+                            </button>
+                        </li>
+                        <li class="dropdown-item only-admin">
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#projectCreateModal">
+                                Registrar Projeto
+                            </button>
+                        </li>
+                        <li class="dropdown-item">
+                            <button class="btn btn-outline-danger">
+                                Remover Projeto
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="categories-box__funcionarios">
+                <div class="dropdown">
+                    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-person-raised-hand"></i>
+                        Funcionários
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-item">
+                            <button class="btn btn-info">
+                                <a href="/#/employees">
+                                    Visualizar Funcionários
+                                </a>
+                            </button>
+                        </li>
+                        <li class="dropdown-item">
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#employeeCreateModal">
+                                Registrar Funcionário
+                            </button>
+                        </li>
+                        <li class="dropdown-item">
+                            <button class="btn btn-outline-danger">
+                                Remover Funcionário
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <!-- <div>
-            Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists,
-            etc.
-        </div>
-        <div class="dropdown mt-3">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                Dropdown button
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-        </div> -->
     </div>
-</article>
-<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
-    aria-controls="offcanvasExample">
-    >
+    <div class="exit">
+        <button id="sair">
+            Sair
+        </button>
+    </div>
+</section>
+<button class="menu-button sidebar-button-open" type="button" data-bs-toggle="offcanvas" data-bs-target="#projectSidebar"
+    aria-controls="projectSidebar">
+    <i class="bi bi-list"></i>
 </button>
+
+<!-- CRIAÇÃO DE FUNCIONÁRIO -->
+<component src="public/component/employee-create/employee-create.html"></component>
+
+<component src="public/component/employee-card-info/employee-card-info.html"></component>
+
+<!-- CRIAÇÃO DE PROJETO -->
+<component src="public/component/project-create/project-create.html"></component>

@@ -1,0 +1,87 @@
+<!-- MODAL DE INFORMAÇÕES DO USUÁRIO -->
+<article class="modal fade" id="employeeDataInfoModal" tabindex="-1" aria-labelledby="employeeDataInfoModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" id="modalContent">
+            <div class="modal-header">
+                <h5 class="modal-title" id="employeeDataInfoModalLabel">Informações do funcionário</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+                <form id="employeeInfoForm" class="container">
+                    <div class="input-info-group row">
+                        <div class="form-floating col-12">
+                            <input required name="name" type="text" class="form-control" id="nameEditInput">
+                            <label for="nameEditInput">Nome do Funcionário</label>
+                        </div>
+                        <div class="form-floating col-12">
+                            <input required name="email" type="email" class="form-control" id="emailEditInput"
+                                placeholder="Email">
+                            <label for="emailEditInput">Email</label>
+                        </div>
+                        <div class="form-floating col-6">
+                            <input required name="birthDate" type="date" class="form-control" id="birthdateEditInput"
+                                placeholder="Data de nascimento">
+                            <label for="birthdateEditInput">Data de nascimento</label>
+                        </div>
+                        <div class="col-3">
+                            <!-- <label for="genderInput" class="form-label">Sexo</label> -->
+                            <select class="form-select form-control" required name="gender" aria-label="Sexo"
+                                id="genderEditInput">
+                                <option selected>Sexo</option>
+                                <option value="masculino">Masculino</option>
+                                <option value="feminino">Feminino</option>
+                                <option value="outro">Outro</option>
+                            </select>
+                        </div>
+                        <div class="form-check col-3">
+                            <input name="pcd" class="form-check-input" type="checkbox" id="pcdEditInput">
+                            <label class="form-check-label" for="pcdEditInput">
+                                PCD
+                            </label>
+                        </div>
+                    </div>
+                    <div class="input-info-group row">
+                        <div class="col-6">
+                            <select required name="contractType" class="form-select form-control" id="contracttypeEditInput">
+                                <option value="">Contratação</option>
+                                <option value="clt">CLT</option>
+                                <option value="pj">PJ</option>
+                                <option value="estagiario">Estagiário</option>
+                            </select>
+                            <!-- <label for="contractInput">Contrato</label> -->
+                        </div>
+                        <div class="col-6">
+                            <select required name="type" class="form-select form-control" id="typeEditInput">
+                                <option value="">Tipo de Usuário</option>
+                                <option value="comum">Comum</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                            <!-- <label for="typeInput">Tipo de Usuário</label> -->
+                        </div>
+                        <div class="form-floating col-12">
+                            <input required name="role" type="text" class="form-control" id="roleEditInput"
+                                placeholder="Cargo">
+                            <label for="roleEditInput">Cargo</label>
+                        </div>
+                    </div>
+                    <div class="input-info-group row">
+                        <div class="form-floating">
+                            <input required name="register" type="text" class="form-control" id="registerEditInput"
+                                placeholder="Matrícula">
+                            <label for="registerEditInput">Matrícula</label>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button type="button" id="editInfoModalData" class="btn btn-info">
+                            Editar dados
+                        </button>
+                        <!-- <button type="submit" class="btn btn-primary">
+                            Cadastrar
+                        </button> -->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</article>

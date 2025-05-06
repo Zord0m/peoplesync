@@ -1,1 +1,3 @@
-import "./Employee";
+import './Employee';
+import './Project';
+import './TimeEntry';

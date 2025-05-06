@@ -1,0 +1,71 @@
+/* Lexend Thin */
+@font-face {
+    font-family: 'Lexend';
+    src: url('../../assets/font/Lexend/Lexend-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
+
+/* Lexend ExtraLight */
+@font-face {
+    font-family: 'Lexend';
+    src: url('../../assets/font/Lexend/Lexend-ExtraLight.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+}
+
+/* Lexend Light */
+@font-face {
+    font-family: 'Lexend';
+    src: url('../../assets/font/Lexend/Lexend-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+/* Lexend Regular */
+@font-face {
+    font-family: 'Lexend';
+    src: url('../../assets/font/Lexend/Lexend-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* Lexend Medium */
+@font-face {
+    font-family: 'Lexend';
+    src: url('../../assets/font/Lexend/Lexend-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+/* Lexend SemiBold */
+@font-face {
+    font-family: 'Lexend';
+    src: url('../../assets/font/Lexend/Lexend-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+/* Lexend Bold */
+@font-face {
+    font-family: 'Lexend';
+    src: url('../../assets/font/Lexend/Lexend-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+/* Lexend ExtraBold */
+@font-face {
+    font-family: 'Lexend';
+    src: url('../../assets/font/Lexend/Lexend-ExtraBold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+}
+
+/* Lexend Black */
+@font-face {
+    font-family: 'Lexend';
+    src: url('../../assets/font/Lexend/Lexend-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}

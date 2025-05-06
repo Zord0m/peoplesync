@@ -22,13 +22,16 @@ export const createEmployee = async (data: EmployeeCreationAttributes) => {
     throw new Error("Matrícula deve conter exatamente 6 números.");
   }
   if (![true, false].includes(data.pcd)) {
-    throw new Error("Campo PCD deve ser 'sim' ou 'nao'.");
+    throw new Error("Campo PCD deve ser true ou false.");
   }
-  if (!["masculino", "feminino", "outros"].includes(data.gender)) {
-    throw new Error("Sexo deve ser 'masculino', 'feminino' ou 'outros'.");
+  if (!["masculino", "feminino", "outro"].includes(data.gender)) {
+    throw new Error("Sexo deve ser 'masculino', 'feminino' ou 'outro'.");
   }
-  if (!/^\d{2}\/\m{2}\/\a{4}$/.test(data.birthDate)) {
-    throw new Error("Formato de data inválido. Use dd/mm/aaaa.");
+  const [day, month, year] = data.birthDate.split('/').map(Number);
+  const isValidDate = !isNaN(Date.parse(`${year}-${month}-${day}`));
+  
+  if (!isValidDate) {
+    throw new Error("Data inválida.");
   }
   
   const exists = await Employee.findOne({ where: { email: data.email } });
@@ -62,6 +65,8 @@ export const setPasswordByRegister = async (register: string, password: string, 
   return { message: "Senha cadastrada com sucesso." };
 };
 
+//ver funcionário
+
 export const getEmployee = async (register: string) => {
   const employee = await Employee.findOne({ where: { register } });
   if (!employee) {
@@ -70,13 +75,24 @@ export const getEmployee = async (register: string) => {
   return employee;
 };
 
+//ver vários funcionários
+export const getEmployees = async (limit: number, offset: number) => {
+  const employees = await Employee.findAll({
+    limit,
+    offset,
+    order: [['id', 'ASC']], // opcional, para manter uma ordem
+  });
+  return employees;
+};
+
 export const updateEmployee = async (register: string, data: Partial<EmployeeCreationAttributes>) => {
+  // Encontra o funcionário com o registro fornecido
   const employee = await Employee.findOne({ where: { register } });
   if (!employee) {
     throw new Error("Funcionário não encontrado.");
   }
 
-  // Validação de campos opcionais, se desejar, como contrato e tipo de funcionário
+  // Validação de campos opcionais, como o e-mail
   if (data.email) {
     const emailExists = await Employee.findOne({ where: { email: data.email } });
     if (emailExists) {
@@ -84,32 +100,51 @@ export const updateEmployee = async (register: string, data: Partial<EmployeeCre
     }
   }
 
-  // Atualiza apenas os campos que foram passados
+  // Remove campos com valor vazio ("") dos dados antes de atualizar
+  Object.keys(data).forEach((key) => {
+    if (data[key as keyof EmployeeCreationAttributes] === "") {
+      delete data[key as keyof EmployeeCreationAttributes]; // Remove a chave
+    }
+  });
+
+  // Atualiza apenas os campos que não foram removidos
   await employee.update(data);
 
   return employee;
 };
 
-export const updatePassword = async (register: string, currentPassword: string, newPassword: string, confirmPassword: string) => {
+
+
+export const updatePassword = async (register: string, currentPassword: string, newPassword: string, confirmPassword: string, authenticatedRegister: string) => {
+  // Verifica se o funcionário está tentando alterar sua própria senha
+  if (register !== authenticatedRegister) {
+    throw new Error("Você não tem permissão para alterar a senha de outro funcionário.");
+  }
+
+  // Verifica se as senhas coincidem
   if (newPassword !== confirmPassword) {
     throw new Error("As senhas não coincidem.");
   }
 
+  // Regex para validação da senha
   const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
   if (!passwordRegex.test(newPassword)) {
     throw new Error("A senha deve conter pelo menos 8 caracteres, uma letra maiúscula e um número.");
   }
 
+  // Busca o funcionário no banco
   const employee = await Employee.findOne({ where: { register } });
   if (!employee) {
     throw new Error("Funcionário não encontrado.");
   }
 
+  // Verifica se a senha atual está correta
   const isPasswordCorrect = await bcrypt.compare(currentPassword, employee.password || "");
   if (!isPasswordCorrect) {
     throw new Error("Senha atual incorreta.");
   }
 
+  // Criptografa a nova senha e a salva no banco
   const hashedPassword = await bcrypt.hash(newPassword, 10);
   employee.password = hashedPassword;
   await employee.save();
@@ -117,6 +152,7 @@ export const updatePassword = async (register: string, currentPassword: string, 
   return { message: "Senha atualizada com sucesso." };
 };
 
+<<<<<<< HEAD
 // Buscar funcionario comum 
 export const getPublicCommonEmployee = async (register: string) => {
   const employee = await Employee.findOne({
@@ -132,3 +168,19 @@ export const getPublicCommonEmployee = async (register: string) => {
     register: employee.register
   };
 };
+=======
+//visualizar funcionário comum 
+export const getPublicCommonEmployee = async (register: string) => {
+  const employee = await Employee.findOne({ 
+    where: { register, type:"comum" },
+    attributes: ["name", "role", "register"]});
+
+  if (!employee) return null;
+
+  return{
+    name: employee.name,
+    role: employee.role,
+    register: employee.register,
+  };
+};
+>>>>>>> bd2d053ff93c3844b6f9cc7993de2d0215f4e81e
