@@ -1,52 +1,34 @@
+// login.js
 (function () {
     const loginForm = document.getElementById("loginForm");
-    console.log(loginForm);
+    if (!loginForm) throw new Error("Formulário de login não encontrado");
 
-    if (loginForm) {
-        loginForm.addEventListener("submit", async (event) => {
-            event.preventDefault();
-            try {
-                await sendLogin();
-            } catch (error) {
-                console.error("Erro no login:", error.message);
+    loginForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        try {
+            const formData = new FormData(loginForm);
+            for (const [name, value] of formData.entries()) {
+                if (!value.trim()) {
+                    throw new Error(`O campo "${name}" não pode ficar vazio.`);
+                }
             }
-        });
-    }
+            const payload = Object.fromEntries(formData.entries());
+            const response = await fetch('http://localhost:4444/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
 
-    async function sendLogin() {
-        const formData = new FormData(loginForm);
-        const loginData = Object.fromEntries(formData.entries());
+            if (!response.ok) {
+                const errText = await response.text();
+                throw new Error(errText || 'Falha ao autenticar');
+            }
 
-        console.log(loginData);
-
-        validateLoginInputs(formData);
-        const response = await fetch("http://localhost:4444/auth/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(loginData),
-        });
-
-        if (!response.ok) {
-            throw new Error("Falha no login");
+            const loginResult = await response.json();
+            localStorage.setItem("token", loginResult.token);
+            navigateTo('/horarios');
+        } catch (error) {
+            console.error('Erro no login:', error);
         }
-
-        const result = await response.json();
-        console.log("Login bem-sucedido:", result);
-
-        // Salvar o token e o tipo de usuário
-        localStorage.setItem("token", result.token);
-        navigateTo("/dashboard-horario");
-    }
-
-    function validateLoginInputs(formData) {
-        const entries = Array.from(formData.entries());
-
-        entries.forEach(([fieldName, fieldValue]) => {
-            if (!fieldValue.trim()) {
-                throw new Error(`O campo ${fieldName} não pode estar vazio.`);
-            }
-        });
-    }
+    });
 })();

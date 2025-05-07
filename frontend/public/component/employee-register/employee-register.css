@@ -1,5 +1,3 @@
-@import url("../../css/variables.css");
-
 #employeeRegister {
     background-color: var(--white-color);
     display: flex;

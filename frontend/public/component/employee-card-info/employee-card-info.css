@@ -1,4 +1,4 @@
-/* CSS para employee-card-info */ 
+/* CSS para employee-card-info */
 #employeeDataInfoModal .modal-dialog .modal-content {
     background-color: var(--white-color);
 
@@ -33,6 +33,10 @@
                         -webkit-box-shadow: 0 0 0 30px #FFFFFF inset !important;
                         -webkit-text-fill-color: #000 !important;
                     }
+
+                    &:disabled {
+                        background-color: #E2E2E2;
+                    }
                 }
 
                 &>div {
@@ -41,8 +45,14 @@
                     align-items: center;
                 }
 
-                & .form-floating label {
-                    padding: 1.25rem 1rem 1rem 1rem;
+                & .form-floating {
+                    &:has(input:disabled) label::after{
+                        background-color: #E2E2E2;
+                    }
+
+                    & label {
+                        padding: 1.25rem 1rem 1rem 1rem;
+                    }
                 }
 
                 & .form-check {

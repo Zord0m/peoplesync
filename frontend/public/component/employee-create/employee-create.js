@@ -63,7 +63,7 @@
         }
 
         // VERIFICAÇÃO DO TIPO DE CONTRATO
-        const contractTypes = ["clt", "pj", "estagiário"];
+        const contractTypes = ["clt", "pj", "estagio"];
         if (fieldName == "contractType" && !contractTypes.includes(fieldValue)) {
             throw new Error(
                 `O campo ${fieldName} precisa ser do tipo ${contractTypes.join(" ou ")}`

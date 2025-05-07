@@ -16,7 +16,7 @@
     console.log(postData);
 
     entriesArray.forEach((entrie) => {
-      verifyCompletude(entrie);
+      // verifyCompletude(entrie);
     });
 
     try {

@@ -1,6 +1,5 @@
 (function () {
     const registerForm = document.getElementById("registerForm");
-    console.log(registerForm);
 
     if (registerForm) {
         registerForm.addEventListener("submit", async (event) => {
@@ -57,7 +56,7 @@
         const loginResult = await loginResponse.json();
 
         localStorage.setItem("token", loginResult.token);
-        navigateTo("/dashboard-horario");
+        window.Router.navigateTo("/dashboard-horario");
     }
 
     function validateRegisterInputs(formData) {

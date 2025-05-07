@@ -1,156 +1,81 @@
+// DICIONÁRIO DE ROTAS COM A URL E NOME DO COMPONENTE
 const routes = {
-    "/": "./public/component/home/home.html",
-    "/login": "./public/component/login/login.html",
-    "/employee-register": "./public/component/employee-register/employee-register.html",
-    "/dashboard-horario": "./public/component/dashboard-horario/dashboard-horario.html",
-    "/employees": "./public/component/employees-page/employees-page.html",
+    '/': 'home',
+    '/login': 'login',
+    '/register': 'employee-register',
+    '/horarios': 'dashboard-horario',
+    '/employees': 'employees-page',
 };
 
-function loadPage(url) {
-    const path = routes[url] || routes[""];
-    const component = path.split("/")[3];
-    const cssPath = `./public/component/${component}/${component}.css?v=${new Date().getTime()}`;
-    const jsPath = `./public/component/${component}/${component}.js?v=${new Date().getTime()}`;
+// RECURSOS JÁ CARREGADOS
+const loadedAssets = {
+    css: new Set(),
+    modules: {}
+};
 
-    // Cria o elemento de link para o CSS
-    const link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.href = cssPath;
+const version = Date.now(); // cache buster
 
-    // Define o evento onload para garantir que o CSS foi carregado
-    link.onload = () => {
-        fetch(path)
-            .then((response) => response.text())
-            .then((html) => {
-                const app = document.getElementById("app");
-                app.innerHTML = html;
-                processNestedComponent();
+// CARREGA O HTML, JS E CSS DO COMPONENTE
+async function loadComponent(name, targetElement = null) {
+    const componentPath = `/public/component/${name}/${name}`;
 
-                const newTitle = document.querySelector("title");
-                if (newTitle) {
-                    document.title = newTitle.innerText;
-                }
+    // Carrega HTML
+    const html = await fetch(`${componentPath}.html?v=${version}`).then(res => res.text());
+    const container = targetElement || document.getElementById('app');
+    container.innerHTML = html;
 
-                updateScript(jsPath);
-            })
-            .catch((error) => console.error("Erro ao carregar a página: ", error));
-    };
-
-    // Adiciona o link do CSS ao head
-    document.head.appendChild(link);
-}
-
-async function loadComponent(element)
-{
-    let src = element.getAttribute("src");
-    if (!src) return;
-
-    // Forçar atualização para evitar cache
-    const noCacheSrc = `${src}?v=${new Date().getTime()}`;
-
-    try
-    {
-        const response = await fetch(noCacheSrc);
-        const html = await response.text();
-        element.outerHTML = html;
-
-        // Depois de injetar o HTML, carregar o JS do componente
-        await loadComponentScript(src);
-        await loadComponentStyle(src);
-
-        processNestedComponent(); // Carrega componentes aninhados, se houver
+    // Carrega e insere CSS (se ainda não carregado)
+    if (!loadedAssets.css.has(name)) {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = `${componentPath}.css?v=${version}`;
+        document.head.appendChild(link);
+        loadedAssets.css.add(name);
     }
-    catch (error)
-    {
-        console.error("Erro:", error);
+
+    // Importação do arquivo JS como um módulo, para a reexecução
+    const module = await import(`${componentPath}.js?v=${version}`);
+    loadedAssets.modules[name] = module;
+    if (module.init && typeof module.init === 'function') {
+        module.init(); // Executa função init do módulo
+    }
+
+    // Busca e carrega componentes aninhados
+    const nested = container.querySelectorAll('[data-component]');
+    for (const element of nested) {
+        const childName = element.getAttribute('data-component');
+        await loadComponent(childName, element);
     }
 }
 
-async function loadComponentScript(componentPath)
-{
-    // Exemplo: public/component/sidebar/sidebar.html -> sidebar.js
-    const basePath = componentPath.substring(0, componentPath.lastIndexOf("/"));
-    const componentName = basePath.split("/").pop();
-    const scriptPath = `${basePath}/${componentName}.js?v=${new Date().getTime()}`;
-
-    // Criar e inserir o script
-    const script = document.createElement("script");
-    script.src = scriptPath;
-    script.defer = true;
-    document.body.appendChild(script);
-}
-
-async function loadComponentStyle(componentPath)
-{
-    // Exemplo: public/component/sidebar/sidebar.html -> sidebar.js
-    const basePath = componentPath.substring(0, componentPath.lastIndexOf("/"));
-    const componentName = basePath.split("/").pop();
-    const stylePath = `./${basePath}/${componentName}.css?v=${new Date().getTime()}`;
-
-    // Criar e inserir o script
-    const link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.href = stylePath;
-    document.head.appendChild(link);
-}
-
-function processNestedComponent()
-{
-    document.querySelectorAll("component").forEach(loadComponent);
-}
-
-async function updateStylesheet(stylePath)
-{
-    let styleLink = document.getElementById("dynamic-style");
-    if (!styleLink)
-    {
-        styleLink = document.createElement("link");
-        styleLink.rel = "stylesheet";
-        styleLink.id = "dynamic-style";
-        document.head.appendChild(styleLink);
-    }
-    styleLink.href = `${stylePath}?v=${new Date().getTime()}`;
-}
-
-async function updateScript(scriptPath) {
-    // Remove o script anterior, se existir
-    let existingScript = document.getElementById("dynamic-script");
-    if (existingScript) {
-        existingScript.remove();
-    }
-
-    // Cria e adiciona o novo script
-    let script = document.createElement("script");
-    script.src = `${scriptPath}?v=${new Date().getTime()}`;
-    script.id = "dynamic-script";
-    script.defer = true;
-    document.body.appendChild(script);
-}
-
+// Função que trata a navegação
 function navigateTo(url) {
-    // history.pushState({}, "", url);
-    window.location.hash = url;
-    loadPage(url);
+    history.pushState(null, null, url);
+    handleRoute();
 }
 
-// Captura mudanças no histórico (botões de voltar/avançar)
-window.addEventListener("popstate", () => {
-    const path = window.location.hash.replace("#", "") || "/";
-    loadPage(path);
-});
+// Gerenciamento do componente de acordo com a rota atual
+function handleRoute() {
+    const path = window.location.pathname;
+    const componentName = routes[path];
 
-// Intercepta cliques em links para evitar recarregamento da página
-document.addEventListener("click", (event) => {
-    const target = event.target.closest("a");
-    if (target && target.href.startsWith(window.location.origin)) {
+    if (componentName) {
+        loadComponent(componentName);
+    } else {
+        document.getElementById('app').innerHTML = `<h2>404 - Página não encontrada</h2>`;
+    }
+}
+
+// Escuta cliques em links com data-link
+document.addEventListener('click', (event) => {
+    if (event.target.matches('[data-link]')) {
         event.preventDefault();
-        navigateTo(new URL(target.href).hash.replace("#", ""));
+        navigateTo(event.target.getAttribute('href'));
     }
 });
 
-// Carrega a página inicial
-document.addEventListener("DOMContentLoaded", () => {
-    // loadPage(window.location.pathname);
-    const path = window.location.hash.replace("#", "") || "/";
-    loadPage(path);
-});
+// Atualiza o conteúdo ao usar botões de navegador (voltar/avançar)
+window.addEventListener('popstate', handleRoute);
+
+// Inicialização da rota atual
+handleRoute();

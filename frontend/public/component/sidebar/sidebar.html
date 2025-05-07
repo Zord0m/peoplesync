@@ -34,7 +34,7 @@
                         </li>
                         <li class="dropdown-item">
                             <button class="btn btn-info">
-                                <a href="/#/dashboard-horario">
+                                <a data-link href="/horarios">
                                     Meus Horários
                                 </a>
                             </button>
@@ -76,7 +76,7 @@
                     <ul class="dropdown-menu">
                         <li class="dropdown-item">
                             <button class="btn btn-info">
-                                <a href="/#/employees">
+                                <a data-link href="/employees">
                                     Visualizar Funcionários
                                 </a>
                             </button>
@@ -108,9 +108,9 @@
 </button>
 
 <!-- CRIAÇÃO DE FUNCIONÁRIO -->
-<component src="public/component/employee-create/employee-create.html"></component>
-
-<component src="public/component/employee-card-info/employee-card-info.html"></component>
+<!-- <component src="./public/component/employee-create/employee-create.html"></component> -->
+<div data-component="employee-create"></div>
 
 <!-- CRIAÇÃO DE PROJETO -->
-<component src="public/component/project-create/project-create.html"></component>
+<!-- <component src="./public/component/project-create/project-create.html"></component> -->
+<div data-component="project-create"></div>

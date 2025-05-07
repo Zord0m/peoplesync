@@ -1,79 +1,67 @@
-// JS para sidebar
-(function () {
+export function init()
+{
     parseJwt();
-    getEmployeeUserData();
-
-    document.getElementById("sair").addEventListener("click", () => {
-        logOut();
-    })
-
     function parseJwt() {
         try {
-            const token = localStorage.getItem("token");
+            const token = localStorage.getItem('token');
+            if (!token) throw new Error('Token não encontrado');
             const base64Payload = token.split('.')[1];
-            const payload = atob(base64Payload); // decodifica base64
-            localStorage.setItem("userInfo", payload); // transforma em string
-        } catch (e) {
-            console.error("Token inválido");
-            return null;
+            const payload = atob(base64Payload);
+            localStorage.setItem('userInfo', payload);
+            getEmployeeUserData();
+        } catch (err) {
+            console.error('Token inválido:', err);
         }
-    }
+    };
 
     async function getEmployeeUserData() {
-        const userData = JSON.parse(localStorage.getItem("userInfo"));
-        console.log(userData);
-        console.log(localStorage.getItem("token"));
+        const userInfoRaw = localStorage.getItem('userInfo');
+        if (!userInfoRaw) return;
 
+        const userData = JSON.parse(userInfoRaw);
+        console.log(userData);
         const register = userData.register;
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem('token');
         try {
-            const response = await fetch(`http://localhost:4444/employees/${register}`, {
-                method: "GET",
+            const userResponse = await fetch(`http://localhost:4444/employees/${register}`, {
+                method: 'GET',
                 headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 }
             });
-            if (!response.ok) {
-                throw new Error("Falha na requisição do funcionário");
-            }
-            const userCompleteData = await response.json();
-            // console.log("Usuário encontrado", userCompleteData);
-            localStorage.setItem("userCompleteInfo", JSON.stringify(userCompleteData));
-            verifyAuthorizationToShowContent();
-            completeSidebarUserInfo();
-        }
-        catch (error) {
-            console.log(error);
-        }
-    }
+            if (!userResponse.ok) throw new Error('Falha ao buscar dados do funcionário');
+            const userCompleteData = await userResponse.json();
+            localStorage.setItem('userCompleteInfo', JSON.stringify(userCompleteData));
 
-    function verifyAuthorizationToShowContent() {
-        const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-        console.log(userInfo);
+            generateSidebarContent(userCompleteData);
+        } catch (err) {
+            console.error('Erro ao inicializar sidebar:', err);
+        }
+    };
 
-        if (userInfo.type != "admin") {
-            const elementsToHide = document.querySelectorAll(".only-admin");
-            elementsToHide.forEach((element) => {
-                element.remove();
-                console.log("Elemento removido")
+    function generateSidebarContent(userCompleteData) {
+        const sidebarContainer = document.getElementById("projectSidebar");
+        if (userCompleteData.type !== 'admin' && sidebarContainer)
+        {
+            sidebarContainer.querySelectorAll('.only-admin').forEach(el => el.remove());
+        }
+        const sidebarUserName = document.getElementById("projectSidebarLabel");
+        const sidebarUserRole = document.getElementById("cargoText");
+        const sidebarUserRegister = document.getElementById("registerText");
+
+        sidebarUserName.innerText = userCompleteData.name;
+        sidebarUserRole.innerText = `Cargo: ${userCompleteData.role}`;
+        sidebarUserRegister.innerText = `Matrícula: ${userCompleteData.register}`;
+
+        const sairBtn = sidebarContainer.querySelector('#sair');
+        if (sairBtn) {
+            sairBtn.addEventListener('click', () => {
+                localStorage.removeItem('token');
+                localStorage.removeItem('userInfo');
+                localStorage.removeItem('userCompleteInfo');
+                window.navigateTo('/login');
             });
         }
     }
-
-    function completeSidebarUserInfo() {
-        const userInfo = JSON.parse(localStorage.getItem("userCompleteInfo"));
-
-        // Nome do usuário
-        const userNameElement = document.getElementById("projectSidebarLabel");
-        userNameElement.innerText = userInfo.name;
-
-        // Cargo do usuário
-        const userRoleElement = document.getElementById("cargoText");
-        userRoleElement.innerText = `Cargo: ${userInfo.role}`;
-
-        // Matrícula do usuário
-        const userRegisterElement = document.getElementById("registerText");
-        userRegisterElement.innerText = `Matrícula: ${userInfo.register}`;
-    }
-})();
+}

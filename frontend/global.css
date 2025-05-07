@@ -8,6 +8,10 @@
     font-family: "Lexend";
 }
 
+#app {
+    height: fit-content;
+}
+
 #pageSection {
     min-height: 100dvh;
     overflow-x: auto;
