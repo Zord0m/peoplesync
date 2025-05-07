@@ -1,5 +1,9 @@
 import { Request, Response } from "express";
+<<<<<<< HEAD
+import { createEmployee, getEmployee, setPasswordByRegister, updateEmployee, updatePassword, getPublicCommonEmployee } from "../services/EmployeeService";
+=======
 import { createEmployee, getEmployee, getEmployees, getPublicCommonEmployee, setPasswordByRegister, updateEmployee, updatePassword } from "../services/EmployeeService";
+>>>>>>> bd2d053ff93c3844b6f9cc7993de2d0215f4e81e
 import Employee, { EmployeeCreationAttributes } from "../models/Employee";
 
 /**
@@ -353,6 +357,38 @@ export const setEmployeePassword = async (req: Request, res: Response) => {
  *         description: Funcionário comum não encontrado
  */
 
+// Ver funcionário comum (sem autenticação)
+/**
+ * @swagger
+ * /employees/{register}doc/public:
+ *   get:
+ *     summary: Visualizar funcionário comum (sem autenticação)
+ *     tags: [Employees]
+ *     parameters:
+ *       - in: path
+ *         name: register
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Registro do funcionário
+ *     responses:
+ *       200:
+ *         description: Dados do funcionário comum
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 nome:
+ *                   type: string
+ *                 cargo:
+ *                   type: string
+ *                 registro:
+ *                   type: string
+ *       404:
+ *         description: Funcionário comum não encontrado
+ */
+ 
 // Ver funcionário
 export const getEmployeeHandler = async (req: Request, res: Response) => {
   try {
@@ -364,6 +400,21 @@ export const getEmployeeHandler = async (req: Request, res: Response) => {
   }
 };
 
+<<<<<<< HEAD
+//visualizar dados gerais de um funcionario comum 
+export const getPublicCommonEmployeeHandler = async (req: Request, res: Response) => {
+  const { register } = req.params;
+  try{
+    const employee = await getPublicCommonEmployee(register);
+
+    if (!employee) {
+      return res.status(404).json({ error: "Funcionario comum nao encontrado"});
+    }
+    return res.status(200).json(employee);
+  } catch (error) {
+    console.error("Erro ao buscar funcionario comum:", error);
+    return res.status(400).json({ error: "Erro ao buscar funcionario comum" });
+=======
 //ver vários funcionários por range
 
 export const getEmployeesHandler = async (req: Request, res: Response) => {
@@ -375,6 +426,7 @@ export const getEmployeesHandler = async (req: Request, res: Response) => {
     res.status(200).json(employees);
   } catch (error: any) {
     res.status(400).json({ error: error.message });
+>>>>>>> bd2d053ff93c3844b6f9cc7993de2d0215f4e81e
   }
 };
 
