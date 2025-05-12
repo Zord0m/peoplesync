@@ -1,0 +1,54 @@
+<article class="modal fade" id="clockinRegisterModal" tabindex="-1" aria-labelledby="clockinRegisterModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="clockinRegisterModalLabel">Registro de Ponto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+                <div class="img-box">
+                    <img src="public/assets/img/illustrations/clockin-register.svg" alt="Imagem do registro de ponto">
+                </div>
+                <form id="clockInForm" class="container">
+                    <div class="input-info-group row">
+                        <div class="form-floating col-6">
+                            <input required name="projectTag" type="text" class="form-control" id="projectTagInput"
+                                placeholder="Tag do Projeto">
+                            <label for="projectTagInput">Tag do Projeto</label>
+                        </div>
+                        <div class="form-floating col-6">
+                            <input required name="date" type="date" class="form-control" id="clockinDateInput"
+                                placeholder="Data do registro">
+                            <label for="clockinDateInput">Data do registro</label>
+                        </div>
+                        <div class="form-floating col-6">
+                            <input required name="start" type="time" class="form-control" id="startTimeInput"
+                                placeholder="Horário de Entrada">
+                            <label for="startTimeInput">Horário de Entrada</label>
+                        </div>
+                        <div class="form-floating col-6">
+                            <input required name="end" type="time" class="form-control" id="endTimeInput"
+                                placeholder="Horário de Saída">
+                            <label for="endTimeInput">Horário de Saída</label>
+                        </div>
+                    </div>
+                    <div class="input-info-group row">
+                        <div class="form-group d-flex flex-column align-items-start mt-2 col-12">
+                            <label for="description" class="form-label">Descrição do Projeto</label>
+                            <textarea name="description" id="description" class="form-control" rows="5"></textarea>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button type="button" id="resetDataButton" class="btn btn-secondary">
+                            Reiniciar dados
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            Registrar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</article>

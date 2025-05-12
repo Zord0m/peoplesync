@@ -1,0 +1,90 @@
+#clockinRegisterModal .modal-dialog .modal-content {
+    background-color: var(--white-color);
+
+    & .modal-body {
+        display: flex;
+
+        & #clockInForm {
+            padding: 0;
+            width: 100%;
+
+            & .row {
+                margin: 0;
+                padding: 5px;
+                justify-content: space-between;
+                background-color: var(--white-lighter-color);
+                box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
+                border-radius: 8px;
+
+                &:nth-child(even) {
+                    margin: 20px 0;
+                }
+
+                & input,
+                & textarea {
+
+                    &:focus {
+                        border: 2px solid var(--black-color);
+                        box-shadow: none;
+                    }
+
+                    &:-webkit-autofill {
+                        background-color: #FFFFFF !important;
+                        -webkit-box-shadow: 0 0 0 30px #FFFFFF inset !important;
+                        -webkit-text-fill-color: #000 !important;
+                    }
+                }
+
+                &>div {
+                    padding: 5px;
+                    display: flex;
+                    align-items: center;
+                }
+
+                & .form-floating label {
+                    padding: 1.25rem 1rem 1rem 1rem;
+                }
+
+                & .form-check {
+
+                    & .form-check-input {
+                        margin-left: 0;
+                    }
+
+                    & .form-check-label {
+                        padding-left: 5px;
+                    }
+                }
+            }
+
+            & .action-buttons {
+                margin-top: 20px;
+                display: flex;
+                justify-content: flex-end;
+                column-gap: 10px;
+            }
+        }
+
+        & .img-box {
+            /* width: 40%; */
+            display: none;
+
+            & img {
+                width: 100%;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 992px) {
+    #clockinRegisterModal .modal-dialog .modal-content .modal-body {
+        & #clockInForm {
+            width: 60%;
+        }
+
+        & .img-box {
+            width: 40%;
+            display: flex;
+        }
+    }
+}
