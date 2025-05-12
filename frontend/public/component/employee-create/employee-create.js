@@ -1,21 +1,14 @@
 (function () {
-    // JS para employee-create
-    console.log("Página de criação de funcionário");
-
-    const form = document.getElementById("createForm");
-
-    if (form) {
-        form.addEventListener("submit", (event) => {
+    const employeeCreateForm = document.getElementById("createForm");
+    if (employeeCreateForm) {
+        employeeCreateForm.addEventListener("submit", (event) => {
             event.preventDefault();
             sendData();
         });
     }
 
-    /**
-     * Função para registro de funcionário
-     */
     async function sendData() {
-        const formData = new FormData(form);
+        const formData = new FormData(employeeCreateForm);
         const entriesArray = Array.from(formData.entries());
         const postData = Object.fromEntries(formData.entries());
 
