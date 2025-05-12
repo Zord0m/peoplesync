@@ -152,23 +152,6 @@ export const updatePassword = async (register: string, currentPassword: string, 
   return { message: "Senha atualizada com sucesso." };
 };
 
-<<<<<<< HEAD
-// Buscar funcionario comum 
-export const getPublicCommonEmployee = async (register: string) => {
-  const employee = await Employee.findOne({
-    where: { register, type: "common" },
-    attributes: ["name", "role", "register"]
-  });
-
-  if (!employee) return null;
-
-  return {
-    name: employee.name,
-    role: employee.role,
-    register: employee.register
-  };
-};
-=======
 //visualizar funcionário comum 
 export const getPublicCommonEmployee = async (register: string) => {
   const employee = await Employee.findOne({ 
@@ -183,4 +166,3 @@ export const getPublicCommonEmployee = async (register: string) => {
     register: employee.register,
   };
 };
->>>>>>> bd2d053ff93c3844b6f9cc7993de2d0215f4e81e
