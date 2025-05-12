@@ -28,7 +28,7 @@
                     </button>
                     <ul class="dropdown-menu">
                         <li class="dropdown-item">
-                            <button class="btn btn-secondary">
+                            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#clockinRegisterModal">
                                 Registrar Ponto
                             </button>
                         </li>
@@ -39,12 +39,19 @@
                                 </a>
                             </button>
                         </li>
+                        <li class="dropdown-item">
+                            <button class="btn btn-primary">
+                                <a data-link href="/horarios-funcionario">
+                                    Buscar funcionário
+                                </a>
+                            </button>
+                        </li>
                     </ul>
                 </div>
             </div>
             <div class="categories-box__projetos">
                 <div class="dropdown">
-                    <button class="btn  dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown">
                         <i class="bi bi-kanban"></i>
                         Projetos
                     </button>
@@ -96,8 +103,8 @@
             </div>
         </div>
     </div>
-    <div class="exit">
-        <button id="sair">
+    <div class="exit w-100 d-flex p-2">
+        <button id="sair" class="btn btn-danger">
             Sair
         </button>
     </div>
@@ -107,10 +114,11 @@
     <i class="bi bi-list"></i>
 </button>
 
+<!-- REGISTRO DE PONTO DE HORÁRIO -->
+<div data-component="clockin-register"></div>
+
 <!-- CRIAÇÃO DE FUNCIONÁRIO -->
-<!-- <component src="./public/component/employee-create/employee-create.html"></component> -->
 <div data-component="employee-create"></div>
 
 <!-- CRIAÇÃO DE PROJETO -->
-<!-- <component src="./public/component/project-create/project-create.html"></component> -->
 <div data-component="project-create"></div>

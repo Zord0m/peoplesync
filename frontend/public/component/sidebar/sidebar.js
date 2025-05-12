@@ -53,15 +53,15 @@ export function init()
         sidebarUserName.innerText = userCompleteData.name;
         sidebarUserRole.innerText = `Cargo: ${userCompleteData.role}`;
         sidebarUserRegister.innerText = `Matrícula: ${userCompleteData.register}`;
+    }
 
-        const sairBtn = sidebarContainer.querySelector('#sair');
-        if (sairBtn) {
-            sairBtn.addEventListener('click', () => {
-                localStorage.removeItem('token');
-                localStorage.removeItem('userInfo');
-                localStorage.removeItem('userCompleteInfo');
-                window.navigateTo('/login');
-            });
-        }
+    const sairBtn = document.querySelector('#sair');
+    if (sairBtn) {
+        sairBtn.addEventListener('click', () => {
+            localStorage.removeItem('token');
+            localStorage.removeItem('userInfo');
+            localStorage.removeItem('userCompleteInfo');
+            window.navigateTo('/login');
+        });
     }
 }
