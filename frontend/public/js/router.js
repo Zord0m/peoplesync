@@ -4,6 +4,7 @@ const routes = {
     '/login': 'login',
     '/register': 'employee-register',
     '/horarios': 'dashboard-horario',
+    '/horarios-funcionario': 'horarios-employee',
     '/employees': 'employees-page',
 };
 
