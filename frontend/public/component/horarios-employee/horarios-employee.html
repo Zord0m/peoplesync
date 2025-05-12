@@ -1,0 +1,42 @@
+<section id="pageSection">
+    <div id="employeeClockinPage">
+        <div class="page-title">
+            <div data-component="sidebar"></div>
+            <h1>
+                Buscar horários de funcionário
+            </h1>
+        </div>
+        <div class="container-fluid">
+            <form id="searchClockinEmployee" class="row align-items-center my-1 gy-2">
+                <div class="form-floating col-12 col-sm-8 col-md-4">
+                    <input required type="text" name="register" class="form-control" id="searchEmployeeClockinInput"
+                        placeholder="Matrícula do funcionário">
+                    <label for="searchEmployeeClockinInput">Matrícula do funcionário</label>
+                </div>
+                <div class="button-box col-12 col-sm-4 col-md-2">
+                    <button type="submit" class="btn btn-secondary">
+                        <i class="bi bi-search"></i>
+                        Buscar
+                    </button>
+                </div>
+                <div id="periodSearch" class="d-flex align-items-center col-12 col-md-6">
+                    <button type="button" id="backWeek" class="previousWeek">
+                        <i class="bi bi-chevron-bar-left"></i>
+                    </button>
+                    <p id="backward"></p>
+                    <span> - </span>
+                    <p id="current"></p>
+                    <button type="button" id="nextWeek" class="nextWeek">
+                        <i class="bi bi-chevron-bar-right"></i>
+                    </button>
+                    <!-- SELEÇÃO DA SEMANA DE BUSCA -->
+                </div>
+            </form>
+            <div id="employeeClockinContainer">
+                <p class="h3 text-center m-0" id="message">Busque os horários pelo registro...</p>
+                <div id="clockinsContainer" class="gy-2"></div>
+                <!-- CARDS DE HORÁRIOS -->
+            </div>
+        </div>
+    </div>
+</section>
