@@ -1,5 +1,5 @@
 export function init() {
-    const employeesContainer = document.querySelector("#employeesContainer");
+    const employeesContainer = document.getElementById("employeesContainer");
     if (!employeesContainer) return;
 
     loadEmployeesData();
