@@ -1,9 +1,29 @@
 <section id="pageSection">
-    <div class="page-title">
-        <div data-component="sidebar"></div>
-        <h1>
-            Meus Horários
-        </h1>
+    <div id="selfClockinPage">
+        <div class="page-title">
+            <div data-component="sidebar"></div>
+            <h1>
+                Meus Horários
+            </h1>
+        </div>
+        <div class="container-fluid">
+            <div id="periodSearch" class="row">
+                <button type="button" id="backWeek" class="previousWeek col-auto">
+                    <i class="bi bi-chevron-bar-left"></i>
+                </button>
+                <span class="periodText col-auto">
+                    <p id="backward"></p>
+                    <span> - </span>
+                    <p id="current"></p>
+                </span>
+                <button type="button" id="nextWeek" class="nextWeek col-auto">
+                    <i class="bi bi-chevron-bar-right"></i>
+                </button>
+                <!-- SELEÇÃO DA SEMANA DE BUSCA -->
+            </div>
+            <div class="hoursContainer" class="row gy-2">
+                <!-- CARDS DE HORÁRIOS -->
+            </div>
+        </div>
     </div>
-
 </section>
