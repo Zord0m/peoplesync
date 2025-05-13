@@ -9,9 +9,16 @@
         column-gap: 15px;
         margin: 1em 0;
 
-        & p {
-            margin: 0;
+        & .periodText {
+            display: flex;
+            column-gap: 8px;
+
+            & p {
+                margin: 0;
+                font-weight: 600;
+            }
         }
+
 
         & button {
             width: 30px;
@@ -26,6 +33,89 @@
 
             &:active {
                 background-color: var(--light-blue-color);
+            }
+        }
+    }
+
+    & #employeeClockinContainer {
+
+        & #message {
+            position: relative;
+            top: 5em;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        & #clockinsContainer {
+            height: 75dvh;
+            overflow: auto;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            align-items: start;
+            padding: 5px;
+            column-gap: 8px;
+            scrollbar-width: thin;
+
+            & .day-container {
+                min-width: 220px;
+                width: 14.7%;
+                height: calc(75dvh - 16px);
+                background-color: var(--white-lighter-color);
+                border: 1px solid #E1E1E1;
+                border-radius: 8px;
+                padding: 8px;
+
+                & .day-title {
+                    text-align: center;
+                    font-weight: 600;
+                    font-size: 14px;
+                    margin: 8px 0 12px 0;
+                }
+
+                & .card {
+                    width: 100%;
+                    background-color: #FFFFFF;
+                    border: 1px solid #C4C4C4;
+
+                    &:hover {
+                        background-color: #F8F8F8;
+                        cursor: pointer;
+                    }
+
+                    & .card-body {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: start;
+                        padding: 8px;
+
+                        & h6 {
+                            font-size: 18px;
+                            font-weight: bold;
+                            margin: 0;
+                            background-color: var(--light-orange-color);
+                            border-radius: 4px;
+                            padding: 3px 6px;
+                        }
+
+                        & .card-details {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            width: 100%;
+                            margin-top: 8px;
+
+                            & small {
+                                color: var(--light-blue-color);
+                                font-weight: 600;
+                            }
+
+                            & .badge {
+                                background-color: var(--medium-blue-color);
+                            }
+                        }
+                    }
+                }
             }
         }
     }

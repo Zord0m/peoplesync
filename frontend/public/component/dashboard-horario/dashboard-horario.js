@@ -1,35 +1,8 @@
 export function init() {
-    const hoursContainer = document.getElementById("hoursContainer");
-    if (!hoursContainer) return;
-
     const weekContainer = document.getElementById("periodSearch");
     if (!weekContainer) return;
 
-    document.getElementById("backWeek").addEventListener("click", () => {
-        referenceWeek -= 1;
-        generateLastDateView();
-        getEmployeeClockin();
-    })
-
-    document.getElementById("nextWeek").addEventListener("click", () => {
-        referenceWeek += 1;
-        generateLastDateView();
-        getEmployeeClockin();
-    })
-
-    
-}
-// -----------------------------------------------------------
-export function init() {
-
-
     const clockinContainerTemplate = document.getElementById("clockinsContainer");
-
-    const clockinSearchForm = document.getElementById("searchClockinEmployee");
-    clockinSearchForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-        getEmployeeClockin();
-    })
 
     let referenceWeek = 0;
     let firstDateSearch = {};
@@ -41,221 +14,148 @@ export function init() {
     function firstTimeLoadPage() {
         generateLastDateView();
         weekContainer.style.visibility = "visible";
+        getUserClockin();
     }
 
+    document.getElementById("backWeek").addEventListener("click", () => {
+        referenceWeek -= 1;
+        generateLastDateView();
+        getUserClockin();
+    });
 
+    document.getElementById("nextWeek").addEventListener("click", () => {
+        referenceWeek += 1;
+        generateLastDateView();
+        getUserClockin();
+    });
 
     function generateLastDateView() {
         const lastDate = new Date();
         lastDate.setDate(lastDate.getDate() + (referenceWeek * 7));
 
-        const currentDayNumber = lastDate.getDate().toString().padStart(2, "0");
-        const currentMonthNumber = (lastDate.getMonth() + 1).toString().padStart(2, "0");
+        const currentDay = lastDate.getDate().toString().padStart(2, "0");
+        const currentMonth = (lastDate.getMonth() + 1).toString().padStart(2, "0");
         const currentYear = lastDate.getFullYear().toString();
 
-        const periodContent = weekContainer.querySelector("#current");
-        const dateFormated = `${currentDayNumber}/${currentMonthNumber}/${currentYear}`
-        periodContent.innerText = dateFormated;
+        weekContainer.querySelector("#current").innerText = `${currentDay}/${currentMonth}/${currentYear}`;
+        lastDateSearch = { day: currentDay, month: currentMonth, year: currentYear };
 
-        lastDateSearch.day = currentDayNumber;
-        lastDateSearch.month = currentMonthNumber;
-        lastDateSearch.year = currentYear;
-
-        generateBackwardDateView(lastDate)
+        generateBackwardDateView(lastDate);
     }
 
     function generateBackwardDateView(lastDate) {
-        const firstDateToView = new Date(lastDate);
-        firstDateToView.setDate(firstDateToView.getDate() - 6);
+        const firstDate = new Date(lastDate);
+        firstDate.setDate(firstDate.getDate() - 6);
 
-        const backwardDayNumber = firstDateToView.getDate().toString().padStart(2, "0");
-        const backwardMonthNumber = (firstDateToView.getMonth() + 1).toString().padStart(2, "0");
-        const backwardYear = firstDateToView.getFullYear().toString();
+        const day = firstDate.getDate().toString().padStart(2, "0");
+        const month = (firstDate.getMonth() + 1).toString().padStart(2, "0");
+        const year = firstDate.getFullYear().toString();
 
-        const periodContent = weekContainer.querySelector("#backward");
-        const dateFormated = `${backwardDayNumber}/${backwardMonthNumber}/${backwardYear}`;
-        periodContent.innerText = dateFormated;
-
-        firstDateSearch.day = backwardDayNumber;
-        firstDateSearch.month = backwardMonthNumber;
-        firstDateSearch.year = backwardYear;
+        weekContainer.querySelector("#backward").innerText = `${day}/${month}/${year}`;
+        firstDateSearch = { day, month, year };
     }
 
-    async function getEmployeeClockin() {
-        const formData = new FormData(clockinSearchForm);
-        const searchClockinData = Object.fromEntries(formData.entries());
-        const startDate = `${firstDateSearch.day}%2F${firstDateSearch.month}%2F${firstDateSearch.year}`;
-        const endDate = `${lastDateSearch.day}%2F${lastDateSearch.month}%2F${lastDateSearch.year}`
-
-        console.log(searchClockinData);
-        console.log(startDate);
-        console.log(endDate);
+    async function getUserClockin() {
+        const start = `${firstDateSearch.day}%2F${firstDateSearch.month}%2F${firstDateSearch.year}`;
+        const end = `${lastDateSearch.day}%2F${lastDateSearch.month}%2F${lastDateSearch.year}`;
+        const message = document.getElementById("message");
 
         try {
-            if (searchClockinData.register == "") throw new Error("Matrícula de funcionário não informada. Tente novamente");
             const token = localStorage.getItem("token");
-            const response = await fetch(`http://localhost:4444/time-entry/employee/${searchClockinData.register}?start=${startDate}&end=${endDate}`, {
-                method: "GET",
+            const response = await fetch(`http://localhost:4444/time-entry?start=${start}&end=${end}`, {
                 headers: {
-                    "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json"
                 }
             });
-            const message = document.getElementById("message");
-            if (!response.ok) message.innerText = "Erro ao procurar pelos horários. Tente novamente.";
-            const clockinResults = await response.json();
-            if (clockinResults.length == 0) {
-                message.innerText = "Nenhum funcionário encontrado. Tente novamente."
+
+            if (!response.ok) throw new Error("Erro ao buscar horários");
+
+            const data = await response.json();
+
+            if (data.length === 0) {
+                message.innerText = "Nenhum horário encontrado.";
                 clockinContainerTemplate.innerHTML = '';
             } else {
-                message.innerHTML = "";
-                generateClockinItems(clockinResults);
+                message.innerText = "";
+                renderClockins(data);
             }
-            console.log(clockinResults);
-        } catch (error) {
-            console.error(error);
+        } catch (err) {
+            console.error(err);
+            message.innerText = "Erro ao carregar horários.";
         }
     }
 
-    function generateClockinItems(clockinResults) {
+    function renderClockins(clockinList) {
         clockinContainerTemplate.innerHTML = '';
-        const daysToView = groupClockinPerDay(clockinResults);
+        const days = groupClockinPerDay(clockinList);
         const fragment = document.createDocumentFragment();
 
-        for (const dayNumber in daysToView) {
-            if (Object.prototype.hasOwnProperty.call(daysToView, dayNumber)) {
-                const actualDay = daysToView[dayNumber];
-                const dayColumnBox = document.createElement("div");
-                dayColumnBox.className = "day-container d-flex flex-column";
+        for (const dayIndex in days) {
+            const dayData = days[dayIndex];
+            const column = document.createElement("div");
+            column.className = "day-container d-flex flex-column";
 
-                const columnTitle = document.createElement("p");
-                columnTitle.className = "day-title"
-                columnTitle.innerText = capitalize(actualDay.dateTitle);
-                dayColumnBox.appendChild(columnTitle);
+            const title = document.createElement("p");
+            title.className = "day-title";
+            title.innerText = capitalize(dayData.dateTitle);
+            column.appendChild(title);
 
-                actualDay.clockins.forEach((clockin) => {
-                    const card = createClockinCard(clockin);
-                    dayColumnBox.appendChild(card);
-                })
-                fragment.appendChild(dayColumnBox);
-            }
+            dayData.clockins.forEach(clockin => {
+                column.appendChild(createClockinCard(clockin));
+            });
+
+            fragment.appendChild(column);
         }
 
         clockinContainerTemplate.appendChild(fragment);
     }
 
-    function groupClockinPerDay(clockinList) {
-        const days = {
-            0: {
-                dateTitle: "",
-                dateFormated: "",
-                clockins: []
-            },
-            1: {
-                dateTitle: "",
-                dateFormated: "",
-                clockins: []
-            },
-            2: {
-                dateTitle: "",
-                dateFormated: "",
-                clockins: []
-            },
-            3: {
-                dateTitle: "",
-                dateFormated: "",
-                clockins: []
-            },
-            4: {
-                dateTitle: "",
-                dateFormated: "",
-                clockins: []
-            },
-            5: {
-                dateTitle: "",
-                dateFormated: "",
-                clockins: []
-            },
-            6: {
-                dateTitle: "",
-                dateFormated: "",
-                clockins: []
-            },
-        }
-
-        const firstDateString = `${firstDateSearch.year}-${firstDateSearch.month}-${firstDateSearch.day}T00:00:00.000`;
-        const currentDateRaw = new Date(firstDateString);
+    function groupClockinPerDay(clockins) {
+        const days = {};
+        const baseDate = new Date(`${firstDateSearch.year}-${firstDateSearch.month}-${firstDateSearch.day}T00:00:00.000`);
         const dateMap = {};
 
-        for (let index = 0; index < 7; index++) {
-            const viewDate = currentDateRaw.toLocaleDateString("pt-BR", {
-                weekday: 'long',
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric'
+        for (let i = 0; i < 7; i++) {
+            const formatted = baseDate.toISOString().split("T")[0];
+            const label = baseDate.toLocaleDateString("pt-BR", {
+                weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric'
             });
 
-            const dateFormatedToCompare = currentDateRaw.toISOString().split("T")[0];
-            days[index].dateTitle = viewDate;
-            days[index].dateFormated = dateFormatedToCompare;
+            days[i] = { dateTitle: label, dateFormated: formatted, clockins: [] };
+            dateMap[formatted] = i;
 
-            dateMap[dateFormatedToCompare] = index;
-            currentDateRaw.setDate(currentDateRaw.getDate() + 1);
+            baseDate.setDate(baseDate.getDate() + 1);
         }
 
-        clockinList.forEach((clockin) => {
-            const index = dateMap[clockin.date];
-            if (index !== undefined) {
-                days[index].clockins.push(clockin);
-            }
+        clockins.forEach(c => {
+            const index = dateMap[c.date];
+            if (index !== undefined) days[index].clockins.push(c);
         });
 
         return days;
     }
 
     function createClockinCard(clockin) {
+        const card = document.createElement("div");
+        card.className = "card clockinData";
 
-        const card = document.createElement("button");
-        card.className = 'card clockinData';
-        card.dataset.bsToggle = "modal";
-        card.dataset.bsTarget = "#clockinDataInfoModal";
+        const durationReadable = `${Math.floor(clockin.duration / 60)} h ${clockin.duration % 60} min`;
 
-        Object.entries({
-            date: clockin.date,
-            description: clockin.description,
-            duration: clockin.duration,
-            clockinId: clockin.clockinId,
-            start: clockin.start,
-            end: clockin.end,
-            projectId: clockin.projectId,
-            projectTag: clockin.projectTag,
-        }).forEach(([key, value]) => {
-            card.dataset[`emp${capitalize(key)}`] = value;
-        });
-
-        const durationLegible = `${Math.floor(clockin.duration / 60)} h ${clockin.duration % 60} min`
-
-        card.innerHTML =
-            `<div class="card-body">
-                <h6 class="card-title">
-                    ${escapeHtml(clockin.start)} - ${escapeHtml(clockin.end)}
-                </h6>
+        card.innerHTML = `
+            <div class="card-body">
+                <h6 class="card-title">${escapeHtml(clockin.start)} - ${escapeHtml(clockin.end)}</h6>
                 <div class="card-details">
-                    ${clockin.projectTag
-                ? `<small>Projeto: ${escapeHtml(clockin.projectTag)}</small>`
-                : ''}
-                    <span class="badge">
-                        ${durationLegible}
-                    </span>
+                    ${clockin.projectTag ? `<small>Projeto: ${escapeHtml(clockin.projectTag)}</small>` : ''}
+                    <span class="badge">${durationReadable}</span>
                 </div>
             </div>`;
 
         return card;
     }
 
-    function escapeHtml(unsafe) {
-        return unsafe
-            .replace(/&/g, "&amp;")
+    function escapeHtml(str) {
+        return str.replace(/&/g, "&amp;")
             .replace(/</g, "&lt;")
             .replace(/>/g, "&gt;")
             .replace(/"/g, "&quot;")
