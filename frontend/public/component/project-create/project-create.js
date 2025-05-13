@@ -15,10 +15,6 @@
 
     console.log(postData);
 
-    entriesArray.forEach((entrie) => {
-      // verifyCompletude(entrie);
-    });
-
     try {
       const token = localStorage.getItem("token");
       console.log(postData);

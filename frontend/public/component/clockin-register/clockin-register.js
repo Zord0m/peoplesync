@@ -1,6 +1,7 @@
 (function () {
     const clockinCreateForm = document.getElementById("clockInForm");
     if (clockinCreateForm) {
+        setInitialDateInput();
         clockinCreateForm.addEventListener("submit", (event) => {
             event.preventDefault();
             sendData();
@@ -49,5 +50,13 @@
                 `O campo ${fieldName} não pode conter mais de 100 caracteres.`
             );
         }
+    }
+
+    function setInitialDateInput() {
+        const clockinDateInput = document.getElementById("clockinDateInput");
+        const actualDate = new Date();
+        const actualDateFormated = actualDate.toISOString().split('T')[0];
+        console.log(actualDateFormated)
+        clockinDateInput.value = actualDateFormated;
     }
 })();

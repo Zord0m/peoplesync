@@ -56,7 +56,7 @@
         const loginResult = await loginResponse.json();
 
         localStorage.setItem("token", loginResult.token);
-        window.Router.navigateTo("/dashboard-horario");
+        navigateTo("/horarios");
     }
 
     function validateRegisterInputs(formData) {

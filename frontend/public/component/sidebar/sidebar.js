@@ -21,20 +21,39 @@ export function init() {
         console.log(userData);
         const register = userData.register;
         const token = localStorage.getItem('token');
+
+
         try {
-            const userResponse = await fetch(`http://localhost:4444/employees/${register}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
+            let userCompleteData;
+            if (userData.type === "admin") {
+                const userResponse = await fetch(`http://localhost:4444/employees/${register}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                if (!userResponse.ok) {
+                    logOut();
+                    throw new Error('Falha ao buscar dados do funcionário');
                 }
-            });
-            if (!userResponse.ok) {
-                logOut();
-                throw new Error('Falha ao buscar dados do funcionário');
+                userCompleteData = await userResponse.json();
+                localStorage.setItem('userCompleteInfo', JSON.stringify(userCompleteData));
+            } else {
+                const userResponse = await fetch(`http://localhost:4444/employees/public/${register}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+                if (!userResponse.ok) {
+                    logOut();
+                    throw new Error('Falha ao buscar dados do funcionário');
+                }
+                userCompleteData = await userResponse.json();
+                localStorage.setItem('userCompleteInfo', JSON.stringify(userCompleteData));
             }
-            const userCompleteData = await userResponse.json();
-            localStorage.setItem('userCompleteInfo', JSON.stringify(userCompleteData));
+            console.log(userCompleteData)
 
             generateSidebarContent(userCompleteData);
         } catch (err) {
