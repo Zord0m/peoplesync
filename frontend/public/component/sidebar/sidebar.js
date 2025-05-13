@@ -1,5 +1,4 @@
-export function init()
-{
+export function init() {
     parseJwt();
     function parseJwt() {
         try {
@@ -30,7 +29,10 @@ export function init()
                     'Authorization': `Bearer ${token}`
                 }
             });
-            if (!userResponse.ok) throw new Error('Falha ao buscar dados do funcionário');
+            if (!userResponse.ok) {
+                logOut();
+                throw new Error('Falha ao buscar dados do funcionário');
+            }
             const userCompleteData = await userResponse.json();
             localStorage.setItem('userCompleteInfo', JSON.stringify(userCompleteData));
 
@@ -42,8 +44,7 @@ export function init()
 
     function generateSidebarContent(userCompleteData) {
         const sidebarContainer = document.getElementById("projectSidebar");
-        if (userCompleteData.type !== 'admin' && sidebarContainer)
-        {
+        if (userCompleteData.type !== 'admin' && sidebarContainer) {
             sidebarContainer.querySelectorAll('.only-admin').forEach(el => el.remove());
         }
         const sidebarUserName = document.getElementById("projectSidebarLabel");
@@ -58,10 +59,7 @@ export function init()
     const sairBtn = document.querySelector('#sair');
     if (sairBtn) {
         sairBtn.addEventListener('click', () => {
-            localStorage.removeItem('token');
-            localStorage.removeItem('userInfo');
-            localStorage.removeItem('userCompleteInfo');
-            window.navigateTo('/login');
+            logOut();
         });
     }
 }

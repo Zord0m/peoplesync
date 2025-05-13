@@ -3,11 +3,10 @@ window.addEventListener("load", () => {
 })
 
 function logOut() {
-    localStorage.removeItem("token")
-    localStorage.removeItem("userInfo")
-    localStorage.removeItem("userCompleteInfo")
-
-    navigateTo("/login");
+    localStorage.removeItem('token');
+    localStorage.removeItem('userInfo');
+    localStorage.removeItem('userCompleteInfo');
+    window.navigateTo('/login');
 }
 
 async function verifyUserTokenLoginExpiration() {
