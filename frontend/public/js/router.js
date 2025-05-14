@@ -6,6 +6,7 @@ const routes = {
     '/horarios': 'dashboard-horario',
     '/horarios-funcionario': 'horarios-employee',
     '/employees': 'employees-page',
+    '/projects': 'projects-page'
 };
 
 // RECURSOS JÁ CARREGADOS
