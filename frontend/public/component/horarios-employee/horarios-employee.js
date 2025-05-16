@@ -76,10 +76,6 @@ export function init() {
         const startDate = `${firstDateSearch.day}%2F${firstDateSearch.month}%2F${firstDateSearch.year}`;
         const endDate = `${lastDateSearch.day}%2F${lastDateSearch.month}%2F${lastDateSearch.year}`
 
-        console.log(searchClockinData);
-        console.log(startDate);
-        console.log(endDate);
-
         try {
             if (searchClockinData.register == "") throw new Error("Matrícula de funcionário não informada. Tente novamente");
             const token = localStorage.getItem("token");
@@ -93,8 +89,9 @@ export function init() {
             const message = document.getElementById("message");
             if (!response.ok) message.innerText = "Erro ao procurar pelos horários. Tente novamente.";
             const clockinResults = await response.json();
+
             if (clockinResults.length == 0) {
-                message.innerText = "Nenhum funcionário encontrado. Tente novamente."
+                message.innerText = "Nenhum ponto encontrado nesse período. Tente novamente."
                 clockinContainerTemplate.innerHTML = '';
             } else {
                 message.innerHTML = "";

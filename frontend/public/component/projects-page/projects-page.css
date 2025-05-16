@@ -1,1 +1,63 @@
-/* CSS para projects-page */ 
+/* CSS para employees-page */
+#projectsPage {
+    background-color: var(--black-color-secondary);
+    min-height: 100dvh;
+
+    & #projectsContainer {
+        padding: 10px 0;
+
+        & .projectData.card {
+            flex-direction: row;
+            justify-content: center;
+            height: 100%;
+            text-decoration: none;
+            border: 1px solid var(--blue-color-tertiary);
+            background-color: var(--black-color-primary);
+            border-radius: 8px;
+            width: 100%;
+
+            &:hover {
+                background-color: var(--blue-color-tertiary);
+                box-shadow: inset 0 0 0px 1px rgba(0, 0, 0, 1);
+            }
+
+            /* .card-header {
+                display: flex;
+                align-items: center;
+                padding: 8px;
+                background-color: transparent;
+
+                & .card-image {
+                    font-size: 48px;
+                    border-radius: 5px;
+                    background-color: var(--medium-orange-color);
+                }
+            } */
+
+            & .card-body {
+                padding: 8px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                color: var(--white-color-secondary);
+
+                & .card-title {
+                    margin: 0;
+                    font-size: 16px;
+                    text-align: justify;
+                }
+
+                & .card-text {
+                    font-size: 12px;
+                    text-align: justify;
+                    align-self: end;
+                    background-color: var(--orange-color-secondary);
+                    padding: 4px 8px;
+                    color: var(--black-color-primary);
+                    border-radius: 4px;
+                }
+            }
+        }
+    }
+
+}

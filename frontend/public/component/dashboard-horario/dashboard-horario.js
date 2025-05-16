@@ -30,29 +30,47 @@ export function init() {
     });
 
     function generateLastDateView() {
-        const lastDate = new Date();
-        lastDate.setDate(lastDate.getDate() + (referenceWeek * 7));
+        const today = new Date();
+        today.setDate(today.getDate() + (referenceWeek * 7));
 
-        const currentDay = lastDate.getDate().toString().padStart(2, "0");
-        const currentMonth = (lastDate.getMonth() + 1).toString().padStart(2, "0");
-        const currentYear = lastDate.getFullYear().toString();
+        // Novo intervalo: -3 dias a +3 dias
+        const firstDate = new Date(today);
+        firstDate.setDate(today.getDate() - 3);
 
-        weekContainer.querySelector("#current").innerText = `${currentDay}/${currentMonth}/${currentYear}`;
-        lastDateSearch = { day: currentDay, month: currentMonth, year: currentYear };
+        const lastDate = new Date(today);
+        lastDate.setDate(today.getDate() + 3);
 
-        generateBackwardDateView(lastDate);
+        // Formatar datas para exibição e busca
+        const format = (date) => ({
+            day: date.getDate().toString().padStart(2, "0"),
+            month: (date.getMonth() + 1).toString().padStart(2, "0"),
+            year: date.getFullYear().toString()
+        });
+
+        firstDateSearch = format(firstDate);
+        lastDateSearch = format(lastDate);
+
+        weekContainer.querySelector("#backward").innerText =
+            `${firstDateSearch.day}/${firstDateSearch.month}/${firstDateSearch.year}`;
+        weekContainer.querySelector("#current").innerText =
+            `${lastDateSearch.day}/${lastDateSearch.month}/${lastDateSearch.year}`;
+
+        renderAddClockinButton();
     }
 
-    function generateBackwardDateView(lastDate) {
-        const firstDate = new Date(lastDate);
-        firstDate.setDate(firstDate.getDate() - 6);
+    function renderAddClockinButton() {
+        const existingBtn = weekContainer.querySelector(".addClockinBtn");
+        if (existingBtn) return;
 
-        const day = firstDate.getDate().toString().padStart(2, "0");
-        const month = (firstDate.getMonth() + 1).toString().padStart(2, "0");
-        const year = firstDate.getFullYear().toString();
+        const addNewClockinButtonBox = document.createElement("div");
+        addNewClockinButtonBox.className = 'col-auto';
 
-        weekContainer.querySelector("#backward").innerText = `${day}/${month}/${year}`;
-        firstDateSearch = { day, month, year };
+        addNewClockinButtonBox.innerHTML = `
+            <button class="btn btn-info addClockinBtn" data-bs-toggle="modal" data-bs-target="#clockinRegisterModal">
+                Adicionar Ponto
+            </button>`;
+
+        weekContainer.appendChild(addNewClockinButtonBox);
     }
 
     async function getUserClockin() {
@@ -69,6 +87,7 @@ export function init() {
                 }
             });
 
+            if (response.status == 401) await logOut();
             if (!response.ok) throw new Error("Erro ao buscar horários");
 
             const data = await response.json();
@@ -91,10 +110,17 @@ export function init() {
         const days = groupClockinPerDay(clockinList);
         const fragment = document.createDocumentFragment();
 
+        const todayFormatted = new Date().toISOString().split("T")[0];
+
         for (const dayIndex in days) {
             const dayData = days[dayIndex];
             const column = document.createElement("div");
             column.className = "day-container d-flex flex-column";
+
+            // ✅ Adiciona classe "today" se for o dia de hoje
+            if (dayData.dateFormated === todayFormatted) {
+                column.classList.add("today");
+            }
 
             const title = document.createElement("p");
             title.className = "day-title";
@@ -117,15 +143,16 @@ export function init() {
         const dateMap = {};
 
         for (let i = 0; i < 7; i++) {
-            const formatted = baseDate.toISOString().split("T")[0];
-            const label = baseDate.toLocaleDateString("pt-BR", {
+            const current = new Date(baseDate);
+            current.setDate(baseDate.getDate() + i);
+
+            const formatted = current.toISOString().split("T")[0];
+            const label = current.toLocaleDateString("pt-BR", {
                 weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric'
             });
 
             days[i] = { dateTitle: label, dateFormated: formatted, clockins: [] };
             dateMap[formatted] = i;
-
-            baseDate.setDate(baseDate.getDate() + 1);
         }
 
         clockins.forEach(c => {

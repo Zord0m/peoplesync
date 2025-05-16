@@ -1,5 +1,5 @@
 /* MODAL */
-.modal .modal-dialog {
+.modal .modal-dialog:not(:has(.card-modal)) {
     max-width: 75dvw;
 }
 
@@ -7,24 +7,25 @@
 .btn {
 
     &.btn-primary {
-        background-color: var(--medium-blue-color);
+        background-color: var(--blue-color-primary);
         border: none;
     }
 
     &.btn-secondary {
-        background-color: var(--medium-orange-color);
+        background-color: var(--orange-color-secondary);
         border: none;
-        color: var(--black-color);
+        color: var(--black-color-primary);
     }
     
     &.btn-success {
-        background-color: var(--light-blue-color);
+        background-color: var(--blue-color-secondary);
         border: none;
     }
     
     &.btn-info {
-        background-color: var(--dark-blue-color);
+        background-color: var(--blue-color-tertiary);
         border: none;
-        color: var(--white-color);
+        color: var(--white-color-primary);
     }
+    
 }

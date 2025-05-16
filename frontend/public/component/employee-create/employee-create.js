@@ -1,5 +1,6 @@
-(function () {
+export function init() {
     const employeeCreateForm = document.getElementById("createForm");
+    const employeeModal = document.getElementById("employeeCreateModal");
     if (employeeCreateForm) {
         employeeCreateForm.addEventListener("submit", (event) => {
             event.preventDefault();
@@ -14,17 +15,19 @@
 
         postData.pcd = document.getElementById("pcdCheckbox").checked;
 
-        const [year, month, day] = postData.birthDate.split("-");
-        postData.birthDate = `${day}/${month}/${year}`;
-
-        postData.isActive = true;
-        console.log(postData);
-
-        entriesArray.forEach((entrie) => {
-            verifyCompletude(entrie);
-        });
-
         try {
+            const [year, month, day] = postData.birthDate.split("-");
+            postData.birthDate = `${day}/${month}/${year}`;
+            postData.isActive = true;
+            try {
+                entriesArray.forEach((entrie) => {
+                    verifyCompletude(entrie);
+                });
+            } catch (validationError) {
+                showToast(`Erro de validação: ${validationError.message}`, "error");
+                return; 
+            }
+
             const token = localStorage.getItem("token");
             const response = await fetch("http://localhost:4444/employees", {
                 method: "POST",
@@ -34,11 +37,19 @@
                 },
                 body: JSON.stringify(postData),
             });
-            console.log(await response.json());
+            const data = await response.json();
+            if (!response.ok) {
+                showToast(`Erro ao cadastrar funcionário: ${data.error || 'Erro desconhecido'}`, "error");
+                return;
+            }
+            showToast("Funcionário cadastrado com sucesso!", "success");
+            const modalInstance = bootstrap.Modal.getInstance(employeeModal);
+            if (modalInstance) modalInstance.hide();
         } catch (error) {
-            console.error(error);
+            showToast(`Erro inesperado: ${error}`);
         }
     }
+
 
     function verifyCompletude(entrieValue) {
         const fieldName = entrieValue[0];
@@ -71,4 +82,4 @@
             );
         }
     }
-})();
+}

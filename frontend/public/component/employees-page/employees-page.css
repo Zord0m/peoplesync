@@ -1,6 +1,6 @@
 /* CSS para employees-page */
 #employeesPage {
-    background-color: var(--white-color);
+    background-color: var(--blue-color-tertiary);
     min-height: 100dvh;
     
     & #employeesContainer {
@@ -11,13 +11,13 @@
             justify-content: center;
             height: 100%;
             text-decoration: none;
-            border: 1px solid var(--black-color);
-            background-color: var(--white-lighter-color);
+            border: 1px solid var(--black-color-primary);
+            background-color: var(--white-color-primary);
             border-radius: 8px;
             width: 100%;
 
             &:hover {
-                background-color: #FFFFFF;
+                background-color: var(--white-color-secondary);
                 box-shadow: inset 0 0 0px 1px rgba(0, 0, 0, 1);
             }
             
@@ -39,7 +39,7 @@
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
-                color: var(--black-color);
+                color: var(--black-color-primary);
 
                 & .card-title {
                     margin: 0;

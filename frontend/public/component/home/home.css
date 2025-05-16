@@ -1,9 +1,9 @@
 #home {
-    background-image: linear-gradient(#043B64 2%, #1B1B1B 10%);
+    background-image: linear-gradient(var(--blue-color-primary) 0%, var(--black-color-secondary) 25%);
 
     & header {
         height: fit-content;
-        background-color: var(--black-color);
+        background-color: var(--black-color-primary);
 
         & .navbar {
             & .container-fluid {
@@ -26,7 +26,7 @@
                         & .nav-item {
                             &:last-child {
                                 & a {
-                                    color: var(--white-color);
+                                    color: var(--white-color-primary);
                                 }
                             }
 
@@ -50,14 +50,14 @@
 
                 & h1 {
                     font-size: 64px;
-                    color: var(--white-color);
+                    color: var(--white-color-primary);
                     margin: 0;
                     text-align: center;
                 }
             }
 
             & .hero-description {
-                color: var(--white-lighter-color);
+                color: var(--white-color-secondary);
                 display: flex;
                 flex-direction: column;
                 gap: 12px;
@@ -66,14 +66,14 @@
 
                     & .slogan-title {
                         margin: 0;
-                        color: var(--medium-orange-color);
+                        color: var(--orange-color-primary);
                         font-size: 32px;
                     }
 
                     & .slogan-description {
                         font-size: 22px;
                         margin: 0;
-                        color: var(--light-orange-color);
+                        color: var(--orange-color-secondary);
                     }
                 }
 
@@ -117,7 +117,7 @@
                     transform: translate(-50%, -50%);
                     font-size: clamp(calc(20px + 1dvw), 22px, 40px);
                     font-weight: bolder;
-                    color: var(--medium-blue-color);
+                    color: var(--blue-color-primary);
                     text-wrap: nowrap;
                 }
             }
@@ -130,9 +130,9 @@
             margin: 0 24px;
 
             & .aspects-item {
-                background-color: var(--light-blue-color);
+                background-color: var(--blue-color-secondary);
                 padding: 12px;
-                border: 1px solid var(--white-color);
+                border: 1px solid var(--white-color-primary);
                 border-radius: 8px;
                 display: flex;
                 flex-direction: column;
@@ -143,29 +143,29 @@
                     font-weight: bolder;
                     margin: 0;
                     text-align: center;
-                    color: var(--black-color);
+                    color: var(--black-color-primary);
                 }
 
                 & p {
                     text-align: justify;
                     font-size: 18px;
-                    color: var(--black-color);
+                    color: var(--black-color-primary);
                 }
             }
         }
 
         & .technologies {
-            background-color: var(--white-color);
+            background-color: var(--white-color-primary);
             padding: 24px;
             border-radius: 8px;
-            border: 1px solid var(--light-blue-color);
+            border: 1px solid var(--blue-color-secondary);
             row-gap: 24px;
 
             & .technologies-title h2 {
                 font-size: 32px;
                 text-transform: uppercase;
                 text-align: center;
-                color: var(--black-color);
+                color: var(--black-color-primary);
             }
 
             & .technologies-items {
@@ -191,7 +191,7 @@
                 font-size: 32px;
                 text-transform: uppercase;
                 text-align: center;
-                color: var(--white-color);
+                color: var(--white-color-primary);
                 margin: 0;
             }
 
@@ -207,18 +207,18 @@
                     & .circle {
                         width: 50%;
                         margin-left: 8px;
-                        background: linear-gradient(90deg, transparent 50%, var(--medium-blue-color) 50%);
+                        background: linear-gradient(90deg, transparent 50%, var(--blue-color-primary) 50%);
 
                         & img {
                             border-radius: 50%;
                             padding: 6px;
-                            background-color: var(--medium-blue-color);
+                            background-color: var(--blue-color-primary);
                             height: 100%;
                         }
                     }
 
                     & .content {
-                        background-color: var(--medium-blue-color);
+                        background-color: var(--blue-color-primary);
                         width: 50%;
                         padding: 8px;
                         display: flex;
@@ -227,12 +227,12 @@
 
                         & h5 {
                             margin: 0;
-                            color: var(--medium-orange-color);
+                            color: var(--orange-color-primary);
                         }
-                        
+
                         & p {
                             margin: 0;
-                            color: var(--light-orange-color);
+                            color: var(--white-color-primary);
                         }
                     }
                 }
@@ -241,12 +241,12 @@
     }
 
     & footer {
-        background-color: var(--medium-blue-color);
+        background-color: var(--blue-color-primary);
         padding: 12px 24px;
         display: flex;
         column-gap: 48px;
         align-items: center;
-        color: var(--white-lighter-color);
+        color: var(--white-color-secondary);
 
         & img {
             height: 48px;
@@ -266,7 +266,7 @@
                         & .circle {
                             width: 50%;
                             height: fit-content;
-                            background: linear-gradient(180deg, transparent 50%, var(--medium-blue-color) 50%);
+                            background: linear-gradient(180deg, transparent 50%, var(--blue-color-primary) 50%);
                             margin: 0;
 
                             & img {
@@ -277,10 +277,10 @@
                         & .content {
                             width: 50%;
 
-                        & h5 {
-                            text-align: center;
-                            margin-bottom: 12px;
-                        }
+                            & h5 {
+                                text-align: center;
+                                margin-bottom: 12px;
+                            }
                         }
                     }
                 }

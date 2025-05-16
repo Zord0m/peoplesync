@@ -18,7 +18,6 @@ export function init() {
         if (!userInfoRaw) return;
 
         const userData = JSON.parse(userInfoRaw);
-        console.log(userData);
         const register = userData.register;
         const token = localStorage.getItem('token');
 

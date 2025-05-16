@@ -141,10 +141,10 @@ export function init() {
         ];
 
         propertiesNamestoPass.forEach((property) => {
-            // NOME DO FUNCIONÁRIO
             const modalDOMElement = document.getElementById(`${property.toLowerCase()}UpdateInput`);
             const actualAttribute = `data-${property.toLowerCase()}`;
             let elementProperty = modalInfo.getAttribute(actualAttribute);
+            
             if (modalDOMElement && elementProperty) {
                 if (actualAttribute == 'data-birthdate') {
                     const [day, month, year] = elementProperty.split('/');

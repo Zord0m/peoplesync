@@ -1,11 +1,28 @@
-/* CSS para employee-card-info */
-#employeeDataInfoModal .modal-dialog .modal-content {
-    background-color: var(--white-color-primary);
+/* CSS para project-card-info */
+#projectDataInfoModal .modal-dialog .modal-content {
+    background-color: var(--white-color-secondary);
+
+    & .modal-header {
+        padding: 8px 16px;
+
+        & .modal-title {
+            background-color: var(--orange-color-secondary);
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin: 0;
+            font-size: 20px;
+        }
+    }
 
     & .modal-body {
         display: flex;
+        max-height: 50dvh;
+        overflow-y: auto;
+        margin-bottom: 12px;
+        scrollbar-width: thin;
+        padding-bottom: 0;
 
-        & #employeeInfoForm {
+        /* & #projectInfoForm {
             padding: 0;
 
             & .row {
@@ -46,7 +63,7 @@
                 }
 
                 & .form-floating {
-                    &:has(input:disabled) label::after{
+                    &:has(input:disabled) label::after {
                         background-color: #E2E2E2;
                     }
 
@@ -72,6 +89,41 @@
                 display: flex;
                 justify-content: flex-end;
                 column-gap: 10px;
+            }
+        } */
+        & .info {
+            margin: 0;
+            row-gap: 12px;
+
+            & .info-description {
+                padding: 12px;
+                background-color: #e8e8e8;
+                border-radius: 8px;
+
+                & p {
+                    margin: 0;
+                    line-height: 1.7;
+                }
+            }
+
+            & .info-box {
+                display: flex;
+                justify-content: space-between;
+                padding: 0;
+
+                & .badge {
+                    display: flex;
+                    align-items: center;
+
+                    & p {
+                        margin: 0;
+                    }
+                }
+
+                &:not(:first-child) span {
+                    font-weight: bolder;
+                    color: var(--blue-color-primary);
+                }
             }
         }
     }

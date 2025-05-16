@@ -1,5 +1,5 @@
 #employeeRegister {
-    background-color: var(--white-color);
+    background-color: var(--black-color-secondary);
     display: flex;
     height: 100dvh;
     justify-content: center;
@@ -44,7 +44,7 @@
 
                 & h1 {
                     margin: 0;
-                    color: var(--dark-blue-color);
+                    color: var(--white-color-primary);
                     text-align: center;
                     font-size: 40px;
                     text-transform: uppercase;
@@ -52,7 +52,7 @@
 
                 & h2 {
                     text-align: center;
-                    color: var(--black-color);
+                    color: var(--orange-color-secondary);
                     font-size: 24px;
                     font-weight: lighter;
                     margin: 5px;
@@ -61,7 +61,7 @@
         }
 
         & .register-box {
-            background-color: var(--light-blue-color);
+            background-color: var(--blue-color-primary);
             padding: 10px;
             width: 100%;
             border-radius: 12px;
@@ -90,7 +90,7 @@
                     & input {
                         border-radius: 10px;
                         padding: 16px 10px 4px 10px;
-                        background-color: var(--white-color);
+                        background-color: var(--white-color-secondary);
                         
                         &::-webkit-outer-spin-button,
                         &::-webkit-inner-spin-button {
@@ -116,18 +116,18 @@
                     margin-top: 20px;
 
                     & button {
-                        background-color: var(--dark-blue-color);
+                        background-color: var(--orange-color-secondary);
                         border-radius: 8px;
                         padding: 8px 48px;
                         font-size: 18px;
                         text-transform: uppercase;
                         font-weight: bold;
-                        border: 2px solid var(--white-color);
+                        border: 2px solid var(--black-color-primary);
                         transition: 250ms ease-in-out;
-                        color: var(--white-color);
+                        color: var(--black-color-primary);
                         
                         &:hover {
-                            background-color: var(--medium-blue-color);
+                            background-color: var(--orange-color-primary);
                         }
                     }
                 }
@@ -143,21 +143,24 @@
                 & span {
                     font-size: 14px;
                     font-weight: 600;
+                    color: var(--white-color-primary);
                 }
 
                 & a {
-                    background-color: var(--medium-orange-color);
-                    color: var(--black-color);
+                    background-color: var(--white-color-primary);
+                    color: var(--black-color-primary);
                     border: none;
                     padding: 5px 20px;
                     border-radius: 8px;
                     transition: 250ms ease-in-out;
                     text-decoration: none;
+                    border: 1px solid var(--blue-color-primary);
 
                     &:hover {
                         cursor: pointer;
-                        background: var(--black-color);
-                        color: var(--white-color);
+                        color: var(--white-color-primary);
+                        background-color: var(--blue-color-secondary);
+                        border: 1px solid var(--white-color-primary);
                     }
                 }
             }
