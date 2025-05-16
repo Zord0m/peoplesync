@@ -3,7 +3,7 @@
     background-color: var(--black-color-primary);
     min-height: 100dvh;
 
-    & #periodSearch {
+    & #periodSearch > div {
         justify-content: center;
         align-items: center;
         column-gap: 15px;
@@ -132,7 +132,7 @@
                             }
 
                             & .badge {
-                                background-color: var(--blue-color-primary);
+                                background-color: var(--black-color-secondary);
                             }
                         }
                     }

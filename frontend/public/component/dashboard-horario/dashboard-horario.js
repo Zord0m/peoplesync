@@ -2,6 +2,7 @@ export function init() {
     const weekContainer = document.getElementById("periodSearch");
     if (!weekContainer) return;
 
+    const refreshButton = document.getElementById("refreshButton")
     const clockinContainerTemplate = document.getElementById("clockinsContainer");
 
     let referenceWeek = 0;
@@ -16,6 +17,11 @@ export function init() {
         weekContainer.style.visibility = "visible";
         getUserClockin();
     }
+
+    refreshButton.addEventListener("click", (event) => {
+        event.preventDefault();
+        location.reload();
+    })
 
     document.getElementById("backWeek").addEventListener("click", () => {
         referenceWeek -= 1;

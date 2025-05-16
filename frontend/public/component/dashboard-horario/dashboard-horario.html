@@ -8,17 +8,24 @@
         </div>
         <div class="container-fluid">
             <div id="periodSearch" class="row">
-                <button type="button" id="backWeek" class="previousWeek col-auto">
-                    <i class="bi bi-chevron-bar-left"></i>
-                </button>
-                <span class="periodText col-auto">
-                    <p id="backward"></p>
-                    <span> - </span>
-                    <p id="current"></p>
-                </span>
-                <button type="button" id="nextWeek" class="nextWeek col-auto">
-                    <i class="bi bi-chevron-bar-right"></i>
-                </button>
+                <div class="col-auto d-flex">
+                    <button type="button" id="backWeek" class="previousWeek">
+                        <i class="bi bi-chevron-bar-left"></i>
+                    </button>
+                    <span class="periodText">
+                        <p id="backward"></p>
+                        <span> - </span>
+                        <p id="current"></p>
+                    </span>
+                    <button type="button" id="nextWeek" class="nextWeek">
+                        <i class="bi bi-chevron-bar-right"></i>
+                    </button>
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-secondary" id="refreshButton">
+                        <i class="bi bi-arrow-counterclockwise"></i>
+                    </button>
+                </div>
                 <!-- SELEÇÃO DA SEMANA DE BUSCA -->
             </div>
             <div id="employeeClockinContainer" class="row">
