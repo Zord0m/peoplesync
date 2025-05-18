@@ -38,6 +38,10 @@
             }
         }
 
+        & #refreshButton {
+            padding: 8px 24px;
+        }
+
         & .addClockinBtn {
             border: 2px solid var(--white-color-primary);
             font-size: 16px;

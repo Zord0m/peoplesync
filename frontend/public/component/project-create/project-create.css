@@ -71,11 +71,11 @@
     #projectCreateModal .modal-dialog .modal-content .modal-body {
 
         & #createProjectForm {
-            width: 60%;
+            width: 65%;
         }
 
         & .img-box {
-            width: 40%;
+            width: 35%;
             display: flex;
         }
     }
