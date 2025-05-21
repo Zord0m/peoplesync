@@ -106,6 +106,7 @@
                 border-radius: 8px;
                 padding: 8px;
                 row-gap: 8px;
+                overflow-y: auto;
 
                 & .day-title {
                     text-align: center;
