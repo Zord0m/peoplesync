@@ -9,7 +9,8 @@
             const formData = new FormData(loginForm);
             for (const [name, value] of formData.entries()) {
                 if (!value.trim()) {
-                    throw new Error(`O campo "${name}" não pode ficar vazio.`);
+                    showToast(`O campo "${name}" não pode ficar vazio.`, "error");
+                    return;
                 }
             }
             const payload = Object.fromEntries(formData.entries());
@@ -21,14 +22,16 @@
 
             if (!response.ok) {
                 const errText = await response.text();
-                throw new Error(errText || 'Falha ao autenticar');
+                showToast(`Falha ao autenticar: ${errText}`, "error");
+                return;
             }
-
+            
             const loginResult = await response.json();
             localStorage.setItem("token", loginResult.token);
+            showToast("Login efetuado com sucesso", "success");
             navigateTo('/horarios');
         } catch (error) {
-            console.error('Erro no login:', error);
+            showToast(`Erro no login: ${error.message}`, "error");
         }
     });
 })();
